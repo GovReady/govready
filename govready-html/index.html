@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+
+    <title>GovReady openSCAP, SSG</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="jumbotron-narrow.css" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy this line! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <script src="js/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active"><a href="#">Home</a></li>
+          
+        </ul>
+        <h3 class="text-muted text-center">GovReady openSCAP, SSG</h3>
+      </div>
+
+      <div class="jumbotron">
+        <h1>Welcome</h1>
+        <p class="lead">Welcome to your GovReady virtual machine running for openSCAP and SSG.<p>
+        <p><a class="" href="#learn" role="">Learn more</a></p>
+        <span class="label label-warning">pre-release</span>
+
+      </div>
+
+      <a name="learn"></a>
+      <div class="row marketing">
+        <div class="col-lg-12">
+         <h3 style="border-bottom:1px solid #ddd;">What is this?</h3>
+	  <p>This is a CentOS virtual machine from GovReady. Think of it like a virtual car that you can keep, delete, save, copy, or customize.
+          
+          <h3 style="border-bottom:1px solid #ddd;">Where is it?</h3>
+          <p>This virtual machine is running on your local computer, instantiated by Vagrant.</p>
+
+          <h3 style="border-bottom:1px solid #ddd;">Who can see this?</h3>
+          <p>This server can be seen by you on your host computer, and by anyone on your network and knows your host computer's IP address.</p>
+        
+
+          <h3 style="border-bottom:1px solid #ddd;">How secure is this?</h3>
+          <p>This is a demo server for exploring openSCAP and SCAP Security Guide on CentOS. This server has <b>not</b> secured.<p>
+
+           <h3 style="border-bottom:1px solid #ddd;">What is GovReady?</h3>
+	  <p>GovReady is a non-profit that creates and shares blueprints for hardened, accreditation-ready configurations of innovative technology.</p>
+
+
+      </div>
+
+
+
+<!-- modal Share links -->
+<!-- Modal -->
+<div class="modal fade" id="share" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Share this VM...</h4>
+      </div>
+      <div class="modal-body">
+        
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <h4>(This will be a form to enter email addresses.)</h4>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /modal -->
+
+
+<!-- modal Share links -->
+<!-- Modal -->
+<div class="modal fade" id="sharesec" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="sharesec">Share security scans...</h4>
+      </div>
+      <div class="modal-body">
+        
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <h4>(This will describe how to share security scans with IT Admins.)</h4>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /modal -->
+
+
+<!-- modal Share links -->
+<!-- Modal -->
+<div class="modal fade" id="blueprints" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Deployment blueprints and guides</h4>
+      </div>
+      <div class="modal-body">
+        
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <h4>(This will describe deployment blueprints to download.)</h4>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /modal -->
+
+
+
+<!-- modal buy more time -->
+<!-- Modal -->
+<div class="modal fade" id="buytime" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">Buy more time</h4>
+      </div>
+      <div class="modal-body">
+        
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <h4>(This will be a form to buy more time.)</h4>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Buy</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /modal -->
+
+
+<!-- modal Share links -->
+<!-- Modal -->
+<div class="modal fade" id="downloads" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="downloads">Downloads</h4>
+      </div>
+      <div class="modal-body">
+        
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <h4>(This will be a list of downloads.)</h4>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Buy</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /modal -->
+
+      <div class="footer">
+        <span class="label label-warning">pre-release - Do not use in Production</span>
+        <p>&copy; Company 2014 </p>
+
+      </div>
+
+    </div> <!-- /container -->
+
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/jquery-1.10.1.min.js"><\/script>')</script>
+
+        <script src="js/bootstrap.min.js"></script>
+
+        <script>
+
+            // Default Bootstrap javascript
+            // -----------------------------
+             
+            // Jquery Document Ready function 
+            // -------------------------------
+
+            $( document ).ready(function() {
+
+              
+              // alert("hello");
+
+
+            }); // End Document Ready function
+
+        </script>
+
+
+  </body>
+</html>

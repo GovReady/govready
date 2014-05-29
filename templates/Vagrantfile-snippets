@@ -1,0 +1,7 @@
+ # Install scap
+ config.vm.provision :shell, :path => "path/to/govready/scripts/scap-install.sh"
+
+ # Runs SCAP scan test for US Goverment Civilian Baseline RHEL 6 server
+ config.vm.provision :shell, :path => "path/to/govready/scripts/usgcb-rhel6-server-tests.sh"
+
+

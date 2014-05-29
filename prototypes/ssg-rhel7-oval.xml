@@ -1,0 +1,1740 @@
+<oval_definitions xmlns="http://oval.mitre.org/XMLSchema/oval-definitions-5" xmlns:oval="http://oval.mitre.org/XMLSchema/oval-common-5" xmlns:ind="http://oval.mitre.org/XMLSchema/oval-definitions-5#independent" xmlns:unix="http://oval.mitre.org/XMLSchema/oval-definitions-5#unix" xmlns:linux="http://oval.mitre.org/XMLSchema/oval-definitions-5#linux" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://oval.mitre.org/XMLSchema/oval-common-5 oval-common-schema.xsd   http://oval.mitre.org/XMLSchema/oval-definitions-5 oval-definitions-schema.xsd   http://oval.mitre.org/XMLSchema/oval-definitions-5#independent independent-definitions-schema.xsd   http://oval.mitre.org/XMLSchema/oval-definitions-5#unix unix-definitions-schema.xsd   http://oval.mitre.org/XMLSchema/oval-definitions-5#linux linux-definitions-schema.xsd">
+  <generator>
+    <oval:product_name>python</oval:product_name>
+    <oval:product_version>2.6.6</oval:product_version>
+    <oval:schema_version>5.10</oval:schema_version>
+    <oval:timestamp>2011-09-21T13:44:00</oval:timestamp>
+  </generator>
+  <definitions>
+    <definition class="compliance" id="oval:ssg:def:110" version="1">
+      <metadata>
+        <title>Ensure /var/log/audit Located On Separate Partition</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>Audit logs are stored in the /var/log/audit directory.
+      Ensure that it has its own partition or logical volume. Make absolutely
+      certain that it is large enough to store all audit logs that will be
+      created by the auditing daemon.</description>
+        <reference source="MED" ref_id="20130830" ref_url="test_attestation"/>
+        <!-- RHEL7: <reference source="SDW" ref_id="20131222" ref_url="test_attestation" /> -->
+      <reference source="ssg" ref_id="partition_for_var_log_audit"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:111" comment="/var/log/audit on own partition"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:112" version="1">
+      <metadata>
+        <title>Verify group who owns 'passwd' file</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The /etc/passwd file should be owned by the appropriate
+      group.</description>
+        <reference source="swells" ref_id="20130918" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="file_groupowner_etc_passwd"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:113"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:114" version="1">
+      <metadata>
+        <title>Verify /etc/shadow Permissions</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>This test makes sure that /etc/shadow is owned by 0, group owned by 0, and has mode 0000. If
+      the target file or directory has an extended ACL then it will fail the mode check.</description>
+        <reference source="swells" ref_id="20130831" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="file_permissions_etc_shadow"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:115"/>
+      </criteria>
+    </definition>
+    <definition class="inventory" id="oval:ssg:def:100" version="1">
+      <metadata>
+        <title>Red Hat Enterprise Linux 7</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <reference ref_id="cpe:/o:redhat:enterprise_linux:7" source="CPE"/>
+        <description>The operating system installed on the system is
+      Red Hat Enterprise Linux 7</description>
+      <reference source="ssg" ref_id="installed_OS_is_rhel7"/></metadata>
+      <criteria>
+        <criterion comment="Installed operating system is part of the unix family" test_ref="oval:ssg:tst:101"/>
+        <criterion comment="Red Hat Enterprise Linux 7 Workstation is installed" test_ref="oval:ssg:tst:102"/>
+        <criterion comment="Red Hat Enterprise Linux 7 Server is installed" test_ref="oval:ssg:tst:103"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:116" version="1">
+      <metadata>
+        <title>Set Password Expiration Parameters</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The minimum password age policy should be set appropriately.</description>
+        <reference source="MED" ref_id="20130807" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_minimum_age_login_defs"/></metadata>
+      <criteria comment="the value PASS_MIN_DAYS should be set appropriately in /etc/login.defs">
+        <criterion test_ref="oval:ssg:tst:117"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:118" version="1">
+      <metadata>
+        <title>SELinux Enforcing</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The SELinux state should be enforcing the local policy.</description>
+        <reference source="MED" ref_id="20130819" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="selinux_state"/></metadata>
+      <criteria operator="AND">
+        <criterion comment="enforce is disabled" test_ref="oval:ssg:tst:119"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:120" version="1">
+      <metadata>
+        <title>Verify user who owns 'passwd' file</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The /etc/passwd file should be owned by the appropriate
+      user.</description>
+        <reference source="MED" ref_id="20130807" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="file_owner_etc_passwd"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:121"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:122" version="1">
+      <metadata>
+        <title>Lock out account after failed login attempts</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The number of allowed failed logins should be set correctly.</description>
+        <reference source="swells" ref_id="20131025" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_passwords_pam_faillock_deny"/></metadata>
+      <criteria>
+        <criterion comment="pam_faillock.so deny value set in system-auth" test_ref="oval:ssg:tst:123"/>
+        <criterion comment="pam_faillock.so deny value set in password-auth" test_ref="oval:ssg:tst:124"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:125" version="1">
+      <metadata>
+        <title>Set Password ucredit Requirements</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The password ucredit should meet minimum
+      requirements using pam_cracklib</description>
+        <reference source="DS" ref_id="20131011" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_password_pam_cracklib_ucredit"/></metadata>
+      <criteria>
+        <criterion comment="Conditions for ucredit are satisfied" test_ref="oval:ssg:tst:126"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:127" version="1">
+      <metadata>
+        <title>Verify user who owns 'gshadow' file</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The /etc/gshadow file should be owned by the appropriate
+      user.</description>
+        <reference source="MED" ref_id="20130807" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="file_owner_etc_gshadow"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:128"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:129" version="1">
+      <metadata>
+        <title>Limit Password Reuse</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The passwords to remember should be set correctly.</description>
+        <reference source="SDW" ref_id="20131025" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_password_reuse_limit"/></metadata>
+      <criteria>
+        <criterion comment="remember parameter is set to 0" test_ref="oval:ssg:tst:130"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:131" version="1">
+      <metadata>
+        <title>Require Authentication for Single-User Mode</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The requirement for a password to boot into single-user mode
+      should be configured correctly.</description>
+        <reference source="swells" ref_id="20131014" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="require_singleuser_auth"/></metadata>
+      <criteria>
+        <criterion comment="Conditions are satisfied" test_ref="oval:ssg:tst:132"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:133" version="1">
+      <metadata>
+        <title>Verify /etc/gshadow Permissions</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>This test makes sure that /etc/gshadow is owned by 0, group owned by 0, and has mode 0000. If
+      the target file or directory has an extended ACL then it will fail the mode check.</description>
+        <reference source="swells" ref_id="20130831" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="file_permissions_etc_gshadow"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:134"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:135" version="1">
+      <metadata>
+        <title>Set Password ocredit Requirements</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The password ocredit should meet minimum
+      requirements using pam_cracklib</description>
+        <reference source="DS" ref_id="20131011" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_password_pam_cracklib_ocredit"/></metadata>
+      <criteria>
+        <criterion comment="Conditions for ocredit are satisfied" test_ref="oval:ssg:tst:136"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:137" version="1">
+      <metadata>
+        <title>Verify user who owns 'shadow' file</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The /etc/shadow file should be owned by the
+      appropriate user.</description>
+        <reference source="MED" ref_id="20130807" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="userowner_shadow_file"/></metadata>
+      <criteria>
+        <criterion comment="Check file ownership of /etc/shadow" test_ref="oval:ssg:tst:138"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:139" version="1">
+      <metadata>
+        <title>No nullok Option in /etc/pam.d/system-auth</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The file /etc/pam.d/system-auth should not contain the nullok option</description>
+        <reference source="swells" ref_id="20130918" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="no_empty_passwords"/></metadata>
+      <criteria>
+        <criterion comment="make sure the nullok option is not used in /etc/pam.d/system-auth" test_ref="oval:ssg:tst:140"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:141" version="1">
+      <metadata>
+        <title>Verify /etc/passwd Permissions</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>This test makes sure that /etc/passwd is owned by 0, group owned by 0, and has mode 0644. If
+      the target file or directory has an extended ACL then it will fail the mode check.</description>
+        <reference source="swells" ref_id="20130831" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="file_permissions_etc_passwd"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:142"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:143" version="1">
+      <metadata>
+        <title>Do Not Allow Users to Set Environment Options</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>PermitUserEnvironment should be disabled</description>
+        <reference source="MED" ref_id="20130813" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="sshd_do_not_permit_user_env"/></metadata>
+      <criteria comment="SSH is not being used or conditions are met" operator="OR">
+        <extend_definition comment="sshd service is disabled" definition_ref="oval:ssg:def:144"/>
+        <criterion comment="Check PermitUserEnvironment in /etc/ssh/sshd_config" negate="true" test_ref="oval:ssg:tst:145"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:146" version="1">
+      <metadata>
+        <title>Ensure Yum gpgcheck Globally Activated</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The gpgcheck option should be used to ensure that checking
+      of an RPM package's signature always occurs prior to its
+      installation.</description>
+        <reference source="MED" ref_id="20130807" ref_url="test_attestation"/>
+        <!-- rhel7: <reference source="SDW" ref_id="20131223" ref_url="test_attestation" /> -->
+      <reference source="ssg" ref_id="ensure_gpgcheck_globally_activated"/></metadata>
+      <criteria>
+        <criterion comment="check value of gpgcheck in /etc/yum.conf" test_ref="oval:ssg:tst:147"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:148" version="1">
+      <metadata>
+        <title>Ensure /home Located On Separate Partition</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>If user home directories will be stored locally, create a
+      separate partition for /home. If /home will be mounted from another
+      system such as an NFS server, then creating a separate partition is not
+      necessary at this time, and the mountpoint can instead be configured
+      later.</description>
+        <reference source="MED" ref_id="20130830" ref_url="test_attestation"/>
+        <!-- RHEL7:  <reference source="SDW" ref_id="20131222" ref_url="test_attestation" /> -->
+      <reference source="ssg" ref_id="partition_for_home"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:149" comment="/home on own partition"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:150" version="2">
+      <metadata>
+        <title>Disable Host-Based Authentication</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>SSH host-based authentication should be disabled.</description>
+        <reference source="MED" ref_id="20130813" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="disable_host_auth"/></metadata>
+      <criteria comment="SSH is not being used or conditions are met" operator="OR">
+        <extend_definition comment="sshd service is disabled" definition_ref="oval:ssg:def:144"/>
+        <criterion comment="Check HostbasedAuthentication in /etc/ssh/sshd_config" test_ref="oval:ssg:tst:151"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:152" version="1">
+      <metadata>
+        <title>Ensure /var/log Located On Separate Partition</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>System logs are stored in the /var/log directory. Ensure
+      that it has its own partition or logical volume.</description>
+        <reference source="MED" ref_id="20130830" ref_url="test_attestation"/>
+        <!-- RHEL7: <reference source="SDW" ref_id="20131222" ref_url="test_attestation" /> -->
+      <reference source="ssg" ref_id="partition_for_var_log"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:153" comment="/var/log on own partition"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:154" version="1">
+      <metadata>
+        <title>Ensure Only Protocol 2 Connections Allowed</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The OpenSSH daemon should be running protocol 2.</description>
+        <reference source="MED" ref_id="20130813" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="sshd_allow_only_protocol2"/></metadata>
+      <criteria comment="SSH is not being used or conditions are met" operator="OR">
+        <extend_definition comment="sshd service is disabled" definition_ref="oval:ssg:def:144"/>
+        <extend_definition comment="rpm package openssh-server removed" definition_ref="oval:ssg:def:155"/>
+        <criterion comment="Check Protocol in /etc/ssh/sshd_config" test_ref="oval:ssg:tst:156"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:157" version="1">
+      <metadata>
+        <title>Ensure gpgcheck Enabled For All Yum Package Repositories</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>Ensure all yum repositories utilize signature checking.</description>
+        <reference source="MED" ref_id="20130807" ref_url="test_attestation"/>
+        <!-- rhel7 <reference source="SDW" ref_id="20131223" ref_url="test_attestation" /> -->
+      <reference source="ssg" ref_id="ensure_gpgcheck_never_disabled"/></metadata>
+      <criteria comment="ensure all yum repositories utilize signiature checking" operator="AND">
+        <criterion comment="verify no gpgpcheck=0 present in /etc/yum.repos.d files" test_ref="oval:ssg:tst:158"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:159" version="1">
+      <metadata>
+        <title>Set Password retry Requirements</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The password retry should meet minimum
+      requirements using pam_cracklib</description>
+        <reference source="swells" ref_id="20130928" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_password_pam_cracklib_retry"/></metadata>
+      <criteria>
+        <criterion comment="Conditions for retry are satisfied" test_ref="oval:ssg:tst:160"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:161" version="1">
+      <metadata>
+        <title>Disable root Login via SSH</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>Root login via SSH should be disabled (and dependencies are
+      met)</description>
+        <reference source="MED" ref_id="20130813" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="sshd_disable_root_login"/></metadata>
+      <criteria comment="SSH is not being used or conditions are met" operator="OR">
+        <extend_definition comment="sshd service is disabled" definition_ref="oval:ssg:def:144"/>
+        <criterion comment="Check PermitRootLogin in /etc/ssh/sshd_config" test_ref="oval:ssg:tst:162"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:163" version="1">
+      <metadata>
+        <title>Verify /var/log/audit Permissions</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>Checks for correct permissions for all log files in /var/log/audit.</description>
+      <reference source="ssg" ref_id="file_permissions_var_log_audit"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:164" negate="true"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:165" version="1">
+      <metadata>
+        <title>Ensure /tmp Located On Separate Partition</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The /tmp directory is a world-writable directory used for
+      temporary file storage. Verify that it has its own partition or logical
+      volume.</description>
+        <reference source="MED" ref_id="20130830" ref_url="test_attestation"/>
+        <!-- RHEL7: <reference source="SDW" ref_id="20131222" ref_url="test_attestation" /> -->
+      <reference source="ssg" ref_id="partition_for_tmp"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:166" comment="/tmp on own partition"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:167" version="1">
+      <metadata>
+        <title>Enable SELinux</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The SELinux policy should be set appropriately.</description>
+        <reference source="MED" ref_id="20130819" ref_url="test_attestation"/>
+        <!-- RHEL7 <reference source="SDW" ref_id="20131222" ref_url="test_attestation" /> -->
+      <reference source="ssg" ref_id="selinux_policytype"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:168"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:169" version="1">
+      <metadata>
+        <title>Set ClientAliveCountMax for User Logins</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The SSH ClientAliveCountMax should be set to an appropriate
+      value (and dependencies are met)</description>
+        <reference source="MED" ref_id="20130813" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="sshd_set_keepalive"/></metadata>
+      <criteria comment="SSH is not being used or conditions are met" operator="OR">
+        <extend_definition comment="sshd service is disabled" definition_ref="oval:ssg:def:144"/>
+        <criterion comment="Check ClientAliveCountMax in /etc/ssh/sshd_config" test_ref="oval:ssg:tst:170"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:171" version="1">
+      <metadata>
+        <title>Set Password difok Requirements</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+        </affected>
+        <description>The password difok should meet minimum
+      requirements using pam_cracklib</description>
+        <reference source="DS" ref_id="20131011" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_password_pam_cracklib_difok"/></metadata>
+      <criteria>
+        <criterion comment="Conditions for difok are satisfied" test_ref="oval:ssg:tst:172"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:173" version="1">
+      <metadata>
+        <title>Verify permissions on 'group' file</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>File permissions for /etc/group should be set
+      correctly.</description>
+        <reference source="swells" ref_id="20130918" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="file_permissions_etc_group"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:174"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:175" version="1">
+      <metadata>
+        <title>System Accounts Do Not Run a Shell</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The root account is the only system account that should have a login shell.</description>
+        <reference source="swells" ref_id="20130918" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="no_shelllogin_for_systemaccounts"/></metadata>
+      <criteria>
+        <criterion comment="tests for the presence of login shells (not /sbin/nologin) for system accounts in /etc/passwd file" test_ref="oval:ssg:tst:176"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:177" version="1">
+      <metadata>
+        <title>Set Password Expiration Parameters</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The password minimum length should be set appropriately.</description>
+        <reference source="swells" ref_id="20130914" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_password_minlen_login_defs"/></metadata>
+      <criteria operator="AND">
+        <criterion test_ref="oval:ssg:tst:178"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:179" version="1">
+      <metadata>
+        <title>Set Password dcredit Requirements</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The password dcredit should meet minimum
+      requirements using pam_cracklib</description>
+        <reference source="DS" ref_id="20131011" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_password_pam_cracklib_dcredit"/></metadata>
+      <criteria>
+        <criterion comment="Conditions for dcredit are satisfied" test_ref="oval:ssg:tst:180"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:181" version="1">
+      <metadata>
+        <title>Set Password Hashing Algorithm in /etc/pam.d/system-auth</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The password hashing algorithm should be set correctly in /etc/pam.d/system-auth.</description>
+        <reference source="MED" ref_id="20130819" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="set_password_hashing_algorithm_systemauth"/></metadata>
+      <criteria operator="AND">
+        <criterion test_ref="oval:ssg:tst:182"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:183" version="1">
+      <metadata>
+        <title>Verify that Shared Library Files Have Root Ownership</title>
+        <affected family="unix">
+          <platform>Fedora 19</platform>
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>
+        Checks that /lib, /lib64, /usr/lib, /usr/lib64, /lib/modules, and
+        objects therein, are owned by root.
+      </description>
+      <reference source="ssg" ref_id="file_ownership_library_dirs"/></metadata>
+      <criteria operator="AND">
+        <criterion test_ref="oval:ssg:tst:184"/>
+        <criterion test_ref="oval:ssg:tst:185"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:186" version="1">
+      <metadata>
+        <title>Set SHA512 Password Hashing Algorithm in /etc/libuser.conf</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The password hashing algorithm should be set correctly in /etc/libuser.conf.</description>
+        <reference source="MED" ref_id="20130819" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="set_password_hashing_algorithm_libuserconf"/></metadata>
+      <criteria operator="AND">
+        <criterion test_ref="oval:ssg:tst:187"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:188" version="1">
+      <metadata>
+        <title>Disable Empty Passwords</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>Remote connections from accounts with empty passwords should
+      be disabled (and dependencies are met)</description>
+        <reference source="MED" ref_id="20130813" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="sshd_disable_empty_passwords"/></metadata>
+      <criteria comment="SSH is not being used or conditions are met" operator="OR">
+        <extend_definition comment="sshd service is disabled" definition_ref="oval:ssg:def:144"/>
+        <criterion comment="Check PermitEmptyPasswords in /etc/ssh/sshd_config" negate="true" test_ref="oval:ssg:tst:189"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:190" version="1">
+      <metadata>
+        <title>Enable a Warning Banner</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>SSH warning banner should be enabled (and dependencies are
+      met)</description>
+        <reference source="MED" ref_id="20130813" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="sshd_enable_warning_banner"/></metadata>
+      <criteria comment="SSH is not being used or conditions are met" operator="OR">
+        <extend_definition comment="sshd service is disabled" definition_ref="oval:ssg:def:144"/>
+        <criterion comment="Check Banner in /etc/ssh/sshd_config" test_ref="oval:ssg:tst:191"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:192" version="1">
+      <metadata>
+        <title>Set SHA512 Password Hashing Algorithm in /etc/login.defs</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The password hashing algorithm should be set correctly in /etc/login.defs.</description>
+        <reference source="MED" ref_id="20130819" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="set_password_hashing_algorithm_logindefs"/></metadata>
+      <criteria operator="AND">
+        <criterion test_ref="oval:ssg:tst:193"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:194" version="1">
+      <metadata>
+        <title>Set OpenSSH Idle Timeout Interval</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The SSH idle timeout interval should be set to an
+      appropriate value.</description>
+        <reference source="MED" ref_id="20130813" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="sshd_set_idle_timeout"/></metadata>
+      <criteria comment="SSH is not being used or conditions are met" operator="OR">
+        <extend_definition comment="sshd service is disabled" definition_ref="oval:ssg:def:144"/>
+        <criterion comment="Check ClientAliveInterval in /etc/ssh/sshd_config" test_ref="oval:ssg:tst:195"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:196" version="1">
+      <metadata>
+        <title>All Password Hashes Shadowed</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>All password hashes should be shadowed.</description>
+        <reference source="swells" ref_id="20130918" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_password_all_shadowed"/></metadata>
+      <criteria>
+        <criterion comment="password hashes are shadowed" test_ref="oval:ssg:tst:197"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:198" version="1">
+      <metadata>
+        <title>Disable .rhosts Files</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>Emulation of the rsh command through the ssh server should
+      be disabled (and dependencies are met)</description>
+        <reference source="MED" ref_id="20130813" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="sshd_disable_rhosts"/></metadata>
+      <criteria comment="SSH is not being used or conditions are met" operator="OR">
+        <extend_definition comment="sshd service is disabled" definition_ref="oval:ssg:def:144"/>
+        <criterion comment="Check IgnoreRhosts in /etc/ssh/sshd_config" test_ref="oval:ssg:tst:199"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:200" version="1">
+      <!-- Note that this does not meet requirements for class=inventory as
+         that only tests for patches per 5.10.1 Revision 1 -->
+      <metadata>
+        <title>Test for x86_64 Architecture</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>Generic test for x86_64 architecture to be used by other tests</description>
+        <reference source="MED" ref_id="20130819" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="system_info_architecture_x86_64"/></metadata>
+      <criteria>
+        <criterion comment="Generic test for x86_64 architecture" test_ref="oval:ssg:tst:201"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:144" version="1">
+      <metadata>
+        <title>Service sshd Disabled</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>
+        The sshd service should be disabled.
+      </description>
+      <reference source="ssg" ref_id="service_sshd_disabled"/></metadata>
+      <criteria comment="package openssh-server removed or service sshd is not configured to start" operator="OR">
+        <extend_definition comment="openssh-server removed" definition_ref="oval:ssg:def:155"/>
+        <criterion comment="sshd disabled in multi-user.target" test_ref="oval:ssg:tst:202"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:203" version="1">
+      <!-- Note that this does not meet requirements for class=inventory as
+         that only tests for patches per 5.10.1 Revision 1 -->
+      <metadata>
+        <title>Test for x86 Architecture</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>Generic test for x86 architecture to be used by other tests</description>
+        <reference source="MED" ref_id="20130819" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="system_info_architecture_x86"/></metadata>
+      <criteria>
+        <criterion comment="Generic test for x86 architecture" test_ref="oval:ssg:tst:204"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:205" version="1">
+      <metadata>
+        <title>Verify group who owns 'gshadow' file</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The /etc/gshadow file should be owned by the appropriate
+      group.</description>
+        <reference source="swells" ref_id="20130918" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="file_groupowner_etc_gshadow"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:206"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:207" version="1">
+      <metadata>
+        <title>Verify group who owns 'shadow' file</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The /etc/shadow file should be owned by the appropriate
+      group.</description>
+        <reference source="swells" ref_id="20130918" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="groupowner_shadow_file"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:208"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:155" version="1">
+      <metadata>
+        <title>Package openssh-server Removed</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The RPM package openssh-server should be removed.</description>
+        <reference source="swells" ref_id="20130829" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="package_openssh-server_removed"/></metadata>
+      <criteria>
+        <criterion comment="package openssh-server is removed" test_ref="oval:ssg:tst:209"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:210" version="1">
+      <metadata>
+        <title>Verify that System Executables Have Restrictive Permissions</title>
+        <affected family="unix">
+          <platform>Fedora 19</platform>
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>
+        Checks that binary files under /bin, /sbin, /usr/bin, /usr/sbin,
+        /usr/local/bin, and /usr/local/sbin, are not group-writable or world-writable.
+      </description>
+      <reference source="ssg" ref_id="file_permissions_binary_dirs"/></metadata>
+      <criteria operator="AND">
+        <criterion test_ref="oval:ssg:tst:211"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:212" version="1">
+      <metadata>
+        <title>Verify that Shared Library Files Have Restrictive Permissions</title>
+        <affected family="unix">
+          <platform>Fedora 19</platform>
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>
+        Checks that /lib, /lib64, /usr/lib, /usr/lib64, /lib/modules, and
+        objects therein, are not group-writable or world-writable.
+      </description>
+      <reference source="ssg" ref_id="file_permissions_library_dirs"/></metadata>
+      <criteria operator="AND">
+        <criterion test_ref="oval:ssg:tst:213"/>
+        <criterion test_ref="oval:ssg:tst:214"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:215" version="1">
+      <metadata>
+        <title>Set Password lcredit Requirements</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The password lcredit should meet minimum
+      requirements using pam_cracklib</description>
+        <reference source="DS" ref_id="20131011" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_password_pam_cracklib_lcredit"/></metadata>
+      <criteria>
+        <criterion comment="Conditions for lcredit are satisfied" test_ref="oval:ssg:tst:216"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:217" version="1">
+      <metadata>
+        <title>Set Password Expiration Parameters</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The password expiration warning age should be set appropriately.</description>
+        <reference source="swells" ref_id="20130914" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_password_warn_age_login_defs"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:218"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:219" version="1">
+      <metadata>
+        <title>Verify that System Executables Have Root Ownership</title>
+        <affected family="unix">
+          <platform>Fedora 19</platform>
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>
+        Checks that /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin,
+        /usr/local/sbin, and objects therein, are owned by root.
+      </description>
+      <reference source="ssg" ref_id="file_ownership_binary_dirs"/></metadata>
+      <criteria operator="AND">
+        <criterion test_ref="oval:ssg:tst:220"/>
+        <criterion test_ref="oval:ssg:tst:221"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:222" version="1">
+      <metadata>
+        <title>Use Only Approved Ciphers</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>Limit the ciphers to those which are FIPS-approved and only
+      use ciphers in counter (CTR) mode.</description>
+        <reference source="MED" ref_id="20130813" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="sshd_use_approved_ciphers"/></metadata>
+      <criteria comment="SSH is not being used or conditions are met" operator="OR">
+        <extend_definition comment="sshd service is disabled" definition_ref="oval:ssg:def:144"/>
+        <criterion comment="Check ClientAliveInterval in /etc/ssh/sshd_config" test_ref="oval:ssg:tst:223"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:224" version="1">
+      <metadata>
+        <title>UID 0 Belongs Only To Root</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>Only the root account should be assigned a user id of 0.</description>
+        <reference source="MED" ref_id="20130807" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="accounts_no_uid_except_zero"/></metadata>
+      <criteria>
+        <criterion comment="tests for reg exp ^[^r][^o][^o][^t].*:0 in /etc/passwd file" test_ref="oval:ssg:tst:225"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:226" version="1">
+      <metadata>
+        <title>Ensure /var Located On Separate Partition</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>Ensuring that /var is mounted on its own partition enables
+      the setting of more restrictive mount options, which is used as temporary
+      storage by many program, particularly system services such as daemons. It
+      is not uncommon for the /var directory to contain world-writable
+      directories, installed by other software packages.</description>
+        <reference source="MED" ref_id="20130830" ref_url="test_attestation"/>
+        <!-- RHEL7: <reference source="SDW" ref_id="20131222" ref_url="test_attestation" /> -->
+      <reference source="ssg" ref_id="partition_for_var"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:227" comment="/var on own partition"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:228" version="1">
+      <metadata>
+        <title>Package aide Installed</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The RPM package aide should be installed.</description>
+        <reference source="swells" ref_id="20130829" ref_url="test_attestation"/>
+        <!-- rhel7 <reference source="swells" ref_id="20131223" ref_url="test_attestation" /> -->
+      <reference source="ssg" ref_id="package_aide_installed"/></metadata>
+      <criteria>
+        <criterion comment="package aide is installed" test_ref="oval:ssg:tst:229"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:230" version="1">
+      <metadata>
+        <title>Verify user who owns 'group' file</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The /etc/group file should be owned by the appropriate
+      user.</description>
+        <reference source="MED" ref_id="20130807" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="file_owner_etc_group"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:231"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:232" version="1">
+      <metadata>
+        <title>Red Hat Release and Auxiliary gpg-pubkey Packages Installed</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The Red Hat release and auxiliary key packages are required to be installed.</description>
+        <reference source="swells" ref_id="20130915" ref_url="test_attestation"/>
+        <!-- rhel7 <reference source="swells" ref_id="20130915" ref_url="test_attestation" /> -->
+      <reference source="ssg" ref_id="ensure_redhat_gpgkey_installed"/></metadata>
+      <criteria comment="packages gpg-pubkey-fd431d51-4ae0493b and gpg-pubkey-2fa658e0-45700c69 are installed" operator="AND">
+        <criterion comment="package gpg-pubkey-fd431d51-4ae0493b is installed" test_ref="oval:ssg:tst:233"/>
+        <criterion comment="package gpg-pubkey-2fa658e0-45700c69 is installed" test_ref="oval:ssg:tst:234"/>
+      </criteria>
+    </definition>
+    <definition class="compliance" id="oval:ssg:def:235" version="1">
+      <metadata>
+        <title>Verify group who owns 'group' file</title>
+        <affected family="unix">
+          <platform>Red Hat Enterprise Linux 6</platform>
+          <platform>Red Hat Enterprise Linux 7</platform>
+        </affected>
+        <description>The /etc/group file should be owned by the appropriate
+      group.</description>
+        <reference source="swells" ref_id="20130918" ref_url="test_attestation"/>
+      <reference source="ssg" ref_id="file_groupowner_etc_group"/></metadata>
+      <criteria>
+        <criterion test_ref="oval:ssg:tst:236"/>
+      </criteria>
+    </definition>
+  </definitions>
+  <tests>
+    <linux:partition_test check="all" check_existence="all_exist" id="oval:ssg:tst:111" version="1" comment="check for /var/log/audit partition">
+      <linux:object object_ref="oval:ssg:obj:237"/>
+    </linux:partition_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="Testing group ownership of /etc/passwd" id="oval:ssg:tst:113" version="1">
+      <unix:object object_ref="oval:ssg:obj:238"/>
+      <unix:state state_ref="oval:ssg:ste:239"/>
+    </unix:file_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="/etc/shadow mode and ownership" id="oval:ssg:tst:115" version="1">
+      <unix:object object_ref="oval:ssg:obj:240"/>
+      <unix:state state_ref="oval:ssg:ste:241"/>
+      <unix:state state_ref="oval:ssg:ste:242"/>
+      <unix:state state_ref="oval:ssg:ste:243"/>
+    </unix:file_test>
+    <ind:family_test check="all" check_existence="at_least_one_exists" comment="installed OS part of unix family" id="oval:ssg:tst:101" version="1">
+      <ind:object object_ref="oval:ssg:obj:104"/>
+      <ind:state state_ref="oval:ssg:ste:105"/>
+    </ind:family_test>
+    <linux:rpminfo_test check="all" check_existence="any_exist" comment="redhat-release-workstation is version 7" id="oval:ssg:tst:102" version="1">
+      <linux:object object_ref="oval:ssg:obj:106"/>
+      <linux:state state_ref="oval:ssg:ste:107"/>
+    </linux:rpminfo_test>
+    <linux:rpminfo_test check="all" check_existence="any_exist" comment="redhat-release-server is version 7" id="oval:ssg:tst:103" version="1">
+      <linux:object object_ref="oval:ssg:obj:108"/>
+      <linux:state state_ref="oval:ssg:ste:109"/>
+    </linux:rpminfo_test>
+    <ind:textfilecontent54_test check="all" comment="Tests the value of PASS_MIN_DAYS in /etc/login.defs" id="oval:ssg:tst:117" version="1">
+      <ind:object object_ref="oval:ssg:obj:244"/>
+      <ind:state state_ref="oval:ssg:ste:245"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="/selinux/enforce is 1" id="oval:ssg:tst:119" version="1">
+      <ind:object object_ref="oval:ssg:obj:246"/>
+      <ind:state state_ref="oval:ssg:ste:247"/>
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="Testing user ownership" id="oval:ssg:tst:121" version="1">
+      <unix:object object_ref="oval:ssg:obj:248"/>
+      <unix:state state_ref="oval:ssg:ste:249"/>
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="check maximum failed login attempts allowed in /etc/pam.d/system-auth" id="oval:ssg:tst:123" version="1">
+      <ind:object object_ref="oval:ssg:obj:250"/>
+      <ind:state state_ref="oval:ssg:ste:251"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="check maximum failed login attempts allowed in /etc/pam.d/password-auth" id="oval:ssg:tst:124" version="1">
+      <ind:object object_ref="oval:ssg:obj:252"/>
+      <ind:state state_ref="oval:ssg:ste:253"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="check the configuration of /etc/pam.d/system-auth" id="oval:ssg:tst:126" version="1">
+      <ind:object object_ref="oval:ssg:obj:254"/>
+      <ind:state state_ref="oval:ssg:ste:255"/>
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="Testing gshadow ownership" id="oval:ssg:tst:128" version="1">
+      <unix:object object_ref="oval:ssg:obj:256"/>
+      <unix:state state_ref="oval:ssg:ste:257"/>
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="remember is set in /etc/pam.d/system-auth" id="oval:ssg:tst:130" version="1">
+      <ind:object object_ref="oval:ssg:obj:258"/>
+      <ind:state state_ref="oval:ssg:ste:259"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Tests that the SINGLE variable in the /etc/sysconfig/init file is set to /sbin/sulogin, to ensure that a password must be entered to access single user mode" id="oval:ssg:tst:132" version="1">
+      <ind:object object_ref="oval:ssg:obj:260"/>
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="/etc/gshadow mode and ownership" id="oval:ssg:tst:134" version="1">
+      <unix:object object_ref="oval:ssg:obj:261"/>
+      <unix:state state_ref="oval:ssg:ste:262"/>
+      <unix:state state_ref="oval:ssg:ste:263"/>
+      <unix:state state_ref="oval:ssg:ste:264"/>
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" comment="check the configuration of /etc/pam.d/system-auth" id="oval:ssg:tst:136" version="1">
+      <ind:object object_ref="oval:ssg:obj:265"/>
+      <ind:state state_ref="oval:ssg:ste:266"/>
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="Testing user ownership of /etc/shadow" id="oval:ssg:tst:138" version="1">
+      <unix:object object_ref="oval:ssg:obj:267"/>
+      <unix:state state_ref="oval:ssg:ste:268"/>
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="make sure nullok is not used in /etc/pam.d/system-auth" id="oval:ssg:tst:140" version="1">
+      <ind:object object_ref="oval:ssg:obj:269"/>
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="/etc/passwd mode and ownership" id="oval:ssg:tst:142" version="1">
+      <unix:object object_ref="oval:ssg:obj:270"/>
+      <unix:state state_ref="oval:ssg:ste:271"/>
+      <unix:state state_ref="oval:ssg:ste:272"/>
+      <unix:state state_ref="oval:ssg:ste:273"/>
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="Check value of PermitUserEnvironment in /etc/ssh/sshd_config" id="oval:ssg:tst:145" version="1">
+      <ind:object object_ref="oval:ssg:obj:274"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="check value of gpgcheck in /etc/yum.conf" id="oval:ssg:tst:147" version="1">
+      <ind:object object_ref="oval:ssg:obj:275"/>
+    </ind:textfilecontent54_test>
+    <linux:partition_test check="all" check_existence="all_exist" id="oval:ssg:tst:149" version="1" comment="/home on own partition">
+      <linux:object object_ref="oval:ssg:obj:276"/>
+    </linux:partition_test>
+    <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="sshd HostbasedAuthentication" id="oval:ssg:tst:151" version="1">
+      <ind:object object_ref="oval:ssg:obj:277"/>
+    </ind:textfilecontent54_test>
+    <linux:partition_test check="all" check_existence="all_exist" id="oval:ssg:tst:153" version="1" comment="/var/log on own partition">
+      <linux:object object_ref="oval:ssg:obj:278"/>
+    </linux:partition_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="sshd uses protocol 2" id="oval:ssg:tst:156" version="1">
+      <ind:object object_ref="oval:ssg:obj:279"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="check for existence of gpgcheck=0 in /etc/yum.repos.d/ files" id="oval:ssg:tst:158" version="1">
+      <ind:object object_ref="oval:ssg:obj:280"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="check the configuration of /etc/pam.d/system-auth" id="oval:ssg:tst:160" version="1">
+      <ind:object object_ref="oval:ssg:obj:281"/>
+      <ind:state state_ref="oval:ssg:ste:282"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="Tests the value of the PermitRootLogin[\s]*(&lt;:nocomment:&gt;*) setting in the /etc/ssh/sshd_config file" id="oval:ssg:tst:162" version="1">
+      <ind:object object_ref="oval:ssg:obj:283"/>
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" check_existence="at_least_one_exists" comment="/var/log/audit files mode 0640" id="oval:ssg:tst:164" version="1">
+      <unix:object object_ref="oval:ssg:obj:284"/>
+      <unix:state state_ref="oval:ssg:ste:285"/>
+    </unix:file_test>
+    <linux:partition_test check="all" check_existence="all_exist" id="oval:ssg:tst:166" version="1" comment="/tmp on own partition">
+      <linux:object object_ref="oval:ssg:obj:286"/>
+    </linux:partition_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Tests the value of the ^[\s]*SELINUXTYPE[\s]*=[\s]*([^#]*) expression in the /etc/selinux/config file" id="oval:ssg:tst:168" version="1">
+      <ind:object object_ref="oval:ssg:obj:287"/>
+      <ind:state state_ref="oval:ssg:ste:288"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Tests the value of the ClientAliveCountMax setting in the /etc/ssh/sshd_config file" id="oval:ssg:tst:170" version="1">
+      <ind:object object_ref="oval:ssg:obj:289"/>
+      <ind:state state_ref="oval:ssg:ste:290"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="check the configuration of /etc/pam.d/system-auth" id="oval:ssg:tst:172" version="1">
+      <ind:object object_ref="oval:ssg:obj:291"/>
+      <ind:state state_ref="oval:ssg:ste:292"/>
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="Testing /etc/group permissions" id="oval:ssg:tst:174" version="1">
+      <unix:object object_ref="oval:ssg:obj:293"/>
+      <unix:state state_ref="oval:ssg:ste:294"/>
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="tests for the presence of login shells (not /sbin/nologin) for system accounts in /etc/passwd file" id="oval:ssg:tst:176" version="1">
+      <ind:object object_ref="oval:ssg:obj:295"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="check PASS_MIN_LEN in /etc/login.defs" id="oval:ssg:tst:178" version="1">
+      <ind:object object_ref="oval:ssg:obj:296"/>
+      <ind:state state_ref="oval:ssg:ste:297"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="check the configuration of /etc/pam.d/system-auth" id="oval:ssg:tst:180" version="1">
+      <ind:object object_ref="oval:ssg:obj:298"/>
+      <ind:state state_ref="oval:ssg:ste:299"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="at_least_one_exists" comment="check /etc/pam.d/system-auth for correct settings" id="oval:ssg:tst:182" version="1">
+      <ind:object object_ref="oval:ssg:obj:300"/>
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" check_existence="none_exist" comment="library directories uid root" id="oval:ssg:tst:184" version="1">
+      <unix:object object_ref="oval:ssg:obj:301"/>
+    </unix:file_test>
+    <unix:file_test check="all" check_existence="none_exist" comment="library files uid root" id="oval:ssg:tst:185" version="1">
+      <unix:object object_ref="oval:ssg:obj:302"/>
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" check_existence="at_least_one_exists" comment="The password hashing algorithm should be set correctly in /etc/libuser.conf" id="oval:ssg:tst:187" version="1">
+      <ind:object object_ref="oval:ssg:obj:303"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="Tests the value of the PermitEmptyPasswords[\s]*(&lt;:nocomment:&gt;*) setting in the /etc/ssh/sshd_config file" id="oval:ssg:tst:189" version="1">
+      <ind:object object_ref="oval:ssg:obj:304"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="Tests the value of the Banner[\s]+/etc/issue setting in the /etc/ssh/sshd_config file" id="oval:ssg:tst:191" version="1">
+      <ind:object object_ref="oval:ssg:obj:305"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="check ENCRYPT_METHOD in /etc/login.defs" id="oval:ssg:tst:193" version="1">
+      <ind:object object_ref="oval:ssg:obj:306"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="timeout is configured" id="oval:ssg:tst:195" version="1">
+      <ind:object object_ref="oval:ssg:obj:307"/>
+      <ind:state state_ref="oval:ssg:ste:308"/>
+    </ind:textfilecontent54_test>
+    <unix:password_test check="all" comment="password hashes are shadowed" id="oval:ssg:tst:197" version="1">
+      <unix:object object_ref="oval:ssg:obj:309"/>
+      <unix:state state_ref="oval:ssg:ste:310"/>
+    </unix:password_test>
+    <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="Tests the value of the IgnoreRhosts[\s]*(&lt;:nocomment:&gt;*) setting in the /etc/ssh/sshd_config file" id="oval:ssg:tst:199" version="1">
+      <ind:object object_ref="oval:ssg:obj:311"/>
+    </ind:textfilecontent54_test>
+    <unix:uname_test check="all" comment="64 bit architecture" id="oval:ssg:tst:201" version="1">
+      <unix:object object_ref="oval:ssg:obj:312"/>
+      <unix:state state_ref="oval:ssg:ste:313"/>
+    </unix:uname_test>
+    <unix:file_test check="all" check_existence="none_exist" comment="look for sshd.service in /etc/systemd/system/multi-user.target.wants" id="oval:ssg:tst:202" version="1">
+      <unix:object object_ref="oval:ssg:obj:314"/>
+    </unix:file_test>
+    <unix:uname_test check="all" comment="32 bit architecture" id="oval:ssg:tst:204" version="1">
+      <unix:object object_ref="oval:ssg:obj:315"/>
+      <unix:state state_ref="oval:ssg:ste:316"/>
+    </unix:uname_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="Testing gshadow ownership" id="oval:ssg:tst:206" version="1">
+      <unix:object object_ref="oval:ssg:obj:317"/>
+      <unix:state state_ref="oval:ssg:ste:318"/>
+    </unix:file_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="Testing group ownership /etc/shadow" id="oval:ssg:tst:208" version="1">
+      <unix:object object_ref="oval:ssg:obj:319"/>
+      <unix:state state_ref="oval:ssg:ste:320"/>
+    </unix:file_test>
+    <linux:rpminfo_test check="all" check_existence="none_exist" id="oval:ssg:tst:209" version="1" comment="package openssh-server is removed">
+      <linux:object object_ref="oval:ssg:obj:321"/>
+    </linux:rpminfo_test>
+    <unix:file_test check="all" check_existence="none_exist" comment="binary files go-w" id="oval:ssg:tst:211" version="1">
+      <unix:object object_ref="oval:ssg:obj:322"/>
+    </unix:file_test>
+    <unix:file_test check="all" check_existence="none_exist" comment="library directories go-w" id="oval:ssg:tst:213" version="1">
+      <unix:object object_ref="oval:ssg:obj:323"/>
+    </unix:file_test>
+    <unix:file_test check="all" check_existence="none_exist" comment="library files go-w" id="oval:ssg:tst:214" version="1">
+      <unix:object object_ref="oval:ssg:obj:324"/>
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" comment="check the configuration of /etc/pam.d/system-auth" id="oval:ssg:tst:216" version="1">
+      <ind:object object_ref="oval:ssg:obj:325"/>
+      <ind:state state_ref="oval:ssg:ste:326"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" comment="Tests the value of PASS_WARN_AGE in /etc/login.defs" id="oval:ssg:tst:218" version="1">
+      <ind:object object_ref="oval:ssg:obj:327"/>
+      <ind:state state_ref="oval:ssg:ste:328"/>
+    </ind:textfilecontent54_test>
+    <unix:file_test check="all" check_existence="none_exist" comment="binary directories uid root" id="oval:ssg:tst:220" version="1">
+      <unix:object object_ref="oval:ssg:obj:329"/>
+    </unix:file_test>
+    <unix:file_test check="all" check_existence="none_exist" comment="binary files uid root" id="oval:ssg:tst:221" version="1">
+      <unix:object object_ref="oval:ssg:obj:330"/>
+    </unix:file_test>
+    <ind:textfilecontent54_test check="all" check_existence="all_exist" comment="tests the value of Ciphers setting in the /etc/ssh/sshd_config file" id="oval:ssg:tst:223" version="1">
+      <ind:object object_ref="oval:ssg:obj:331"/>
+    </ind:textfilecontent54_test>
+    <ind:textfilecontent54_test check="all" check_existence="none_exist" comment="tests for reg exp ^[^r][^o][^o][^t].*:0 in /etc/passwd file" id="oval:ssg:tst:225" version="1">
+      <ind:object object_ref="oval:ssg:obj:332"/>
+    </ind:textfilecontent54_test>
+    <linux:partition_test check="all" check_existence="all_exist" id="oval:ssg:tst:227" version="1" comment="/var on own partition">
+      <linux:object object_ref="oval:ssg:obj:333"/>
+    </linux:partition_test>
+    <linux:rpminfo_test check="all" check_existence="all_exist" id="oval:ssg:tst:229" version="1" comment="package aide is installed">
+      <linux:object object_ref="oval:ssg:obj:334"/>
+    </linux:rpminfo_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="Testing user ownership" id="oval:ssg:tst:231" version="1">
+      <unix:object object_ref="oval:ssg:obj:335"/>
+      <unix:state state_ref="oval:ssg:ste:336"/>
+    </unix:file_test>
+    <linux:rpminfo_test check="only one" check_existence="any_exist" id="oval:ssg:tst:233" version="1" comment="Red Hat release key package is installed">
+      <linux:object object_ref="oval:ssg:obj:337"/>
+      <linux:state state_ref="oval:ssg:ste:338"/>
+    </linux:rpminfo_test>
+    <linux:rpminfo_test check="only one" check_existence="any_exist" id="oval:ssg:tst:234" version="1" comment="Red Hat auxiliary key package is installed">
+      <linux:object object_ref="oval:ssg:obj:337"/>
+      <linux:state state_ref="oval:ssg:ste:339"/>
+    </linux:rpminfo_test>
+    <unix:file_test check="all" check_existence="all_exist" comment="Testing group ownership" id="oval:ssg:tst:236" version="1">
+      <unix:object object_ref="oval:ssg:obj:340"/>
+      <unix:state state_ref="oval:ssg:ste:341"/>
+    </unix:file_test>
+  </tests>
+  <objects>
+    <linux:partition_object id="oval:ssg:obj:237" version="1">
+      <linux:mount_point>/var/log/audit</linux:mount_point>
+    </linux:partition_object>
+    <unix:file_object comment="/etc/passwd" id="oval:ssg:obj:238" version="1">
+      <unix:filepath>/etc/passwd</unix:filepath>
+    </unix:file_object>
+    <unix:file_object comment="/etc/shadow" id="oval:ssg:obj:240" version="1">
+      <unix:filepath>/etc/shadow</unix:filepath>
+    </unix:file_object>
+    <ind:family_object id="oval:ssg:obj:104" version="1"/>
+    <linux:rpminfo_object id="oval:ssg:obj:106" version="1">
+      <linux:name>redhat-release-workstation</linux:name>
+    </linux:rpminfo_object>
+    <linux:rpminfo_object id="oval:ssg:obj:108" version="1">
+      <linux:name>redhat-release-server</linux:name>
+    </linux:rpminfo_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:244" version="1">
+      <ind:filepath>/etc/login.defs</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*PASS_MIN_DAYS[\s]+(\d+)\s*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:246" version="1">
+      <ind:filepath>/etc/selinux/config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*SELINUX[\s]*=[\s]*(.*)[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object comment="/etc/passwd" id="oval:ssg:obj:248" version="1">
+      <unix:filepath>/etc/passwd</unix:filepath>
+    </unix:file_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:250" version="1">
+      <ind:filepath>/etc/pam.d/system-auth</ind:filepath>
+      <ind:pattern operation="pattern match">^\s*auth\s+(?:(?:required))\s+pam_faillock\.so.*deny=([0-9]*).*$</ind:pattern>
+      <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:252" version="1">
+      <ind:filepath>/etc/pam.d/password-auth</ind:filepath>
+      <ind:pattern operation="pattern match">^\s*auth\s+(?:(?:sufficient)|(?:\[default=die\]))\s+pam_faillock\.so.*deny=([0-9]*).*$</ind:pattern>
+      <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:254" version="1">
+      <ind:filepath>/etc/pam.d/system-auth</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*password[\s]+(?:(?:required)|(?:requisite))[\s]+[\w_\.\-=\s]+[\s]ucredit=(-?\d+)(?:[\s]|$)</ind:pattern>
+      <ind:instance datatype="int" operation="less than or equal">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object comment="/etc/gshadow" id="oval:ssg:obj:256" version="1">
+      <unix:filepath>/etc/gshadow</unix:filepath>
+    </unix:file_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:258" version="1">
+      <ind:filepath>/etc/pam.d/system-auth</ind:filepath>
+      <ind:pattern operation="pattern match">^\s*password\s+(?:(?:sufficient)|(?:required))\s+pam_unix\.so.*remember=([0-9]*).*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:260" version="1">
+      <ind:filepath>/etc/sysconfig/init</ind:filepath>
+      <ind:pattern operation="pattern match">^SINGLE=/sbin/sulogin[\s]*</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object comment="/etc/gshadow" id="oval:ssg:obj:261" version="1">
+      <unix:filepath>/etc/gshadow</unix:filepath>
+    </unix:file_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:265" version="1">
+      <ind:filepath>/etc/pam.d/system-auth</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*password[\s]+(?:(?:required)|(?:requisite))[\s]+[\w_\.\-=\s]+[\s]ocredit=(-?\d+)(?:[\s]|$)</ind:pattern>
+      <ind:instance datatype="int" operation="less than or equal">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object comment="/etc/shadow" id="oval:ssg:obj:267" version="1">
+      <unix:filepath>/etc/shadow</unix:filepath>
+    </unix:file_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:269" version="1">
+      <ind:filepath>/etc/pam.d/system-auth</ind:filepath>
+      <ind:pattern operation="pattern match">\s*nullok\s*</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object comment="/etc/passwd" id="oval:ssg:obj:270" version="1">
+      <unix:filepath>/etc/passwd</unix:filepath>
+    </unix:file_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:274" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*(?i)PermitUserEnvironment[\s]+no[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:275" comment="gpgcheck set in /etc/yum.conf" version="1">
+      <ind:filepath>/etc/yum.conf</ind:filepath>
+      <ind:pattern operation="pattern match">^\s*gpgcheck\s*=\s*1\s*$</ind:pattern>
+      <ind:instance datatype="int" operation="equals">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <linux:partition_object id="oval:ssg:obj:276" version="1">
+      <linux:mount_point>/home</linux:mount_point>
+    </linux:partition_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:277" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*(?i)HostbasedAuthentication[\s]+yes[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <linux:partition_object id="oval:ssg:obj:278" version="1">
+      <linux:mount_point>/var/log</linux:mount_point>
+    </linux:partition_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:279" version="2">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*(?i)Protocol[\s]+2[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:280" version="1">
+      <ind:path>/etc/yum.repos.d</ind:path>
+      <ind:filename operation="pattern match">.*</ind:filename>
+      <ind:pattern operation="pattern match">^\s*gpgcheck\s*=\s*0\s*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:281" version="1">
+      <ind:filepath>/etc/pam.d/system-auth</ind:filepath>
+      <ind:pattern operation="pattern match">^\s*password\s+(?:(?:required)|(?:requisite))\s+pam_cracklib\.so.*retry=([0-9]*).*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:283" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*(?i)PermitRootLogin[\s]+yes[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object comment="/var/log/audit files" id="oval:ssg:obj:284" version="1">
+      <unix:behaviors recurse="directories" recurse_direction="down" max_depth="-1" recurse_file_system="local"/>
+      <unix:path operation="equals">/var/log/audit</unix:path>
+      <unix:filename operation="pattern match">^.*$</unix:filename>
+      <filter action="include">oval:ssg:ste:285</filter>
+    </unix:file_object>
+    <linux:partition_object id="oval:ssg:obj:286" version="1">
+      <linux:mount_point>/tmp</linux:mount_point>
+    </linux:partition_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:287" version="1">
+      <ind:filepath>/etc/selinux/config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*SELINUXTYPE[\s]*=[\s]*([^\s]*)</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:289" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*(?i)ClientAliveCountMax[\s]+([\d]+)[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:291" version="1">
+      <ind:path>/etc/pam.d</ind:path>
+      <ind:filename>system-auth</ind:filename>
+      <ind:pattern operation="pattern match">^[\s]*password[\s]+(?:(?:required)|(?:requisite))[\s]+[\w_\.\-=\s]+[\s]difok=(-?\d+)(?:[\s]|$)</ind:pattern>
+      <ind:instance datatype="int" operation="greater than or equal">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object comment="/etc/group" id="oval:ssg:obj:293" version="1">
+      <unix:filepath>/etc/group</unix:filepath>
+    </unix:file_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:295" version="1">
+      <ind:filepath>/etc/passwd</ind:filepath>
+      <ind:pattern operation="pattern match">^(?!root).*:x:[\d]*:0*([0-9]{1,2}|[1-4][0-9]{2}):[^:]*:[^:]*:(?!\/sbin\/nologin|\/bin\/sync|\/sbin\/shutdown|\/sbin\/halt).*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:296" version="1">
+      <ind:filepath>/etc/login.defs</ind:filepath>
+      <ind:pattern operation="pattern match">^PASS_MIN_LEN\s+(\d+)\s*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:298" version="1">
+      <ind:filepath>/etc/pam.d/system-auth</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*password[\s]+(?:(?:required)|(?:requisite))[\s]+[\w_\.\-=\s]+[\s]dcredit=(-?\d+)(?:[\s]|$)</ind:pattern>
+      <ind:instance datatype="int" operation="less than or equal">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object comment="check /etc/pam.d/system-auth for correct settings" id="oval:ssg:obj:300" version="1">
+      <ind:filepath>/etc/pam.d/system-auth</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*password[\s]+sufficient[\s]+pam_unix\.so[\s]+.*sha512.*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object comment="library directories" id="oval:ssg:obj:301" version="1">
+      <!-- Check that /lib, /lib64, /usr/lib, and /usr/lib64 directories belong to user with uid 0 (root) -->
+      <unix:path operation="pattern match">^\/lib(|64)|^\/usr\/lib(|64)</unix:path>
+      <unix:filename xsi:nil="true"/>
+      <filter action="include">oval:ssg:ste:342</filter>
+    </unix:file_object>
+    <unix:file_object comment="library files" id="oval:ssg:obj:302" version="1">
+      <!-- Check that files within /lib, /lib64, /usr/lib, and /usr/lib64 directories belong to user with uid 0 (root) -->
+      <unix:path operation="pattern match">^\/lib(|64)|^\/usr\/lib(|64)</unix:path>
+      <unix:filename operation="pattern match">^.*$</unix:filename>
+      <filter action="include">oval:ssg:ste:342</filter>
+    </unix:file_object>
+    <ind:textfilecontent54_object comment="The password hashing algorithm should be set correctly in /etc/libuser.conf" id="oval:ssg:obj:303" version="1">
+      <ind:filepath>/etc/libuser.conf</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*crypt_style[\s]+=[\s]+(?i)sha512[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:304" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*(?i)PermitEmptyPasswords[\s]+no[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:305" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*(?i)Banner(?-i)[\s]+/etc/issue[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object comment="check ENCRYPT_METHOD in /etc/login.defs" id="oval:ssg:obj:306" version="1">
+      <ind:filepath>/etc/login.defs</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*ENCRYPT_METHOD[\s]+SHA512[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:307" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*(?i)ClientAliveInterval[\s]+(\d+)[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:password_object id="oval:ssg:obj:309" version="1">
+      <unix:username operation="pattern match">.*</unix:username>
+    </unix:password_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:311" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*(?i)IgnoreRhosts[\s]+no[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:uname_object comment="64 bit architecture" id="oval:ssg:obj:312" version="1"/>
+    <unix:file_object comment="look for sshd.service in /etc/systemd/system/multi-user.target.wants" id="oval:ssg:obj:314" version="1">
+      <unix:filepath>/etc/systemd/system/multi-user.target.wants/sshd.service</unix:filepath>
+      <filter action="include">oval:ssg:ste:343</filter>
+    </unix:file_object>
+    <unix:uname_object comment="32 bit architecture" id="oval:ssg:obj:315" version="1"/>
+    <unix:file_object comment="/etc/gshadow" id="oval:ssg:obj:317" version="1">
+      <unix:filepath>/etc/gshadow</unix:filepath>
+    </unix:file_object>
+    <unix:file_object comment="/etc/shadow" id="oval:ssg:obj:319" version="1">
+      <unix:filepath>/etc/shadow</unix:filepath>
+    </unix:file_object>
+    <linux:rpminfo_object id="oval:ssg:obj:321" version="1">
+      <linux:name>openssh-server</linux:name>
+    </linux:rpminfo_object>
+    <unix:file_object comment="binary files" id="oval:ssg:obj:322" version="1">
+      <!-- Check that binary files under /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin,
+         and /usr/local/sbin directories have safe permissions (go-w) -->
+      <unix:path operation="pattern match">^\/(|s)bin|^\/usr\/(|local\/)(|s)bin</unix:path>
+      <unix:filename operation="pattern match">^.*$</unix:filename>
+      <filter action="include">oval:ssg:ste:344</filter>
+      <filter action="exclude">oval:ssg:ste:345</filter>
+    </unix:file_object>
+    <unix:file_object comment="library directories" id="oval:ssg:obj:323" version="1">
+      <!-- Check that /lib, /lib64, /usr/lib, /usr/lib64 directories have safe permissions (go-w) -->
+      <unix:path operation="pattern match">^\/lib(|64)|^\/usr\/lib(|64)</unix:path>
+      <unix:filename xsi:nil="true"/>
+      <filter action="include">oval:ssg:ste:346</filter>
+      <filter action="exclude">oval:ssg:ste:347</filter>
+    </unix:file_object>
+    <unix:file_object comment="library files" id="oval:ssg:obj:324" version="1">
+      <!-- Check the files within /lib, /lib64, /usr/lib, /usr/lib64 directories have safe permissions (go-w) -->
+      <unix:path operation="pattern match">^\/lib(|64)|^\/usr\/lib(|64)</unix:path>
+      <unix:filename operation="pattern match">^.*$</unix:filename>
+      <filter action="include">oval:ssg:ste:346</filter>
+      <filter action="exclude">oval:ssg:ste:347</filter>
+    </unix:file_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:325" version="1">
+      <ind:filepath>/etc/pam.d/system-auth</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*password[\s]+(?:(?:required)|(?:requisite))[\s]+[\w_\.\-=\s]+[\s]lcredit=(-?\d+)(?:[\s]|$)</ind:pattern>
+      <ind:instance datatype="int" operation="less than or equal">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:327" version="1">
+      <ind:filepath>/etc/login.defs</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*PASS_WARN_AGE[\s]*(\d+)\s*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <unix:file_object comment="binary directories" id="oval:ssg:obj:329" version="1">
+      <!-- Check that /bin, /sbin, /usr/sbin, /usr/sbin, /usr/local/bin, and
+         /usr/local/sbin directories belong to user with uid 0 (root) -->
+      <unix:path operation="pattern match">^\/(|s)bin|^\/usr\/(|local\/)(|s)bin</unix:path>
+      <unix:filename xsi:nil="true"/>
+      <filter action="include">oval:ssg:ste:348</filter>
+    </unix:file_object>
+    <unix:file_object comment="binary files" id="oval:ssg:obj:330" version="1">
+      <!-- Check that files within /bin, /sbin, /usr/bin, /usr/sbin, /usr/local/bin, and
+         /usr/local/sbin directories belong to user with uid 0 (root) -->
+      <unix:path operation="pattern match">^\/(|s)bin|^\/usr\/(|local\/)(|s)bin</unix:path>
+      <unix:filename operation="pattern match">^.*$</unix:filename>
+      <filter action="include">oval:ssg:ste:348</filter>
+    </unix:file_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:331" version="1">
+      <ind:filepath>/etc/ssh/sshd_config</ind:filepath>
+      <ind:pattern operation="pattern match">^[\s]*(?i)Ciphers(?-i)[\s]+aes128-ctr,aes192-ctr,aes256-ctr,aes128-cbc,3des-cbc,aes192-cbc,aes256-cbc[\s]*$</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <ind:textfilecontent54_object id="oval:ssg:obj:332" version="1">
+      <ind:filepath>/etc/passwd</ind:filepath>
+      <ind:pattern operation="pattern match">^(?!root:)[^:]*:[^:]:0</ind:pattern>
+      <ind:instance datatype="int">1</ind:instance>
+    </ind:textfilecontent54_object>
+    <linux:partition_object id="oval:ssg:obj:333" version="1">
+      <linux:mount_point>/var</linux:mount_point>
+    </linux:partition_object>
+    <linux:rpminfo_object id="oval:ssg:obj:334" version="1">
+      <linux:name>aide</linux:name>
+    </linux:rpminfo_object>
+    <unix:file_object comment="/etc/group" id="oval:ssg:obj:335" version="1">
+      <unix:filepath>/etc/group</unix:filepath>
+    </unix:file_object>
+    <linux:rpminfo_object id="oval:ssg:obj:337" version="1">
+      <linux:name>gpg-pubkey</linux:name>
+    </linux:rpminfo_object>
+    <unix:file_object comment="/etc/group" id="oval:ssg:obj:340" version="1">
+      <unix:filepath>/etc/group</unix:filepath>
+    </unix:file_object>
+  </objects>
+  <states>
+    <unix:file_state id="oval:ssg:ste:239" version="1">
+      <unix:group_id datatype="int">0</unix:group_id>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:241" version="1">
+      <unix:user_id datatype="int" operation="equals">0</unix:user_id>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:242" version="1">
+      <unix:group_id datatype="int" operation="equals">0</unix:group_id>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:243" version="1">
+      <unix:suid datatype="boolean">false</unix:suid>
+      <unix:sgid datatype="boolean">false</unix:sgid>
+      <unix:sticky datatype="boolean">false</unix:sticky>
+      <unix:uread datatype="boolean">false</unix:uread>
+      <unix:uwrite datatype="boolean">false</unix:uwrite>
+      <unix:uexec datatype="boolean">false</unix:uexec>
+      <unix:gread datatype="boolean">false</unix:gread>
+      <unix:gwrite datatype="boolean">false</unix:gwrite>
+      <unix:gexec datatype="boolean">false</unix:gexec>
+      <unix:oread datatype="boolean">false</unix:oread>
+      <unix:owrite datatype="boolean">false</unix:owrite>
+      <unix:oexec datatype="boolean">false</unix:oexec>
+    </unix:file_state>
+    <ind:family_state id="oval:ssg:ste:105" version="1">
+      <ind:family>unix</ind:family>
+    </ind:family_state>
+    <linux:rpminfo_state id="oval:ssg:ste:107" version="1">
+      <linux:version operation="pattern match">^7Workstation$</linux:version>
+    </linux:rpminfo_state>
+    <linux:rpminfo_state id="oval:ssg:ste:109" version="1">
+      <linux:version operation="pattern match">^7Server$</linux:version>
+    </linux:rpminfo_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:245" version="1">
+      <ind:subexpression operation="greater than or equal" var_ref="oval:ssg:var:349" datatype="int"/>
+    </ind:textfilecontent54_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:247" version="1">
+      <ind:subexpression datatype="string" operation="equals" var_check="all" var_ref="oval:ssg:var:350"/>
+    </ind:textfilecontent54_state>
+    <unix:file_state id="oval:ssg:ste:249" version="1">
+      <unix:user_id datatype="int">0</unix:user_id>
+    </unix:file_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:251" version="1">
+      <ind:subexpression datatype="int" operation="equals" var_ref="oval:ssg:var:351"/>
+    </ind:textfilecontent54_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:253" version="1">
+      <ind:subexpression datatype="int" operation="equals" var_ref="oval:ssg:var:351"/>
+    </ind:textfilecontent54_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:255" version="1">
+      <ind:instance datatype="int">1</ind:instance>
+      <ind:subexpression datatype="int" operation="less than or equal" var_ref="oval:ssg:var:352"/>
+    </ind:textfilecontent54_state>
+    <unix:file_state id="oval:ssg:ste:257" version="1">
+      <unix:user_id datatype="int">0</unix:user_id>
+    </unix:file_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:259" version="1">
+      <ind:subexpression datatype="int" operation="greater than or equal" var_ref="oval:ssg:var:353"/>
+    </ind:textfilecontent54_state>
+    <unix:file_state id="oval:ssg:ste:262" version="1">
+      <unix:user_id datatype="int" operation="equals">0</unix:user_id>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:263" version="1">
+      <unix:group_id datatype="int" operation="equals">0</unix:group_id>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:264" version="1">
+      <unix:suid datatype="boolean">false</unix:suid>
+      <unix:sgid datatype="boolean">false</unix:sgid>
+      <unix:sticky datatype="boolean">false</unix:sticky>
+      <unix:uread datatype="boolean">false</unix:uread>
+      <unix:uwrite datatype="boolean">false</unix:uwrite>
+      <unix:uexec datatype="boolean">false</unix:uexec>
+      <unix:gread datatype="boolean">false</unix:gread>
+      <unix:gwrite datatype="boolean">false</unix:gwrite>
+      <unix:gexec datatype="boolean">false</unix:gexec>
+      <unix:oread datatype="boolean">false</unix:oread>
+      <unix:owrite datatype="boolean">false</unix:owrite>
+      <unix:oexec datatype="boolean">false</unix:oexec>
+    </unix:file_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:266" version="1">
+      <ind:instance datatype="int">1</ind:instance>
+      <ind:subexpression datatype="int" operation="less than or equal" var_ref="oval:ssg:var:354"/>
+    </ind:textfilecontent54_state>
+    <unix:file_state id="oval:ssg:ste:268" version="1">
+      <unix:user_id datatype="int">0</unix:user_id>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:271" version="1">
+      <unix:user_id datatype="int" operation="equals">0</unix:user_id>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:272" version="1">
+      <unix:group_id datatype="int" operation="equals">0</unix:group_id>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:273" version="1">
+      <unix:suid datatype="boolean">false</unix:suid>
+      <unix:sgid datatype="boolean">false</unix:sgid>
+      <unix:sticky datatype="boolean">false</unix:sticky>
+      <unix:uread datatype="boolean">true</unix:uread>
+      <unix:uwrite datatype="boolean">true</unix:uwrite>
+      <unix:uexec datatype="boolean">false</unix:uexec>
+      <unix:gread datatype="boolean">true</unix:gread>
+      <unix:gwrite datatype="boolean">false</unix:gwrite>
+      <unix:gexec datatype="boolean">false</unix:gexec>
+      <unix:oread datatype="boolean">true</unix:oread>
+      <unix:owrite datatype="boolean">false</unix:owrite>
+      <unix:oexec datatype="boolean">false</unix:oexec>
+    </unix:file_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:282" version="1">
+      <ind:subexpression datatype="int" operation="less than or equal" var_ref="oval:ssg:var:355"/>
+    </ind:textfilecontent54_state>
+    <unix:file_state id="oval:ssg:ste:285" version="1" operator="OR">
+      <!-- if any one of these is true then mode is NOT 0640 (hence the OR operator) -->
+      <unix:suid datatype="boolean">true</unix:suid>
+      <unix:sgid datatype="boolean">true</unix:sgid>
+      <unix:sticky datatype="boolean">true</unix:sticky>
+      <unix:uexec datatype="boolean">true</unix:uexec>
+      <unix:gwrite datatype="boolean">true</unix:gwrite>
+      <unix:gexec datatype="boolean">true</unix:gexec>
+      <unix:oread datatype="boolean">true</unix:oread>
+      <unix:owrite datatype="boolean">true</unix:owrite>
+      <unix:oexec datatype="boolean">true</unix:oexec>
+    </unix:file_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:288" version="1">
+      <ind:subexpression operation="equals" var_check="all" var_ref="oval:ssg:var:356"/>
+    </ind:textfilecontent54_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:290" version="1">
+      <ind:subexpression datatype="int" operation="equals">0</ind:subexpression>
+    </ind:textfilecontent54_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:292" version="1">
+      <ind:instance datatype="int">1</ind:instance>
+      <ind:subexpression datatype="int" operation="greater than or equal" var_ref="oval:ssg:var:357"/>
+    </ind:textfilecontent54_state>
+    <unix:file_state id="oval:ssg:ste:294" version="1">
+      <unix:uread datatype="boolean">true</unix:uread>
+      <unix:uwrite datatype="boolean">true</unix:uwrite>
+      <unix:uexec datatype="boolean">false</unix:uexec>
+      <unix:gread datatype="boolean">true</unix:gread>
+      <unix:gwrite datatype="boolean">false</unix:gwrite>
+      <unix:gexec datatype="boolean">false</unix:gexec>
+      <unix:oread datatype="boolean">true</unix:oread>
+      <unix:owrite datatype="boolean">false</unix:owrite>
+      <unix:oexec datatype="boolean">false</unix:oexec>
+    </unix:file_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:297" version="1">
+      <ind:subexpression operation="greater than or equal" var_ref="oval:ssg:var:358" datatype="int"/>
+    </ind:textfilecontent54_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:299" version="1">
+      <ind:instance datatype="int">1</ind:instance>
+      <ind:subexpression datatype="int" operation="less than or equal" var_ref="oval:ssg:var:359"/>
+    </ind:textfilecontent54_state>
+    <unix:file_state id="oval:ssg:ste:342" version="1">
+      <unix:user_id datatype="int" operation="not equal">0</unix:user_id>
+    </unix:file_state>
+    <ind:textfilecontent54_state comment="ClientAliveInterval in seconds" id="oval:ssg:ste:308" version="1">
+      <ind:subexpression datatype="int" operation="less than or equal" var_check="all" var_ref="oval:ssg:var:360"/>
+    </ind:textfilecontent54_state>
+    <unix:password_state id="oval:ssg:ste:310" version="1">
+      <unix:password>x</unix:password>
+    </unix:password_state>
+    <unix:uname_state comment="64 bit architecture" id="oval:ssg:ste:313" version="1">
+      <unix:processor_type operation="equals">x86_64</unix:processor_type>
+    </unix:uname_state>
+    <unix:file_state id="oval:ssg:ste:343" version="1">
+      <unix:type operation="equals">symbolic link</unix:type>
+    </unix:file_state>
+    <unix:uname_state comment="32 bit architecture" id="oval:ssg:ste:316" version="1">
+      <unix:processor_type operation="equals">i686</unix:processor_type>
+    </unix:uname_state>
+    <unix:file_state id="oval:ssg:ste:318" version="1">
+      <unix:group_id datatype="int">0</unix:group_id>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:320" version="1">
+      <unix:group_id datatype="int">0</unix:group_id>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:344" version="1" operator="OR">
+      <unix:gwrite datatype="boolean">true</unix:gwrite>
+      <unix:owrite datatype="boolean">true</unix:owrite>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:345" version="1">
+      <unix:type operation="equals">symbolic link</unix:type>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:346" version="1" operator="OR">
+      <unix:gwrite datatype="boolean">true</unix:gwrite>
+      <unix:owrite datatype="boolean">true</unix:owrite>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:347" version="1">
+      <unix:type operation="equals">symbolic link</unix:type>
+    </unix:file_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:326" version="1">
+      <ind:instance datatype="int">1</ind:instance>
+      <ind:subexpression datatype="int" operation="less than or equal" var_ref="oval:ssg:var:361"/>
+    </ind:textfilecontent54_state>
+    <ind:textfilecontent54_state id="oval:ssg:ste:328" version="1">
+      <ind:subexpression operation="greater than or equal" var_ref="oval:ssg:var:362" datatype="int"/>
+    </ind:textfilecontent54_state>
+    <unix:file_state id="oval:ssg:ste:348" version="1" operator="OR">
+      <unix:user_id datatype="int" operation="not equal">0</unix:user_id>
+    </unix:file_state>
+    <unix:file_state id="oval:ssg:ste:336" version="1">
+      <unix:user_id datatype="int">0</unix:user_id>
+    </unix:file_state>
+    <linux:rpminfo_state id="oval:ssg:ste:338" version="1">
+      <linux:release>4ae0493b</linux:release>
+      <linux:version>fd431d51</linux:version>
+    </linux:rpminfo_state>
+    <linux:rpminfo_state id="oval:ssg:ste:339" version="1">
+      <linux:release>45700c69</linux:release>
+      <linux:version>2fa658e0</linux:version>
+    </linux:rpminfo_state>
+    <unix:file_state id="oval:ssg:ste:341" version="1">
+      <unix:group_id datatype="int">0</unix:group_id>
+    </unix:file_state>
+  </states>
+  <variables>
+    <external_variable comment="minimum password age in days" datatype="int" id="oval:ssg:var:349" version="1"/>
+    <external_variable comment="external variable for selinux state" datatype="string" id="oval:ssg:var:350" version="1"/>
+    <external_variable comment="number of failed login attempts allowed" datatype="int" id="oval:ssg:var:351" version="1"/>
+    <external_variable comment="External variable for pam_cracklib ucredit" datatype="int" id="oval:ssg:var:352" version="1"/>
+    <external_variable comment="number of passwords that should be remembered" datatype="int" id="oval:ssg:var:353" version="1"/>
+    <external_variable comment="External variable for pam_cracklib ocredit" datatype="int" id="oval:ssg:var:354" version="1"/>
+    <external_variable comment="External variable for pam_cracklib retry" datatype="int" id="oval:ssg:var:355" version="1"/>
+    <external_variable comment="External variable: name of selinux policy in /etc/selinux/config" datatype="string" id="oval:ssg:var:356" version="1"/>
+    <external_variable comment="External variable for pam_cracklib difok" datatype="int" id="oval:ssg:var:357" version="1"/>
+    <external_variable comment="password minimum length" datatype="int" id="oval:ssg:var:358" version="1"/>
+    <external_variable comment="External variable for pam_cracklib dcredit" datatype="int" id="oval:ssg:var:359" version="1"/>
+    <external_variable comment="timeout value" datatype="int" id="oval:ssg:var:360" version="1"/>
+    <external_variable comment="External variable for pam_cracklib lcredit" datatype="int" id="oval:ssg:var:361" version="1"/>
+    <external_variable comment="password expiration warning age in days" datatype="int" id="oval:ssg:var:362" version="1"/>
+  </variables>
+</oval_definitions>

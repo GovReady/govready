@@ -1,0 +1,1561 @@
+  <Profile id="partition_for_tmp">
+    <title xml:lang="en-US">partition_for_tmp</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for partition_for_tmp</description>
+    <select idref="partition_for_tmp" selected="true"/>
+  </Profile>  <Profile id="partition_for_var">
+    <title xml:lang="en-US">partition_for_var</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for partition_for_var</description>
+    <select idref="partition_for_var" selected="true"/>
+  </Profile>  <Profile id="partition_for_var_log">
+    <title xml:lang="en-US">partition_for_var_log</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for partition_for_var_log</description>
+    <select idref="partition_for_var_log" selected="true"/>
+  </Profile>  <Profile id="partition_for_var_log_audit">
+    <title xml:lang="en-US">partition_for_var_log_audit</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for partition_for_var_log_audit</description>
+    <select idref="partition_for_var_log_audit" selected="true"/>
+  </Profile>  <Profile id="partition_for_home">
+    <title xml:lang="en-US">partition_for_home</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for partition_for_home</description>
+    <select idref="partition_for_home" selected="true"/>
+  </Profile>  <Profile id="encrypt_partitions">
+    <title xml:lang="en-US">encrypt_partitions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for encrypt_partitions</description>
+    <select idref="encrypt_partitions" selected="true"/>
+  </Profile>  <Profile id="ensure_redhat_gpgkey_installed">
+    <title xml:lang="en-US">ensure_redhat_gpgkey_installed</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ensure_redhat_gpgkey_installed</description>
+    <select idref="ensure_redhat_gpgkey_installed" selected="true"/>
+  </Profile>  <Profile id="ensure_gpgcheck_globally_activated">
+    <title xml:lang="en-US">ensure_gpgcheck_globally_activated</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ensure_gpgcheck_globally_activated</description>
+    <select idref="ensure_gpgcheck_globally_activated" selected="true"/>
+  </Profile>  <Profile id="ensure_gpgcheck_never_disabled">
+    <title xml:lang="en-US">ensure_gpgcheck_never_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ensure_gpgcheck_never_disabled</description>
+    <select idref="ensure_gpgcheck_never_disabled" selected="true"/>
+  </Profile>  <Profile id="security_patches_up_to_date">
+    <title xml:lang="en-US">security_patches_up_to_date</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for security_patches_up_to_date</description>
+    <select idref="security_patches_up_to_date" selected="true"/>
+  </Profile>  <Profile id="package_aide_installed">
+    <title xml:lang="en-US">package_aide_installed</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for package_aide_installed</description>
+    <select idref="package_aide_installed" selected="true"/>
+  </Profile>  <Profile id="disable_prelink">
+    <title xml:lang="en-US">disable_prelink</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_prelink</description>
+    <select idref="disable_prelink" selected="true"/>
+  </Profile>  <Profile id="aide_build_database">
+    <title xml:lang="en-US">aide_build_database</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for aide_build_database</description>
+    <select idref="aide_build_database" selected="true"/>
+  </Profile>  <Profile id="aide_periodic_cron_checking">
+    <title xml:lang="en-US">aide_periodic_cron_checking</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for aide_periodic_cron_checking</description>
+    <select idref="aide_periodic_cron_checking" selected="true"/>
+  </Profile>  <Profile id="rpm_verify_permissions">
+    <title xml:lang="en-US">rpm_verify_permissions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for rpm_verify_permissions</description>
+    <select idref="rpm_verify_permissions" selected="true"/>
+  </Profile>  <Profile id="rpm_verify_hashes">
+    <title xml:lang="en-US">rpm_verify_hashes</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for rpm_verify_hashes</description>
+    <select idref="rpm_verify_hashes" selected="true"/>
+  </Profile>  <Profile id="install_hids">
+    <title xml:lang="en-US">install_hids</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for install_hids</description>
+    <select idref="install_hids" selected="true"/>
+  </Profile>  <Profile id="install_antivirus">
+    <title xml:lang="en-US">install_antivirus</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for install_antivirus</description>
+    <select idref="install_antivirus" selected="true"/>
+  </Profile>  <Profile id="mountopt_nodev_on_nonroot_partitions">
+    <title xml:lang="en-US">mountopt_nodev_on_nonroot_partitions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for mountopt_nodev_on_nonroot_partitions</description>
+    <select idref="mountopt_nodev_on_nonroot_partitions" selected="true"/>
+  </Profile>  <Profile id="mountopt_nodev_on_removable_partitions">
+    <title xml:lang="en-US">mountopt_nodev_on_removable_partitions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for mountopt_nodev_on_removable_partitions</description>
+    <select idref="mountopt_nodev_on_removable_partitions" selected="true"/>
+  </Profile>  <Profile id="mountopt_noexec_on_removable_partitions">
+    <title xml:lang="en-US">mountopt_noexec_on_removable_partitions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for mountopt_noexec_on_removable_partitions</description>
+    <select idref="mountopt_noexec_on_removable_partitions" selected="true"/>
+  </Profile>  <Profile id="mountopt_nosuid_on_removable_partitions">
+    <title xml:lang="en-US">mountopt_nosuid_on_removable_partitions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for mountopt_nosuid_on_removable_partitions</description>
+    <select idref="mountopt_nosuid_on_removable_partitions" selected="true"/>
+  </Profile>  <Profile id="mount_option_tmp_nodev">
+    <title xml:lang="en-US">mount_option_tmp_nodev</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for mount_option_tmp_nodev</description>
+    <select idref="mount_option_tmp_nodev" selected="true"/>
+  </Profile>  <Profile id="mount_option_tmp_noexec">
+    <title xml:lang="en-US">mount_option_tmp_noexec</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for mount_option_tmp_noexec</description>
+    <select idref="mount_option_tmp_noexec" selected="true"/>
+  </Profile>  <Profile id="mount_option_tmp_nosuid">
+    <title xml:lang="en-US">mount_option_tmp_nosuid</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for mount_option_tmp_nosuid</description>
+    <select idref="mount_option_tmp_nosuid" selected="true"/>
+  </Profile>  <Profile id="mount_option_dev_shm_nodev">
+    <title xml:lang="en-US">mount_option_dev_shm_nodev</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for mount_option_dev_shm_nodev</description>
+    <select idref="mount_option_dev_shm_nodev" selected="true"/>
+  </Profile>  <Profile id="mount_option_dev_shm_noexec">
+    <title xml:lang="en-US">mount_option_dev_shm_noexec</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for mount_option_dev_shm_noexec</description>
+    <select idref="mount_option_dev_shm_noexec" selected="true"/>
+  </Profile>  <Profile id="mount_option_dev_shm_nosuid">
+    <title xml:lang="en-US">mount_option_dev_shm_nosuid</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for mount_option_dev_shm_nosuid</description>
+    <select idref="mount_option_dev_shm_nosuid" selected="true"/>
+  </Profile>  <Profile id="mount_option_var_tmp_bind_var">
+    <title xml:lang="en-US">mount_option_var_tmp_bind_var</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for mount_option_var_tmp_bind_var</description>
+    <select idref="mount_option_var_tmp_bind_var" selected="true"/>
+  </Profile>  <Profile id="kernel_module_usb-storage_disabled">
+    <title xml:lang="en-US">kernel_module_usb-storage_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_usb-storage_disabled</description>
+    <select idref="kernel_module_usb-storage_disabled" selected="true"/>
+  </Profile>  <Profile id="bootloader_nousb_argument">
+    <title xml:lang="en-US">bootloader_nousb_argument</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for bootloader_nousb_argument</description>
+    <select idref="bootloader_nousb_argument" selected="true"/>
+  </Profile>  <Profile id="bios_disable_usb_boot">
+    <title xml:lang="en-US">bios_disable_usb_boot</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for bios_disable_usb_boot</description>
+    <select idref="bios_disable_usb_boot" selected="true"/>
+  </Profile>  <Profile id="bios_assign_password">
+    <title xml:lang="en-US">bios_assign_password</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for bios_assign_password</description>
+    <select idref="bios_assign_password" selected="true"/>
+  </Profile>  <Profile id="service_autofs_disabled">
+    <title xml:lang="en-US">service_autofs_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_autofs_disabled</description>
+    <select idref="service_autofs_disabled" selected="true"/>
+  </Profile>  <Profile id="gconf_gnome_disable_automount">
+    <title xml:lang="en-US">gconf_gnome_disable_automount</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for gconf_gnome_disable_automount</description>
+    <select idref="gconf_gnome_disable_automount" selected="true"/>
+  </Profile>  <Profile id="kernel_module_cramfs_disabled">
+    <title xml:lang="en-US">kernel_module_cramfs_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_cramfs_disabled</description>
+    <select idref="kernel_module_cramfs_disabled" selected="true"/>
+  </Profile>  <Profile id="kernel_module_freevxfs_disabled">
+    <title xml:lang="en-US">kernel_module_freevxfs_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_freevxfs_disabled</description>
+    <select idref="kernel_module_freevxfs_disabled" selected="true"/>
+  </Profile>  <Profile id="kernel_module_jffs2_disabled">
+    <title xml:lang="en-US">kernel_module_jffs2_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_jffs2_disabled</description>
+    <select idref="kernel_module_jffs2_disabled" selected="true"/>
+  </Profile>  <Profile id="kernel_module_hfs_disabled">
+    <title xml:lang="en-US">kernel_module_hfs_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_hfs_disabled</description>
+    <select idref="kernel_module_hfs_disabled" selected="true"/>
+  </Profile>  <Profile id="kernel_module_hfsplus_disabled">
+    <title xml:lang="en-US">kernel_module_hfsplus_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_hfsplus_disabled</description>
+    <select idref="kernel_module_hfsplus_disabled" selected="true"/>
+  </Profile>  <Profile id="kernel_module_squashfs_disabled">
+    <title xml:lang="en-US">kernel_module_squashfs_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_squashfs_disabled</description>
+    <select idref="kernel_module_squashfs_disabled" selected="true"/>
+  </Profile>  <Profile id="kernel_module_udf_disabled">
+    <title xml:lang="en-US">kernel_module_udf_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_udf_disabled</description>
+    <select idref="kernel_module_udf_disabled" selected="true"/>
+  </Profile>  <Profile id="disable_gnome_thumbnailers">
+    <title xml:lang="en-US">disable_gnome_thumbnailers</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_gnome_thumbnailers</description>
+    <select idref="disable_gnome_thumbnailers" selected="true"/>
+  </Profile>  <Profile id="userowner_shadow_file">
+    <title xml:lang="en-US">userowner_shadow_file</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for userowner_shadow_file</description>
+    <select idref="userowner_shadow_file" selected="true"/>
+  </Profile>  <Profile id="groupowner_shadow_file">
+    <title xml:lang="en-US">groupowner_shadow_file</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for groupowner_shadow_file</description>
+    <select idref="groupowner_shadow_file" selected="true"/>
+  </Profile>  <Profile id="file_permissions_etc_shadow">
+    <title xml:lang="en-US">file_permissions_etc_shadow</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_permissions_etc_shadow</description>
+    <select idref="file_permissions_etc_shadow" selected="true"/>
+  </Profile>  <Profile id="file_owner_etc_group">
+    <title xml:lang="en-US">file_owner_etc_group</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_owner_etc_group</description>
+    <select idref="file_owner_etc_group" selected="true"/>
+  </Profile>  <Profile id="file_groupowner_etc_group">
+    <title xml:lang="en-US">file_groupowner_etc_group</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_groupowner_etc_group</description>
+    <select idref="file_groupowner_etc_group" selected="true"/>
+  </Profile>  <Profile id="file_permissions_etc_group">
+    <title xml:lang="en-US">file_permissions_etc_group</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_permissions_etc_group</description>
+    <select idref="file_permissions_etc_group" selected="true"/>
+  </Profile>  <Profile id="file_owner_etc_gshadow">
+    <title xml:lang="en-US">file_owner_etc_gshadow</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_owner_etc_gshadow</description>
+    <select idref="file_owner_etc_gshadow" selected="true"/>
+  </Profile>  <Profile id="file_groupowner_etc_gshadow">
+    <title xml:lang="en-US">file_groupowner_etc_gshadow</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_groupowner_etc_gshadow</description>
+    <select idref="file_groupowner_etc_gshadow" selected="true"/>
+  </Profile>  <Profile id="file_permissions_etc_gshadow">
+    <title xml:lang="en-US">file_permissions_etc_gshadow</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_permissions_etc_gshadow</description>
+    <select idref="file_permissions_etc_gshadow" selected="true"/>
+  </Profile>  <Profile id="file_owner_etc_passwd">
+    <title xml:lang="en-US">file_owner_etc_passwd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_owner_etc_passwd</description>
+    <select idref="file_owner_etc_passwd" selected="true"/>
+  </Profile>  <Profile id="file_groupowner_etc_passwd">
+    <title xml:lang="en-US">file_groupowner_etc_passwd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_groupowner_etc_passwd</description>
+    <select idref="file_groupowner_etc_passwd" selected="true"/>
+  </Profile>  <Profile id="file_permissions_etc_passwd">
+    <title xml:lang="en-US">file_permissions_etc_passwd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_permissions_etc_passwd</description>
+    <select idref="file_permissions_etc_passwd" selected="true"/>
+  </Profile>  <Profile id="file_permissions_library_dirs">
+    <title xml:lang="en-US">file_permissions_library_dirs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_permissions_library_dirs</description>
+    <select idref="file_permissions_library_dirs" selected="true"/>
+  </Profile>  <Profile id="file_ownership_library_dirs">
+    <title xml:lang="en-US">file_ownership_library_dirs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_ownership_library_dirs</description>
+    <select idref="file_ownership_library_dirs" selected="true"/>
+  </Profile>  <Profile id="file_permissions_binary_dirs">
+    <title xml:lang="en-US">file_permissions_binary_dirs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_permissions_binary_dirs</description>
+    <select idref="file_permissions_binary_dirs" selected="true"/>
+  </Profile>  <Profile id="file_ownership_binary_dirs">
+    <title xml:lang="en-US">file_ownership_binary_dirs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_ownership_binary_dirs</description>
+    <select idref="file_ownership_binary_dirs" selected="true"/>
+  </Profile>  <Profile id="sticky_world_writable_dirs">
+    <title xml:lang="en-US">sticky_world_writable_dirs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sticky_world_writable_dirs</description>
+    <select idref="sticky_world_writable_dirs" selected="true"/>
+  </Profile>  <Profile id="world_writeable_files">
+    <title xml:lang="en-US">world_writeable_files</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for world_writeable_files</description>
+    <select idref="world_writeable_files" selected="true"/>
+  </Profile>  <Profile id="no_unpackaged_sgid_files">
+    <title xml:lang="en-US">no_unpackaged_sgid_files</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for no_unpackaged_sgid_files</description>
+    <select idref="no_unpackaged_sgid_files" selected="true"/>
+  </Profile>  <Profile id="no_unpackaged_suid_files">
+    <title xml:lang="en-US">no_unpackaged_suid_files</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for no_unpackaged_suid_files</description>
+    <select idref="no_unpackaged_suid_files" selected="true"/>
+  </Profile>  <Profile id="no_files_unowned_by_user">
+    <title xml:lang="en-US">no_files_unowned_by_user</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for no_files_unowned_by_user</description>
+    <select idref="no_files_unowned_by_user" selected="true"/>
+  </Profile>  <Profile id="no_files_unowned_by_group">
+    <title xml:lang="en-US">no_files_unowned_by_group</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for no_files_unowned_by_group</description>
+    <select idref="no_files_unowned_by_group" selected="true"/>
+  </Profile>  <Profile id="world_writable_files_system_ownership">
+    <title xml:lang="en-US">world_writable_files_system_ownership</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for world_writable_files_system_ownership</description>
+    <select idref="world_writable_files_system_ownership" selected="true"/>
+  </Profile>  <Profile id="umask_for_daemons">
+    <title xml:lang="en-US">umask_for_daemons</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for umask_for_daemons</description>
+    <select idref="umask_for_daemons" selected="true"/>
+  </Profile>  <Profile id="disable_users_coredumps">
+    <title xml:lang="en-US">disable_users_coredumps</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_users_coredumps</description>
+    <select idref="disable_users_coredumps" selected="true"/>
+  </Profile>  <Profile id="disable_setuid_coredumps">
+    <title xml:lang="en-US">disable_setuid_coredumps</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_setuid_coredumps</description>
+    <select idref="disable_setuid_coredumps" selected="true"/>
+  </Profile>  <Profile id="enable_execshield">
+    <title xml:lang="en-US">enable_execshield</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for enable_execshield</description>
+    <select idref="enable_execshield" selected="true"/>
+  </Profile>  <Profile id="sysctl_kernel_randomize_va_space">
+    <title xml:lang="en-US">sysctl_kernel_randomize_va_space</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_kernel_randomize_va_space</description>
+    <select idref="sysctl_kernel_randomize_va_space" selected="true"/>
+  </Profile>  <Profile id="install_PAE_kernel_on_x86-32">
+    <title xml:lang="en-US">install_PAE_kernel_on_x86-32</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for install_PAE_kernel_on_x86-32</description>
+    <select idref="install_PAE_kernel_on_x86-32" selected="true"/>
+  </Profile>  <Profile id="bios_enable_execution_restrictions">
+    <title xml:lang="en-US">bios_enable_execution_restrictions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for bios_enable_execution_restrictions</description>
+    <select idref="bios_enable_execution_restrictions" selected="true"/>
+  </Profile>  <Profile id="enable_dmesg_restriction">
+    <title xml:lang="en-US">enable_dmesg_restriction</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for enable_dmesg_restriction</description>
+    <select idref="enable_dmesg_restriction" selected="true"/>
+  </Profile>  <Profile id="enable_selinux_bootloader">
+    <title xml:lang="en-US">enable_selinux_bootloader</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for enable_selinux_bootloader</description>
+    <select idref="enable_selinux_bootloader" selected="true"/>
+  </Profile>  <Profile id="selinux_state">
+    <title xml:lang="en-US">selinux_state</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for selinux_state</description>
+    <select idref="selinux_state" selected="true"/>
+  </Profile>  <Profile id="selinux_policytype">
+    <title xml:lang="en-US">selinux_policytype</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for selinux_policytype</description>
+    <select idref="selinux_policytype" selected="true"/>
+  </Profile>  <Profile id="service_restorecond_enabled">
+    <title xml:lang="en-US">service_restorecond_enabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_restorecond_enabled</description>
+    <select idref="service_restorecond_enabled" selected="true"/>
+  </Profile>  <Profile id="selinux_confinement_of_daemons">
+    <title xml:lang="en-US">selinux_confinement_of_daemons</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for selinux_confinement_of_daemons</description>
+    <select idref="selinux_confinement_of_daemons" selected="true"/>
+  </Profile>  <Profile id="selinux_all_devicefiles_labeled">
+    <title xml:lang="en-US">selinux_all_devicefiles_labeled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for selinux_all_devicefiles_labeled</description>
+    <select idref="selinux_all_devicefiles_labeled" selected="true"/>
+  </Profile>  <Profile id="no_direct_root_logins">
+    <title xml:lang="en-US">no_direct_root_logins</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for no_direct_root_logins</description>
+    <select idref="no_direct_root_logins" selected="true"/>
+  </Profile>  <Profile id="securetty_root_login_console_only">
+    <title xml:lang="en-US">securetty_root_login_console_only</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for securetty_root_login_console_only</description>
+    <select idref="securetty_root_login_console_only" selected="true"/>
+  </Profile>  <Profile id="restrict_serial_port_logins">
+    <title xml:lang="en-US">restrict_serial_port_logins</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for restrict_serial_port_logins</description>
+    <select idref="restrict_serial_port_logins" selected="true"/>
+  </Profile>  <Profile id="no_root_webbrowsing">
+    <title xml:lang="en-US">no_root_webbrowsing</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for no_root_webbrowsing</description>
+    <select idref="no_root_webbrowsing" selected="true"/>
+  </Profile>  <Profile id="no_shelllogin_for_systemaccounts">
+    <title xml:lang="en-US">no_shelllogin_for_systemaccounts</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for no_shelllogin_for_systemaccounts</description>
+    <select idref="no_shelllogin_for_systemaccounts" selected="true"/>
+  </Profile>  <Profile id="accounts_no_uid_except_zero">
+    <title xml:lang="en-US">accounts_no_uid_except_zero</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_no_uid_except_zero</description>
+    <select idref="accounts_no_uid_except_zero" selected="true"/>
+  </Profile>  <Profile id="root_path_default">
+    <title xml:lang="en-US">root_path_default</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for root_path_default</description>
+    <select idref="root_path_default" selected="true"/>
+  </Profile>  <Profile id="no_empty_passwords">
+    <title xml:lang="en-US">no_empty_passwords</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for no_empty_passwords</description>
+    <select idref="no_empty_passwords" selected="true"/>
+  </Profile>  <Profile id="accounts_password_all_shadowed">
+    <title xml:lang="en-US">accounts_password_all_shadowed</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_password_all_shadowed</description>
+    <select idref="accounts_password_all_shadowed" selected="true"/>
+  </Profile>  <Profile id="gid_passwd_group_same">
+    <title xml:lang="en-US">gid_passwd_group_same</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for gid_passwd_group_same</description>
+    <select idref="gid_passwd_group_same" selected="true"/>
+  </Profile>  <Profile id="no_netrc_files">
+    <title xml:lang="en-US">no_netrc_files</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for no_netrc_files</description>
+    <select idref="no_netrc_files" selected="true"/>
+  </Profile>  <Profile id="accounts_password_minlen_login_defs">
+    <title xml:lang="en-US">accounts_password_minlen_login_defs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_password_minlen_login_defs</description>
+    <select idref="accounts_password_minlen_login_defs" selected="true"/>
+  </Profile>  <Profile id="accounts_minimum_age_login_defs">
+    <title xml:lang="en-US">accounts_minimum_age_login_defs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_minimum_age_login_defs</description>
+    <select idref="accounts_minimum_age_login_defs" selected="true"/>
+  </Profile>  <Profile id="accounts_maximum_age_login_defs">
+    <title xml:lang="en-US">accounts_maximum_age_login_defs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_maximum_age_login_defs</description>
+    <select idref="accounts_maximum_age_login_defs" selected="true"/>
+  </Profile>  <Profile id="accounts_password_warn_age_login_defs">
+    <title xml:lang="en-US">accounts_password_warn_age_login_defs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_password_warn_age_login_defs</description>
+    <select idref="accounts_password_warn_age_login_defs" selected="true"/>
+  </Profile>  <Profile id="account_disable_post_pw_expiration">
+    <title xml:lang="en-US">account_disable_post_pw_expiration</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for account_disable_post_pw_expiration</description>
+    <select idref="account_disable_post_pw_expiration" selected="true"/>
+  </Profile>  <Profile id="account_unique_name">
+    <title xml:lang="en-US">account_unique_name</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for account_unique_name</description>
+    <select idref="account_unique_name" selected="true"/>
+  </Profile>  <Profile id="account_temp_expire_date">
+    <title xml:lang="en-US">account_temp_expire_date</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for account_temp_expire_date</description>
+    <select idref="account_temp_expire_date" selected="true"/>
+  </Profile>  <Profile id="display_login_attempts">
+    <title xml:lang="en-US">display_login_attempts</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for display_login_attempts</description>
+    <select idref="display_login_attempts" selected="true"/>
+  </Profile>  <Profile id="accounts_password_pam_cracklib_retry">
+    <title xml:lang="en-US">accounts_password_pam_cracklib_retry</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_password_pam_cracklib_retry</description>
+    <select idref="accounts_password_pam_cracklib_retry" selected="true"/>
+  </Profile>  <Profile id="password_require_consecrepeat">
+    <title xml:lang="en-US">password_require_consecrepeat</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for password_require_consecrepeat</description>
+    <select idref="password_require_consecrepeat" selected="true"/>
+  </Profile>  <Profile id="accounts_password_pam_cracklib_dcredit">
+    <title xml:lang="en-US">accounts_password_pam_cracklib_dcredit</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_password_pam_cracklib_dcredit</description>
+    <select idref="accounts_password_pam_cracklib_dcredit" selected="true"/>
+  </Profile>  <Profile id="accounts_password_pam_cracklib_ucredit">
+    <title xml:lang="en-US">accounts_password_pam_cracklib_ucredit</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_password_pam_cracklib_ucredit</description>
+    <select idref="accounts_password_pam_cracklib_ucredit" selected="true"/>
+  </Profile>  <Profile id="accounts_password_pam_cracklib_ocredit">
+    <title xml:lang="en-US">accounts_password_pam_cracklib_ocredit</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_password_pam_cracklib_ocredit</description>
+    <select idref="accounts_password_pam_cracklib_ocredit" selected="true"/>
+  </Profile>  <Profile id="accounts_password_pam_cracklib_lcredit">
+    <title xml:lang="en-US">accounts_password_pam_cracklib_lcredit</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_password_pam_cracklib_lcredit</description>
+    <select idref="accounts_password_pam_cracklib_lcredit" selected="true"/>
+  </Profile>  <Profile id="accounts_password_pam_cracklib_difok">
+    <title xml:lang="en-US">accounts_password_pam_cracklib_difok</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_password_pam_cracklib_difok</description>
+    <select idref="accounts_password_pam_cracklib_difok" selected="true"/>
+  </Profile>  <Profile id="accounts_passwords_pam_faillock_deny">
+    <title xml:lang="en-US">accounts_passwords_pam_faillock_deny</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_passwords_pam_faillock_deny</description>
+    <select idref="accounts_passwords_pam_faillock_deny" selected="true"/>
+  </Profile>  <Profile id="deny_password_attempts_unlock_time">
+    <title xml:lang="en-US">deny_password_attempts_unlock_time</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for deny_password_attempts_unlock_time</description>
+    <select idref="deny_password_attempts_unlock_time" selected="true"/>
+  </Profile>  <Profile id="accounts_passwords_pam_fail_interval">
+    <title xml:lang="en-US">accounts_passwords_pam_fail_interval</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_passwords_pam_fail_interval</description>
+    <select idref="accounts_passwords_pam_fail_interval" selected="true"/>
+  </Profile>  <Profile id="accounts_password_reuse_limit">
+    <title xml:lang="en-US">accounts_password_reuse_limit</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_password_reuse_limit</description>
+    <select idref="accounts_password_reuse_limit" selected="true"/>
+  </Profile>  <Profile id="set_password_hashing_algorithm_systemauth">
+    <title xml:lang="en-US">set_password_hashing_algorithm_systemauth</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for set_password_hashing_algorithm_systemauth</description>
+    <select idref="set_password_hashing_algorithm_systemauth" selected="true"/>
+  </Profile>  <Profile id="set_password_hashing_algorithm_logindefs">
+    <title xml:lang="en-US">set_password_hashing_algorithm_logindefs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for set_password_hashing_algorithm_logindefs</description>
+    <select idref="set_password_hashing_algorithm_logindefs" selected="true"/>
+  </Profile>  <Profile id="set_password_hashing_algorithm_libuserconf">
+    <title xml:lang="en-US">set_password_hashing_algorithm_libuserconf</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for set_password_hashing_algorithm_libuserconf</description>
+    <select idref="set_password_hashing_algorithm_libuserconf" selected="true"/>
+  </Profile>  <Profile id="accounts_max_concurrent_login_sessions">
+    <title xml:lang="en-US">accounts_max_concurrent_login_sessions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_max_concurrent_login_sessions</description>
+    <select idref="accounts_max_concurrent_login_sessions" selected="true"/>
+  </Profile>  <Profile id="root_path_no_dot">
+    <title xml:lang="en-US">root_path_no_dot</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for root_path_no_dot</description>
+    <select idref="root_path_no_dot" selected="true"/>
+  </Profile>  <Profile id="root_path_no_groupother_writable">
+    <title xml:lang="en-US">root_path_no_groupother_writable</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for root_path_no_groupother_writable</description>
+    <select idref="root_path_no_groupother_writable" selected="true"/>
+  </Profile>  <Profile id="homedir_perms_no_groupwrite_worldread">
+    <title xml:lang="en-US">homedir_perms_no_groupwrite_worldread</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for homedir_perms_no_groupwrite_worldread</description>
+    <select idref="homedir_perms_no_groupwrite_worldread" selected="true"/>
+  </Profile>  <Profile id="accounts_umask_bashrc">
+    <title xml:lang="en-US">accounts_umask_bashrc</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_umask_bashrc</description>
+    <select idref="accounts_umask_bashrc" selected="true"/>
+  </Profile>  <Profile id="accounts_umask_cshrc">
+    <title xml:lang="en-US">accounts_umask_cshrc</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_umask_cshrc</description>
+    <select idref="accounts_umask_cshrc" selected="true"/>
+  </Profile>  <Profile id="accounts_umask_etc_profile">
+    <title xml:lang="en-US">accounts_umask_etc_profile</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_umask_etc_profile</description>
+    <select idref="accounts_umask_etc_profile" selected="true"/>
+  </Profile>  <Profile id="accounts_umask_login_defs">
+    <title xml:lang="en-US">accounts_umask_login_defs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for accounts_umask_login_defs</description>
+    <select idref="accounts_umask_login_defs" selected="true"/>
+  </Profile>  <Profile id="user_owner_grub_conf">
+    <title xml:lang="en-US">user_owner_grub_conf</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for user_owner_grub_conf</description>
+    <select idref="user_owner_grub_conf" selected="true"/>
+  </Profile>  <Profile id="group_owner_grub_conf">
+    <title xml:lang="en-US">group_owner_grub_conf</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for group_owner_grub_conf</description>
+    <select idref="group_owner_grub_conf" selected="true"/>
+  </Profile>  <Profile id="permissions_grub_conf">
+    <title xml:lang="en-US">permissions_grub_conf</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for permissions_grub_conf</description>
+    <select idref="permissions_grub_conf" selected="true"/>
+  </Profile>  <Profile id="bootloader_password">
+    <title xml:lang="en-US">bootloader_password</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for bootloader_password</description>
+    <select idref="bootloader_password" selected="true"/>
+  </Profile>  <Profile id="require_singleuser_auth">
+    <title xml:lang="en-US">require_singleuser_auth</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for require_singleuser_auth</description>
+    <select idref="require_singleuser_auth" selected="true"/>
+  </Profile>  <Profile id="disable_ctrlaltdel_reboot">
+    <title xml:lang="en-US">disable_ctrlaltdel_reboot</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_ctrlaltdel_reboot</description>
+    <select idref="disable_ctrlaltdel_reboot" selected="true"/>
+  </Profile>  <Profile id="disable_interactive_boot">
+    <title xml:lang="en-US">disable_interactive_boot</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_interactive_boot</description>
+    <select idref="disable_interactive_boot" selected="true"/>
+  </Profile>  <Profile id="set_screensaver_inactivity_timeout">
+    <title xml:lang="en-US">set_screensaver_inactivity_timeout</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for set_screensaver_inactivity_timeout</description>
+    <select idref="set_screensaver_inactivity_timeout" selected="true"/>
+  </Profile>  <Profile id="enable_screensaver_after_idle">
+    <title xml:lang="en-US">enable_screensaver_after_idle</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for enable_screensaver_after_idle</description>
+    <select idref="enable_screensaver_after_idle" selected="true"/>
+  </Profile>  <Profile id="enable_screensaver_password_lock">
+    <title xml:lang="en-US">enable_screensaver_password_lock</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for enable_screensaver_password_lock</description>
+    <select idref="enable_screensaver_password_lock" selected="true"/>
+  </Profile>  <Profile id="set_blank_screensaver">
+    <title xml:lang="en-US">set_blank_screensaver</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for set_blank_screensaver</description>
+    <select idref="set_blank_screensaver" selected="true"/>
+  </Profile>  <Profile id="package_screen_installed">
+    <title xml:lang="en-US">package_screen_installed</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for package_screen_installed</description>
+    <select idref="package_screen_installed" selected="true"/>
+  </Profile>  <Profile id="smartcard_auth">
+    <title xml:lang="en-US">smartcard_auth</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for smartcard_auth</description>
+    <select idref="smartcard_auth" selected="true"/>
+  </Profile>  <Profile id="set_system_login_banner">
+    <title xml:lang="en-US">set_system_login_banner</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for set_system_login_banner</description>
+    <select idref="set_system_login_banner" selected="true"/>
+  </Profile>  <Profile id="enable_gdm_login_banner">
+    <title xml:lang="en-US">enable_gdm_login_banner</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for enable_gdm_login_banner</description>
+    <select idref="enable_gdm_login_banner" selected="true"/>
+  </Profile>  <Profile id="set_gdm_login_banner_text">
+    <title xml:lang="en-US">set_gdm_login_banner_text</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for set_gdm_login_banner_text</description>
+    <select idref="set_gdm_login_banner_text" selected="true"/>
+  </Profile>  <Profile id="disable_user_list">
+    <title xml:lang="en-US">disable_user_list</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_user_list</description>
+    <select idref="disable_user_list" selected="true"/>
+  </Profile>  <Profile id="network_disable_zeroconf">
+    <title xml:lang="en-US">network_disable_zeroconf</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for network_disable_zeroconf</description>
+    <select idref="network_disable_zeroconf" selected="true"/>
+  </Profile>  <Profile id="network_sniffer_disabled">
+    <title xml:lang="en-US">network_sniffer_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for network_sniffer_disabled</description>
+    <select idref="network_sniffer_disabled" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_conf_default_send_redirects">
+    <title xml:lang="en-US">sysctl_net_ipv4_conf_default_send_redirects</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_conf_default_send_redirects</description>
+    <select idref="sysctl_net_ipv4_conf_default_send_redirects" selected="true"/>
+  </Profile>  <Profile id="sysctl_ipv4_all_send_redirects">
+    <title xml:lang="en-US">sysctl_ipv4_all_send_redirects</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_ipv4_all_send_redirects</description>
+    <select idref="sysctl_ipv4_all_send_redirects" selected="true"/>
+  </Profile>  <Profile id="sysctl_ipv4_ip_forward">
+    <title xml:lang="en-US">sysctl_ipv4_ip_forward</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_ipv4_ip_forward</description>
+    <select idref="sysctl_ipv4_ip_forward" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_conf_all_accept_source_route">
+    <title xml:lang="en-US">sysctl_net_ipv4_conf_all_accept_source_route</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_conf_all_accept_source_route</description>
+    <select idref="sysctl_net_ipv4_conf_all_accept_source_route" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_conf_all_accept_redirects">
+    <title xml:lang="en-US">sysctl_net_ipv4_conf_all_accept_redirects</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_conf_all_accept_redirects</description>
+    <select idref="sysctl_net_ipv4_conf_all_accept_redirects" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_conf_all_secure_redirects">
+    <title xml:lang="en-US">sysctl_net_ipv4_conf_all_secure_redirects</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_conf_all_secure_redirects</description>
+    <select idref="sysctl_net_ipv4_conf_all_secure_redirects" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_conf_all_log_martians">
+    <title xml:lang="en-US">sysctl_net_ipv4_conf_all_log_martians</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_conf_all_log_martians</description>
+    <select idref="sysctl_net_ipv4_conf_all_log_martians" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_conf_default_accept_source_route">
+    <title xml:lang="en-US">sysctl_net_ipv4_conf_default_accept_source_route</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_conf_default_accept_source_route</description>
+    <select idref="sysctl_net_ipv4_conf_default_accept_source_route" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_conf_default_accept_redirects">
+    <title xml:lang="en-US">sysctl_net_ipv4_conf_default_accept_redirects</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_conf_default_accept_redirects</description>
+    <select idref="sysctl_net_ipv4_conf_default_accept_redirects" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_conf_default_secure_redirects">
+    <title xml:lang="en-US">sysctl_net_ipv4_conf_default_secure_redirects</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_conf_default_secure_redirects</description>
+    <select idref="sysctl_net_ipv4_conf_default_secure_redirects" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_icmp_echo_ignore_broadcasts">
+    <title xml:lang="en-US">sysctl_net_ipv4_icmp_echo_ignore_broadcasts</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_icmp_echo_ignore_broadcasts</description>
+    <select idref="sysctl_net_ipv4_icmp_echo_ignore_broadcasts" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_icmp_ignore_bogus_error_responses">
+    <title xml:lang="en-US">sysctl_net_ipv4_icmp_ignore_bogus_error_responses</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_icmp_ignore_bogus_error_responses</description>
+    <select idref="sysctl_net_ipv4_icmp_ignore_bogus_error_responses" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_tcp_syncookies">
+    <title xml:lang="en-US">sysctl_net_ipv4_tcp_syncookies</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_tcp_syncookies</description>
+    <select idref="sysctl_net_ipv4_tcp_syncookies" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_conf_all_rp_filter">
+    <title xml:lang="en-US">sysctl_net_ipv4_conf_all_rp_filter</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_conf_all_rp_filter</description>
+    <select idref="sysctl_net_ipv4_conf_all_rp_filter" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv4_conf_default_rp_filter">
+    <title xml:lang="en-US">sysctl_net_ipv4_conf_default_rp_filter</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv4_conf_default_rp_filter</description>
+    <select idref="sysctl_net_ipv4_conf_default_rp_filter" selected="true"/>
+  </Profile>  <Profile id="wireless_disable_in_bios">
+    <title xml:lang="en-US">wireless_disable_in_bios</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for wireless_disable_in_bios</description>
+    <select idref="wireless_disable_in_bios" selected="true"/>
+  </Profile>  <Profile id="deactivate_wireless_interfaces">
+    <title xml:lang="en-US">deactivate_wireless_interfaces</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for deactivate_wireless_interfaces</description>
+    <select idref="deactivate_wireless_interfaces" selected="true"/>
+  </Profile>  <Profile id="service_bluetooth_disabled">
+    <title xml:lang="en-US">service_bluetooth_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_bluetooth_disabled</description>
+    <select idref="service_bluetooth_disabled" selected="true"/>
+  </Profile>  <Profile id="kernel_module_bluetooth_disabled">
+    <title xml:lang="en-US">kernel_module_bluetooth_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_bluetooth_disabled</description>
+    <select idref="kernel_module_bluetooth_disabled" selected="true"/>
+  </Profile>  <Profile id="kernel_module_ipv6_option_disabled">
+    <title xml:lang="en-US">kernel_module_ipv6_option_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_ipv6_option_disabled</description>
+    <select idref="kernel_module_ipv6_option_disabled" selected="true"/>
+  </Profile>  <Profile id="network_ipv6_disable_interfaces">
+    <title xml:lang="en-US">network_ipv6_disable_interfaces</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for network_ipv6_disable_interfaces</description>
+    <select idref="network_ipv6_disable_interfaces" selected="true"/>
+  </Profile>  <Profile id="network_ipv6_disable_rpc">
+    <title xml:lang="en-US">network_ipv6_disable_rpc</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for network_ipv6_disable_rpc</description>
+    <select idref="network_ipv6_disable_rpc" selected="true"/>
+  </Profile>  <Profile id="sysctl_net_ipv6_conf_default_accept_ra">
+    <title xml:lang="en-US">sysctl_net_ipv6_conf_default_accept_ra</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_net_ipv6_conf_default_accept_ra</description>
+    <select idref="sysctl_net_ipv6_conf_default_accept_ra" selected="true"/>
+  </Profile>  <Profile id="sysctl_ipv6_default_accept_redirects">
+    <title xml:lang="en-US">sysctl_ipv6_default_accept_redirects</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sysctl_ipv6_default_accept_redirects</description>
+    <select idref="sysctl_ipv6_default_accept_redirects" selected="true"/>
+  </Profile>  <Profile id="network_ipv6_static_address">
+    <title xml:lang="en-US">network_ipv6_static_address</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for network_ipv6_static_address</description>
+    <select idref="network_ipv6_static_address" selected="true"/>
+  </Profile>  <Profile id="network_ipv6_privacy_extensions">
+    <title xml:lang="en-US">network_ipv6_privacy_extensions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for network_ipv6_privacy_extensions</description>
+    <select idref="network_ipv6_privacy_extensions" selected="true"/>
+  </Profile>  <Profile id="network_ipv6_default_gateway">
+    <title xml:lang="en-US">network_ipv6_default_gateway</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for network_ipv6_default_gateway</description>
+    <select idref="network_ipv6_default_gateway" selected="true"/>
+  </Profile>  <Profile id="service_ip6tables_enabled">
+    <title xml:lang="en-US">service_ip6tables_enabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_ip6tables_enabled</description>
+    <select idref="service_ip6tables_enabled" selected="true"/>
+  </Profile>  <Profile id="set_ip6tables_default_rule">
+    <title xml:lang="en-US">set_ip6tables_default_rule</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for set_ip6tables_default_rule</description>
+    <select idref="set_ip6tables_default_rule" selected="true"/>
+  </Profile>  <Profile id="service_iptables_enabled">
+    <title xml:lang="en-US">service_iptables_enabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_iptables_enabled</description>
+    <select idref="service_iptables_enabled" selected="true"/>
+  </Profile>  <Profile id="set_iptables_default_rule">
+    <title xml:lang="en-US">set_iptables_default_rule</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for set_iptables_default_rule</description>
+    <select idref="set_iptables_default_rule" selected="true"/>
+  </Profile>  <Profile id="set_iptables_default_rule_forward">
+    <title xml:lang="en-US">set_iptables_default_rule_forward</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for set_iptables_default_rule_forward</description>
+    <select idref="set_iptables_default_rule_forward" selected="true"/>
+  </Profile>  <Profile id="kernel_module_dccp_disabled">
+    <title xml:lang="en-US">kernel_module_dccp_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_dccp_disabled</description>
+    <select idref="kernel_module_dccp_disabled" selected="true"/>
+  </Profile>  <Profile id="kernel_module_sctp_disabled">
+    <title xml:lang="en-US">kernel_module_sctp_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_sctp_disabled</description>
+    <select idref="kernel_module_sctp_disabled" selected="true"/>
+  </Profile>  <Profile id="kernel_module_rds_disabled">
+    <title xml:lang="en-US">kernel_module_rds_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_rds_disabled</description>
+    <select idref="kernel_module_rds_disabled" selected="true"/>
+  </Profile>  <Profile id="kernel_module_tipc_disabled">
+    <title xml:lang="en-US">kernel_module_tipc_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for kernel_module_tipc_disabled</description>
+    <select idref="kernel_module_tipc_disabled" selected="true"/>
+  </Profile>  <Profile id="install_openswan">
+    <title xml:lang="en-US">install_openswan</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for install_openswan</description>
+    <select idref="install_openswan" selected="true"/>
+  </Profile>  <Profile id="package_rsyslog_installed">
+    <title xml:lang="en-US">package_rsyslog_installed</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for package_rsyslog_installed</description>
+    <select idref="package_rsyslog_installed" selected="true"/>
+  </Profile>  <Profile id="service_rsyslog_enabled">
+    <title xml:lang="en-US">service_rsyslog_enabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_rsyslog_enabled</description>
+    <select idref="service_rsyslog_enabled" selected="true"/>
+  </Profile>  <Profile id="userowner_rsyslog_files">
+    <title xml:lang="en-US">userowner_rsyslog_files</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for userowner_rsyslog_files</description>
+    <select idref="userowner_rsyslog_files" selected="true"/>
+  </Profile>  <Profile id="groupowner_rsyslog_files">
+    <title xml:lang="en-US">groupowner_rsyslog_files</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for groupowner_rsyslog_files</description>
+    <select idref="groupowner_rsyslog_files" selected="true"/>
+  </Profile>  <Profile id="rsyslog_file_permissions">
+    <title xml:lang="en-US">rsyslog_file_permissions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for rsyslog_file_permissions</description>
+    <select idref="rsyslog_file_permissions" selected="true"/>
+  </Profile>  <Profile id="rsyslog_send_messages_to_logserver">
+    <title xml:lang="en-US">rsyslog_send_messages_to_logserver</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for rsyslog_send_messages_to_logserver</description>
+    <select idref="rsyslog_send_messages_to_logserver" selected="true"/>
+  </Profile>  <Profile id="rsyslog_accept_remote_messages_none">
+    <title xml:lang="en-US">rsyslog_accept_remote_messages_none</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for rsyslog_accept_remote_messages_none</description>
+    <select idref="rsyslog_accept_remote_messages_none" selected="true"/>
+  </Profile>  <Profile id="rsyslog_accept_remote_messages_tcp">
+    <title xml:lang="en-US">rsyslog_accept_remote_messages_tcp</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for rsyslog_accept_remote_messages_tcp</description>
+    <select idref="rsyslog_accept_remote_messages_tcp" selected="true"/>
+  </Profile>  <Profile id="rsyslog_accept_remote_messages_udp">
+    <title xml:lang="en-US">rsyslog_accept_remote_messages_udp</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for rsyslog_accept_remote_messages_udp</description>
+    <select idref="rsyslog_accept_remote_messages_udp" selected="true"/>
+  </Profile>  <Profile id="ensure_logrotate_activated">
+    <title xml:lang="en-US">ensure_logrotate_activated</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ensure_logrotate_activated</description>
+    <select idref="ensure_logrotate_activated" selected="true"/>
+  </Profile>  <Profile id="configure_logwatch_hostlimit">
+    <title xml:lang="en-US">configure_logwatch_hostlimit</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for configure_logwatch_hostlimit</description>
+    <select idref="configure_logwatch_hostlimit" selected="true"/>
+  </Profile>  <Profile id="configure_logwatch_splithosts">
+    <title xml:lang="en-US">configure_logwatch_splithosts</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for configure_logwatch_splithosts</description>
+    <select idref="configure_logwatch_splithosts" selected="true"/>
+  </Profile>  <Profile id="disable_logwatch_for_logserver">
+    <title xml:lang="en-US">disable_logwatch_for_logserver</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_logwatch_for_logserver</description>
+    <select idref="disable_logwatch_for_logserver" selected="true"/>
+  </Profile>  <Profile id="service_auditd_enabled">
+    <title xml:lang="en-US">service_auditd_enabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_auditd_enabled</description>
+    <select idref="service_auditd_enabled" selected="true"/>
+  </Profile>  <Profile id="enable_auditd_bootloader">
+    <title xml:lang="en-US">enable_auditd_bootloader</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for enable_auditd_bootloader</description>
+    <select idref="enable_auditd_bootloader" selected="true"/>
+  </Profile>  <Profile id="configure_auditd_num_logs">
+    <title xml:lang="en-US">configure_auditd_num_logs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for configure_auditd_num_logs</description>
+    <select idref="configure_auditd_num_logs" selected="true"/>
+  </Profile>  <Profile id="configure_auditd_max_log_file">
+    <title xml:lang="en-US">configure_auditd_max_log_file</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for configure_auditd_max_log_file</description>
+    <select idref="configure_auditd_max_log_file" selected="true"/>
+  </Profile>  <Profile id="configure_auditd_max_log_file_action">
+    <title xml:lang="en-US">configure_auditd_max_log_file_action</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for configure_auditd_max_log_file_action</description>
+    <select idref="configure_auditd_max_log_file_action" selected="true"/>
+  </Profile>  <Profile id="auditd_data_retention_space_left_action">
+    <title xml:lang="en-US">auditd_data_retention_space_left_action</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for auditd_data_retention_space_left_action</description>
+    <select idref="auditd_data_retention_space_left_action" selected="true"/>
+  </Profile>  <Profile id="auditd_data_retention_admin_space_left_action">
+    <title xml:lang="en-US">auditd_data_retention_admin_space_left_action</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for auditd_data_retention_admin_space_left_action</description>
+    <select idref="auditd_data_retention_admin_space_left_action" selected="true"/>
+  </Profile>  <Profile id="auditd_data_retention_action_mail_acct">
+    <title xml:lang="en-US">auditd_data_retention_action_mail_acct</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for auditd_data_retention_action_mail_acct</description>
+    <select idref="auditd_data_retention_action_mail_acct" selected="true"/>
+  </Profile>  <Profile id="configure_auditd_audispd">
+    <title xml:lang="en-US">configure_auditd_audispd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for configure_auditd_audispd</description>
+    <select idref="configure_auditd_audispd" selected="true"/>
+  </Profile>  <Profile id="audit_rules_time_adjtimex">
+    <title xml:lang="en-US">audit_rules_time_adjtimex</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_time_adjtimex</description>
+    <select idref="audit_rules_time_adjtimex" selected="true"/>
+  </Profile>  <Profile id="audit_rules_time_settimeofday">
+    <title xml:lang="en-US">audit_rules_time_settimeofday</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_time_settimeofday</description>
+    <select idref="audit_rules_time_settimeofday" selected="true"/>
+  </Profile>  <Profile id="audit_rules_time_stime">
+    <title xml:lang="en-US">audit_rules_time_stime</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_time_stime</description>
+    <select idref="audit_rules_time_stime" selected="true"/>
+  </Profile>  <Profile id="audit_rules_time_clock_settime">
+    <title xml:lang="en-US">audit_rules_time_clock_settime</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_time_clock_settime</description>
+    <select idref="audit_rules_time_clock_settime" selected="true"/>
+  </Profile>  <Profile id="audit_rules_time_watch_localtime">
+    <title xml:lang="en-US">audit_rules_time_watch_localtime</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_time_watch_localtime</description>
+    <select idref="audit_rules_time_watch_localtime" selected="true"/>
+  </Profile>  <Profile id="audit_account_changes">
+    <title xml:lang="en-US">audit_account_changes</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_account_changes</description>
+    <select idref="audit_account_changes" selected="true"/>
+  </Profile>  <Profile id="audit_network_modifications">
+    <title xml:lang="en-US">audit_network_modifications</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_network_modifications</description>
+    <select idref="audit_network_modifications" selected="true"/>
+  </Profile>  <Profile id="file_permissions_var_log_audit">
+    <title xml:lang="en-US">file_permissions_var_log_audit</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for file_permissions_var_log_audit</description>
+    <select idref="file_permissions_var_log_audit" selected="true"/>
+  </Profile>  <Profile id="audit_logs_rootowner">
+    <title xml:lang="en-US">audit_logs_rootowner</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_logs_rootowner</description>
+    <select idref="audit_logs_rootowner" selected="true"/>
+  </Profile>  <Profile id="audit_mac_changes">
+    <title xml:lang="en-US">audit_mac_changes</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_mac_changes</description>
+    <select idref="audit_mac_changes" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_chmod">
+    <title xml:lang="en-US">audit_rules_dac_modification_chmod</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_chmod</description>
+    <select idref="audit_rules_dac_modification_chmod" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_chown">
+    <title xml:lang="en-US">audit_rules_dac_modification_chown</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_chown</description>
+    <select idref="audit_rules_dac_modification_chown" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_fchmod">
+    <title xml:lang="en-US">audit_rules_dac_modification_fchmod</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_fchmod</description>
+    <select idref="audit_rules_dac_modification_fchmod" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_fchmodat">
+    <title xml:lang="en-US">audit_rules_dac_modification_fchmodat</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_fchmodat</description>
+    <select idref="audit_rules_dac_modification_fchmodat" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_fchown">
+    <title xml:lang="en-US">audit_rules_dac_modification_fchown</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_fchown</description>
+    <select idref="audit_rules_dac_modification_fchown" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_fchownat">
+    <title xml:lang="en-US">audit_rules_dac_modification_fchownat</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_fchownat</description>
+    <select idref="audit_rules_dac_modification_fchownat" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_fremovexattr">
+    <title xml:lang="en-US">audit_rules_dac_modification_fremovexattr</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_fremovexattr</description>
+    <select idref="audit_rules_dac_modification_fremovexattr" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_fsetxattr">
+    <title xml:lang="en-US">audit_rules_dac_modification_fsetxattr</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_fsetxattr</description>
+    <select idref="audit_rules_dac_modification_fsetxattr" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_lchown">
+    <title xml:lang="en-US">audit_rules_dac_modification_lchown</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_lchown</description>
+    <select idref="audit_rules_dac_modification_lchown" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_lremovexattr">
+    <title xml:lang="en-US">audit_rules_dac_modification_lremovexattr</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_lremovexattr</description>
+    <select idref="audit_rules_dac_modification_lremovexattr" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_lsetxattr">
+    <title xml:lang="en-US">audit_rules_dac_modification_lsetxattr</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_lsetxattr</description>
+    <select idref="audit_rules_dac_modification_lsetxattr" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_removexattr">
+    <title xml:lang="en-US">audit_rules_dac_modification_removexattr</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_removexattr</description>
+    <select idref="audit_rules_dac_modification_removexattr" selected="true"/>
+  </Profile>  <Profile id="audit_rules_dac_modification_setxattr">
+    <title xml:lang="en-US">audit_rules_dac_modification_setxattr</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_rules_dac_modification_setxattr</description>
+    <select idref="audit_rules_dac_modification_setxattr" selected="true"/>
+  </Profile>  <Profile id="audit_manual_logon_edits">
+    <title xml:lang="en-US">audit_manual_logon_edits</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_manual_logon_edits</description>
+    <select idref="audit_manual_logon_edits" selected="true"/>
+  </Profile>  <Profile id="audit_manual_session_edits">
+    <title xml:lang="en-US">audit_manual_session_edits</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_manual_session_edits</description>
+    <select idref="audit_manual_session_edits" selected="true"/>
+  </Profile>  <Profile id="audit_file_access">
+    <title xml:lang="en-US">audit_file_access</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_file_access</description>
+    <select idref="audit_file_access" selected="true"/>
+  </Profile>  <Profile id="audit_privileged_commands">
+    <title xml:lang="en-US">audit_privileged_commands</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_privileged_commands</description>
+    <select idref="audit_privileged_commands" selected="true"/>
+  </Profile>  <Profile id="audit_media_exports">
+    <title xml:lang="en-US">audit_media_exports</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_media_exports</description>
+    <select idref="audit_media_exports" selected="true"/>
+  </Profile>  <Profile id="audit_file_deletions">
+    <title xml:lang="en-US">audit_file_deletions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_file_deletions</description>
+    <select idref="audit_file_deletions" selected="true"/>
+  </Profile>  <Profile id="audit_sysadmin_actions">
+    <title xml:lang="en-US">audit_sysadmin_actions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_sysadmin_actions</description>
+    <select idref="audit_sysadmin_actions" selected="true"/>
+  </Profile>  <Profile id="audit_kernel_module_loading">
+    <title xml:lang="en-US">audit_kernel_module_loading</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_kernel_module_loading</description>
+    <select idref="audit_kernel_module_loading" selected="true"/>
+  </Profile>  <Profile id="audit_config_immutable">
+    <title xml:lang="en-US">audit_config_immutable</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for audit_config_immutable</description>
+    <select idref="audit_config_immutable" selected="true"/>
+  </Profile>  <Profile id="disable_xinetd">
+    <title xml:lang="en-US">disable_xinetd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_xinetd</description>
+    <select idref="disable_xinetd" selected="true"/>
+  </Profile>  <Profile id="uninstall_xinetd">
+    <title xml:lang="en-US">uninstall_xinetd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_xinetd</description>
+    <select idref="uninstall_xinetd" selected="true"/>
+  </Profile>  <Profile id="disable_telnet_service">
+    <title xml:lang="en-US">disable_telnet_service</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_telnet_service</description>
+    <select idref="disable_telnet_service" selected="true"/>
+  </Profile>  <Profile id="uninstall_telnet_server">
+    <title xml:lang="en-US">uninstall_telnet_server</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_telnet_server</description>
+    <select idref="uninstall_telnet_server" selected="true"/>
+  </Profile>  <Profile id="uninstall_rsh-server">
+    <title xml:lang="en-US">uninstall_rsh-server</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_rsh-server</description>
+    <select idref="uninstall_rsh-server" selected="true"/>
+  </Profile>  <Profile id="disable_rexec">
+    <title xml:lang="en-US">disable_rexec</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_rexec</description>
+    <select idref="disable_rexec" selected="true"/>
+  </Profile>  <Profile id="disable_rsh">
+    <title xml:lang="en-US">disable_rsh</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_rsh</description>
+    <select idref="disable_rsh" selected="true"/>
+  </Profile>  <Profile id="disable_rlogin">
+    <title xml:lang="en-US">disable_rlogin</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_rlogin</description>
+    <select idref="disable_rlogin" selected="true"/>
+  </Profile>  <Profile id="no_rsh_trust_files">
+    <title xml:lang="en-US">no_rsh_trust_files</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for no_rsh_trust_files</description>
+    <select idref="no_rsh_trust_files" selected="true"/>
+  </Profile>  <Profile id="uninstall_ypserv">
+    <title xml:lang="en-US">uninstall_ypserv</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_ypserv</description>
+    <select idref="uninstall_ypserv" selected="true"/>
+  </Profile>  <Profile id="disable_ypbind">
+    <title xml:lang="en-US">disable_ypbind</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_ypbind</description>
+    <select idref="disable_ypbind" selected="true"/>
+  </Profile>  <Profile id="disable_tftp">
+    <title xml:lang="en-US">disable_tftp</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_tftp</description>
+    <select idref="disable_tftp" selected="true"/>
+  </Profile>  <Profile id="uninstall_tftp-server">
+    <title xml:lang="en-US">uninstall_tftp-server</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_tftp-server</description>
+    <select idref="uninstall_tftp-server" selected="true"/>
+  </Profile>  <Profile id="tftpd_uses_secure_mode">
+    <title xml:lang="en-US">tftpd_uses_secure_mode</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for tftpd_uses_secure_mode</description>
+    <select idref="tftpd_uses_secure_mode" selected="true"/>
+  </Profile>  <Profile id="service_abrtd_disabled">
+    <title xml:lang="en-US">service_abrtd_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_abrtd_disabled</description>
+    <select idref="service_abrtd_disabled" selected="true"/>
+  </Profile>  <Profile id="service_acpid_disabled">
+    <title xml:lang="en-US">service_acpid_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_acpid_disabled</description>
+    <select idref="service_acpid_disabled" selected="true"/>
+  </Profile>  <Profile id="service_certmonger_disabled">
+    <title xml:lang="en-US">service_certmonger_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_certmonger_disabled</description>
+    <select idref="service_certmonger_disabled" selected="true"/>
+  </Profile>  <Profile id="service_cgconfig_disabled">
+    <title xml:lang="en-US">service_cgconfig_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_cgconfig_disabled</description>
+    <select idref="service_cgconfig_disabled" selected="true"/>
+  </Profile>  <Profile id="service_cgred_disabled">
+    <title xml:lang="en-US">service_cgred_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_cgred_disabled</description>
+    <select idref="service_cgred_disabled" selected="true"/>
+  </Profile>  <Profile id="service_cpuspeed_disabled">
+    <title xml:lang="en-US">service_cpuspeed_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_cpuspeed_disabled</description>
+    <select idref="service_cpuspeed_disabled" selected="true"/>
+  </Profile>  <Profile id="service_haldaemon_disabled">
+    <title xml:lang="en-US">service_haldaemon_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_haldaemon_disabled</description>
+    <select idref="service_haldaemon_disabled" selected="true"/>
+  </Profile>  <Profile id="service_irqbalance_enabled">
+    <title xml:lang="en-US">service_irqbalance_enabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_irqbalance_enabled</description>
+    <select idref="service_irqbalance_enabled" selected="true"/>
+  </Profile>  <Profile id="service_kdump_disabled">
+    <title xml:lang="en-US">service_kdump_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_kdump_disabled</description>
+    <select idref="service_kdump_disabled" selected="true"/>
+  </Profile>  <Profile id="service_mdmonitor_disabled">
+    <title xml:lang="en-US">service_mdmonitor_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_mdmonitor_disabled</description>
+    <select idref="service_mdmonitor_disabled" selected="true"/>
+  </Profile>  <Profile id="service_messagebus_disabled">
+    <title xml:lang="en-US">service_messagebus_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_messagebus_disabled</description>
+    <select idref="service_messagebus_disabled" selected="true"/>
+  </Profile>  <Profile id="service_netconsole_disabled">
+    <title xml:lang="en-US">service_netconsole_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_netconsole_disabled</description>
+    <select idref="service_netconsole_disabled" selected="true"/>
+  </Profile>  <Profile id="service_ntpdate_disabled">
+    <title xml:lang="en-US">service_ntpdate_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_ntpdate_disabled</description>
+    <select idref="service_ntpdate_disabled" selected="true"/>
+  </Profile>  <Profile id="service_oddjobd_disabled">
+    <title xml:lang="en-US">service_oddjobd_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_oddjobd_disabled</description>
+    <select idref="service_oddjobd_disabled" selected="true"/>
+  </Profile>  <Profile id="service_portreserve_disabled">
+    <title xml:lang="en-US">service_portreserve_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_portreserve_disabled</description>
+    <select idref="service_portreserve_disabled" selected="true"/>
+  </Profile>  <Profile id="service_psacct_enabled">
+    <title xml:lang="en-US">service_psacct_enabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_psacct_enabled</description>
+    <select idref="service_psacct_enabled" selected="true"/>
+  </Profile>  <Profile id="service_qpidd_disabled">
+    <title xml:lang="en-US">service_qpidd_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_qpidd_disabled</description>
+    <select idref="service_qpidd_disabled" selected="true"/>
+  </Profile>  <Profile id="service_quota_nld_disabled">
+    <title xml:lang="en-US">service_quota_nld_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_quota_nld_disabled</description>
+    <select idref="service_quota_nld_disabled" selected="true"/>
+  </Profile>  <Profile id="service_rdisc_disabled">
+    <title xml:lang="en-US">service_rdisc_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_rdisc_disabled</description>
+    <select idref="service_rdisc_disabled" selected="true"/>
+  </Profile>  <Profile id="service_rhnsd_disabled">
+    <title xml:lang="en-US">service_rhnsd_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_rhnsd_disabled</description>
+    <select idref="service_rhnsd_disabled" selected="true"/>
+  </Profile>  <Profile id="service_rhsmcertd_disabled">
+    <title xml:lang="en-US">service_rhsmcertd_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_rhsmcertd_disabled</description>
+    <select idref="service_rhsmcertd_disabled" selected="true"/>
+  </Profile>  <Profile id="service_saslauthd_disabled">
+    <title xml:lang="en-US">service_saslauthd_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_saslauthd_disabled</description>
+    <select idref="service_saslauthd_disabled" selected="true"/>
+  </Profile>  <Profile id="service_smartd_disabled">
+    <title xml:lang="en-US">service_smartd_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_smartd_disabled</description>
+    <select idref="service_smartd_disabled" selected="true"/>
+  </Profile>  <Profile id="service_sysstat_disabled">
+    <title xml:lang="en-US">service_sysstat_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_sysstat_disabled</description>
+    <select idref="service_sysstat_disabled" selected="true"/>
+  </Profile>  <Profile id="service_crond_enabled">
+    <title xml:lang="en-US">service_crond_enabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_crond_enabled</description>
+    <select idref="service_crond_enabled" selected="true"/>
+  </Profile>  <Profile id="disable_anacron">
+    <title xml:lang="en-US">disable_anacron</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_anacron</description>
+    <select idref="disable_anacron" selected="true"/>
+  </Profile>  <Profile id="service_atd_disabled">
+    <title xml:lang="en-US">service_atd_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_atd_disabled</description>
+    <select idref="service_atd_disabled" selected="true"/>
+  </Profile>  <Profile id="ssh_server_disabled">
+    <title xml:lang="en-US">ssh_server_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ssh_server_disabled</description>
+    <select idref="ssh_server_disabled" selected="true"/>
+  </Profile>  <Profile id="ssh_server_iptables_exception">
+    <title xml:lang="en-US">ssh_server_iptables_exception</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ssh_server_iptables_exception</description>
+    <select idref="ssh_server_iptables_exception" selected="true"/>
+  </Profile>  <Profile id="sshd_allow_only_protocol2">
+    <title xml:lang="en-US">sshd_allow_only_protocol2</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sshd_allow_only_protocol2</description>
+    <select idref="sshd_allow_only_protocol2" selected="true"/>
+  </Profile>  <Profile id="sshd_limit_user_access">
+    <title xml:lang="en-US">sshd_limit_user_access</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sshd_limit_user_access</description>
+    <select idref="sshd_limit_user_access" selected="true"/>
+  </Profile>  <Profile id="sshd_set_idle_timeout">
+    <title xml:lang="en-US">sshd_set_idle_timeout</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sshd_set_idle_timeout</description>
+    <select idref="sshd_set_idle_timeout" selected="true"/>
+  </Profile>  <Profile id="sshd_set_keepalive">
+    <title xml:lang="en-US">sshd_set_keepalive</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sshd_set_keepalive</description>
+    <select idref="sshd_set_keepalive" selected="true"/>
+  </Profile>  <Profile id="sshd_disable_rhosts">
+    <title xml:lang="en-US">sshd_disable_rhosts</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sshd_disable_rhosts</description>
+    <select idref="sshd_disable_rhosts" selected="true"/>
+  </Profile>  <Profile id="disable_host_auth">
+    <title xml:lang="en-US">disable_host_auth</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_host_auth</description>
+    <select idref="disable_host_auth" selected="true"/>
+  </Profile>  <Profile id="sshd_disable_root_login">
+    <title xml:lang="en-US">sshd_disable_root_login</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sshd_disable_root_login</description>
+    <select idref="sshd_disable_root_login" selected="true"/>
+  </Profile>  <Profile id="sshd_disable_empty_passwords">
+    <title xml:lang="en-US">sshd_disable_empty_passwords</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sshd_disable_empty_passwords</description>
+    <select idref="sshd_disable_empty_passwords" selected="true"/>
+  </Profile>  <Profile id="sshd_enable_warning_banner">
+    <title xml:lang="en-US">sshd_enable_warning_banner</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sshd_enable_warning_banner</description>
+    <select idref="sshd_enable_warning_banner" selected="true"/>
+  </Profile>  <Profile id="sshd_do_not_permit_user_env">
+    <title xml:lang="en-US">sshd_do_not_permit_user_env</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sshd_do_not_permit_user_env</description>
+    <select idref="sshd_do_not_permit_user_env" selected="true"/>
+  </Profile>  <Profile id="sshd_use_approved_ciphers">
+    <title xml:lang="en-US">sshd_use_approved_ciphers</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for sshd_use_approved_ciphers</description>
+    <select idref="sshd_use_approved_ciphers" selected="true"/>
+  </Profile>  <Profile id="disable_xwindows_with_runlevel">
+    <title xml:lang="en-US">disable_xwindows_with_runlevel</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_xwindows_with_runlevel</description>
+    <select idref="disable_xwindows_with_runlevel" selected="true"/>
+  </Profile>  <Profile id="packagegroup_xwindows_remove">
+    <title xml:lang="en-US">packagegroup_xwindows_remove</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for packagegroup_xwindows_remove</description>
+    <select idref="packagegroup_xwindows_remove" selected="true"/>
+  </Profile>  <Profile id="disable_avahi">
+    <title xml:lang="en-US">disable_avahi</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_avahi</description>
+    <select idref="disable_avahi" selected="true"/>
+  </Profile>  <Profile id="avahi_ip_only">
+    <title xml:lang="en-US">avahi_ip_only</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for avahi_ip_only</description>
+    <select idref="avahi_ip_only" selected="true"/>
+  </Profile>  <Profile id="avahi_check_ttl">
+    <title xml:lang="en-US">avahi_check_ttl</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for avahi_check_ttl</description>
+    <select idref="avahi_check_ttl" selected="true"/>
+  </Profile>  <Profile id="avahi_prevent_port_sharing">
+    <title xml:lang="en-US">avahi_prevent_port_sharing</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for avahi_prevent_port_sharing</description>
+    <select idref="avahi_prevent_port_sharing" selected="true"/>
+  </Profile>  <Profile id="avahi_disable_publishing">
+    <title xml:lang="en-US">avahi_disable_publishing</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for avahi_disable_publishing</description>
+    <select idref="avahi_disable_publishing" selected="true"/>
+  </Profile>  <Profile id="avahi_restrict_published_information">
+    <title xml:lang="en-US">avahi_restrict_published_information</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for avahi_restrict_published_information</description>
+    <select idref="avahi_restrict_published_information" selected="true"/>
+  </Profile>  <Profile id="service_cups_disabled">
+    <title xml:lang="en-US">service_cups_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_cups_disabled</description>
+    <select idref="service_cups_disabled" selected="true"/>
+  </Profile>  <Profile id="cups_disable_browsing">
+    <title xml:lang="en-US">cups_disable_browsing</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for cups_disable_browsing</description>
+    <select idref="cups_disable_browsing" selected="true"/>
+  </Profile>  <Profile id="cups_disable_printserver">
+    <title xml:lang="en-US">cups_disable_printserver</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for cups_disable_printserver</description>
+    <select idref="cups_disable_printserver" selected="true"/>
+  </Profile>  <Profile id="disable_dhcp_server">
+    <title xml:lang="en-US">disable_dhcp_server</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_dhcp_server</description>
+    <select idref="disable_dhcp_server" selected="true"/>
+  </Profile>  <Profile id="uninstall_dhcp_server">
+    <title xml:lang="en-US">uninstall_dhcp_server</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_dhcp_server</description>
+    <select idref="uninstall_dhcp_server" selected="true"/>
+  </Profile>  <Profile id="dhcp_server_disable_ddns">
+    <title xml:lang="en-US">dhcp_server_disable_ddns</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for dhcp_server_disable_ddns</description>
+    <select idref="dhcp_server_disable_ddns" selected="true"/>
+  </Profile>  <Profile id="dhcp_server_deny_decline">
+    <title xml:lang="en-US">dhcp_server_deny_decline</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for dhcp_server_deny_decline</description>
+    <select idref="dhcp_server_deny_decline" selected="true"/>
+  </Profile>  <Profile id="dhcp_server_deny_bootp">
+    <title xml:lang="en-US">dhcp_server_deny_bootp</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for dhcp_server_deny_bootp</description>
+    <select idref="dhcp_server_deny_bootp" selected="true"/>
+  </Profile>  <Profile id="dhcp_server_configure_logging">
+    <title xml:lang="en-US">dhcp_server_configure_logging</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for dhcp_server_configure_logging</description>
+    <select idref="dhcp_server_configure_logging" selected="true"/>
+  </Profile>  <Profile id="disable_dhcp_client">
+    <title xml:lang="en-US">disable_dhcp_client</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_dhcp_client</description>
+    <select idref="disable_dhcp_client" selected="true"/>
+  </Profile>  <Profile id="service_ntpd_enabled">
+    <title xml:lang="en-US">service_ntpd_enabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_ntpd_enabled</description>
+    <select idref="service_ntpd_enabled" selected="true"/>
+  </Profile>  <Profile id="ntpd_specify_remote_server">
+    <title xml:lang="en-US">ntpd_specify_remote_server</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ntpd_specify_remote_server</description>
+    <select idref="ntpd_specify_remote_server" selected="true"/>
+  </Profile>  <Profile id="ntpd_specify_multiple_servers">
+    <title xml:lang="en-US">ntpd_specify_multiple_servers</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ntpd_specify_multiple_servers</description>
+    <select idref="ntpd_specify_multiple_servers" selected="true"/>
+  </Profile>  <Profile id="service_postfix_enabled">
+    <title xml:lang="en-US">service_postfix_enabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_postfix_enabled</description>
+    <select idref="service_postfix_enabled" selected="true"/>
+  </Profile>  <Profile id="package_sendmail_removed">
+    <title xml:lang="en-US">package_sendmail_removed</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for package_sendmail_removed</description>
+    <select idref="package_sendmail_removed" selected="true"/>
+  </Profile>  <Profile id="postfix_network_listening">
+    <title xml:lang="en-US">postfix_network_listening</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for postfix_network_listening</description>
+    <select idref="postfix_network_listening" selected="true"/>
+  </Profile>  <Profile id="postfix_server_banner">
+    <title xml:lang="en-US">postfix_server_banner</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for postfix_server_banner</description>
+    <select idref="postfix_server_banner" selected="true"/>
+  </Profile>  <Profile id="ldap_client_start_tls">
+    <title xml:lang="en-US">ldap_client_start_tls</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ldap_client_start_tls</description>
+    <select idref="ldap_client_start_tls" selected="true"/>
+  </Profile>  <Profile id="ldap_client_tls_cacertpath">
+    <title xml:lang="en-US">ldap_client_tls_cacertpath</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ldap_client_tls_cacertpath</description>
+    <select idref="ldap_client_tls_cacertpath" selected="true"/>
+  </Profile>  <Profile id="package_openldap-servers_removed">
+    <title xml:lang="en-US">package_openldap-servers_removed</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for package_openldap-servers_removed</description>
+    <select idref="package_openldap-servers_removed" selected="true"/>
+  </Profile>  <Profile id="service_nfslock_disabled">
+    <title xml:lang="en-US">service_nfslock_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_nfslock_disabled</description>
+    <select idref="service_nfslock_disabled" selected="true"/>
+  </Profile>  <Profile id="service_rpcgssd_disabled">
+    <title xml:lang="en-US">service_rpcgssd_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_rpcgssd_disabled</description>
+    <select idref="service_rpcgssd_disabled" selected="true"/>
+  </Profile>  <Profile id="service_rpcidmapd_disabled">
+    <title xml:lang="en-US">service_rpcidmapd_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_rpcidmapd_disabled</description>
+    <select idref="service_rpcidmapd_disabled" selected="true"/>
+  </Profile>  <Profile id="service_netfs_disabled">
+    <title xml:lang="en-US">service_netfs_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_netfs_disabled</description>
+    <select idref="service_netfs_disabled" selected="true"/>
+  </Profile>  <Profile id="nfs_fixed_lockd_tcp_port">
+    <title xml:lang="en-US">nfs_fixed_lockd_tcp_port</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for nfs_fixed_lockd_tcp_port</description>
+    <select idref="nfs_fixed_lockd_tcp_port" selected="true"/>
+  </Profile>  <Profile id="nfs_fixed_lockd_udp_port">
+    <title xml:lang="en-US">nfs_fixed_lockd_udp_port</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for nfs_fixed_lockd_udp_port</description>
+    <select idref="nfs_fixed_lockd_udp_port" selected="true"/>
+  </Profile>  <Profile id="nfs_fixed_statd_port">
+    <title xml:lang="en-US">nfs_fixed_statd_port</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for nfs_fixed_statd_port</description>
+    <select idref="nfs_fixed_statd_port" selected="true"/>
+  </Profile>  <Profile id="nfs_fixed_mountd_port">
+    <title xml:lang="en-US">nfs_fixed_mountd_port</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for nfs_fixed_mountd_port</description>
+    <select idref="nfs_fixed_mountd_port" selected="true"/>
+  </Profile>  <Profile id="nfs_no_anonymous">
+    <title xml:lang="en-US">nfs_no_anonymous</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for nfs_no_anonymous</description>
+    <select idref="nfs_no_anonymous" selected="true"/>
+  </Profile>  <Profile id="service_nfs_disabled">
+    <title xml:lang="en-US">service_nfs_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_nfs_disabled</description>
+    <select idref="service_nfs_disabled" selected="true"/>
+  </Profile>  <Profile id="service_rpcsvcgssd_disabled">
+    <title xml:lang="en-US">service_rpcsvcgssd_disabled</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for service_rpcsvcgssd_disabled</description>
+    <select idref="service_rpcsvcgssd_disabled" selected="true"/>
+  </Profile>  <Profile id="use_nodev_option_on_nfs_mounts">
+    <title xml:lang="en-US">use_nodev_option_on_nfs_mounts</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for use_nodev_option_on_nfs_mounts</description>
+    <select idref="use_nodev_option_on_nfs_mounts" selected="true"/>
+  </Profile>  <Profile id="use_nosuid_option_on_nfs_mounts">
+    <title xml:lang="en-US">use_nosuid_option_on_nfs_mounts</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for use_nosuid_option_on_nfs_mounts</description>
+    <select idref="use_nosuid_option_on_nfs_mounts" selected="true"/>
+  </Profile>  <Profile id="use_root_squashing_all_exports">
+    <title xml:lang="en-US">use_root_squashing_all_exports</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for use_root_squashing_all_exports</description>
+    <select idref="use_root_squashing_all_exports" selected="true"/>
+  </Profile>  <Profile id="restrict_nfs_clients_to_privileged_ports">
+    <title xml:lang="en-US">restrict_nfs_clients_to_privileged_ports</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for restrict_nfs_clients_to_privileged_ports</description>
+    <select idref="restrict_nfs_clients_to_privileged_ports" selected="true"/>
+  </Profile>  <Profile id="no_insecure_locks_exports">
+    <title xml:lang="en-US">no_insecure_locks_exports</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for no_insecure_locks_exports</description>
+    <select idref="no_insecure_locks_exports" selected="true"/>
+  </Profile>  <Profile id="disable_dns_server">
+    <title xml:lang="en-US">disable_dns_server</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_dns_server</description>
+    <select idref="disable_dns_server" selected="true"/>
+  </Profile>  <Profile id="uninstall_bind">
+    <title xml:lang="en-US">uninstall_bind</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_bind</description>
+    <select idref="uninstall_bind" selected="true"/>
+  </Profile>  <Profile id="dns_server_disable_zone_transfers">
+    <title xml:lang="en-US">dns_server_disable_zone_transfers</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for dns_server_disable_zone_transfers</description>
+    <select idref="dns_server_disable_zone_transfers" selected="true"/>
+  </Profile>  <Profile id="dns_server_authenticate_zone_transfers">
+    <title xml:lang="en-US">dns_server_authenticate_zone_transfers</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for dns_server_authenticate_zone_transfers</description>
+    <select idref="dns_server_authenticate_zone_transfers" selected="true"/>
+  </Profile>  <Profile id="dns_server_disable_dynamic_updates">
+    <title xml:lang="en-US">dns_server_disable_dynamic_updates</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for dns_server_disable_dynamic_updates</description>
+    <select idref="dns_server_disable_dynamic_updates" selected="true"/>
+  </Profile>  <Profile id="disable_vsftpd">
+    <title xml:lang="en-US">disable_vsftpd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_vsftpd</description>
+    <select idref="disable_vsftpd" selected="true"/>
+  </Profile>  <Profile id="uninstall_vsftpd">
+    <title xml:lang="en-US">uninstall_vsftpd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_vsftpd</description>
+    <select idref="uninstall_vsftpd" selected="true"/>
+  </Profile>  <Profile id="install_vsftpd">
+    <title xml:lang="en-US">install_vsftpd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for install_vsftpd</description>
+    <select idref="install_vsftpd" selected="true"/>
+  </Profile>  <Profile id="ftp_log_transactions">
+    <title xml:lang="en-US">ftp_log_transactions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ftp_log_transactions</description>
+    <select idref="ftp_log_transactions" selected="true"/>
+  </Profile>  <Profile id="ftp_present_banner">
+    <title xml:lang="en-US">ftp_present_banner</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ftp_present_banner</description>
+    <select idref="ftp_present_banner" selected="true"/>
+  </Profile>  <Profile id="ftp_restrict_to_anon">
+    <title xml:lang="en-US">ftp_restrict_to_anon</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ftp_restrict_to_anon</description>
+    <select idref="ftp_restrict_to_anon" selected="true"/>
+  </Profile>  <Profile id="ftp_disable_uploads">
+    <title xml:lang="en-US">ftp_disable_uploads</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ftp_disable_uploads</description>
+    <select idref="ftp_disable_uploads" selected="true"/>
+  </Profile>  <Profile id="ftp_home_partition">
+    <title xml:lang="en-US">ftp_home_partition</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for ftp_home_partition</description>
+    <select idref="ftp_home_partition" selected="true"/>
+  </Profile>  <Profile id="disable_httpd">
+    <title xml:lang="en-US">disable_httpd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_httpd</description>
+    <select idref="disable_httpd" selected="true"/>
+  </Profile>  <Profile id="uninstall_httpd">
+    <title xml:lang="en-US">uninstall_httpd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_httpd</description>
+    <select idref="uninstall_httpd" selected="true"/>
+  </Profile>  <Profile id="httpd_servertokens_prod">
+    <title xml:lang="en-US">httpd_servertokens_prod</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_servertokens_prod</description>
+    <select idref="httpd_servertokens_prod" selected="true"/>
+  </Profile>  <Profile id="httpd_serversignature_off">
+    <title xml:lang="en-US">httpd_serversignature_off</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_serversignature_off</description>
+    <select idref="httpd_serversignature_off" selected="true"/>
+  </Profile>  <Profile id="httpd_digest_authentication">
+    <title xml:lang="en-US">httpd_digest_authentication</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_digest_authentication</description>
+    <select idref="httpd_digest_authentication" selected="true"/>
+  </Profile>  <Profile id="httpd_mod_rewrite">
+    <title xml:lang="en-US">httpd_mod_rewrite</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_mod_rewrite</description>
+    <select idref="httpd_mod_rewrite" selected="true"/>
+  </Profile>  <Profile id="httpd_ldap_support">
+    <title xml:lang="en-US">httpd_ldap_support</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_ldap_support</description>
+    <select idref="httpd_ldap_support" selected="true"/>
+  </Profile>  <Profile id="httpd_server_side_includes">
+    <title xml:lang="en-US">httpd_server_side_includes</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_server_side_includes</description>
+    <select idref="httpd_server_side_includes" selected="true"/>
+  </Profile>  <Profile id="httpd_mime_magic">
+    <title xml:lang="en-US">httpd_mime_magic</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_mime_magic</description>
+    <select idref="httpd_mime_magic" selected="true"/>
+  </Profile>  <Profile id="httpd_webdav">
+    <title xml:lang="en-US">httpd_webdav</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_webdav</description>
+    <select idref="httpd_webdav" selected="true"/>
+  </Profile>  <Profile id="httpd_server_activity_status">
+    <title xml:lang="en-US">httpd_server_activity_status</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_server_activity_status</description>
+    <select idref="httpd_server_activity_status" selected="true"/>
+  </Profile>  <Profile id="httpd_server_configuration_display">
+    <title xml:lang="en-US">httpd_server_configuration_display</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_server_configuration_display</description>
+    <select idref="httpd_server_configuration_display" selected="true"/>
+  </Profile>  <Profile id="httpd_url_correction">
+    <title xml:lang="en-US">httpd_url_correction</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_url_correction</description>
+    <select idref="httpd_url_correction" selected="true"/>
+  </Profile>  <Profile id="httpd_proxy_support">
+    <title xml:lang="en-US">httpd_proxy_support</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_proxy_support</description>
+    <select idref="httpd_proxy_support" selected="true"/>
+  </Profile>  <Profile id="httpd_cache_support">
+    <title xml:lang="en-US">httpd_cache_support</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_cache_support</description>
+    <select idref="httpd_cache_support" selected="true"/>
+  </Profile>  <Profile id="httpd_cgi_support">
+    <title xml:lang="en-US">httpd_cgi_support</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_cgi_support</description>
+    <select idref="httpd_cgi_support" selected="true"/>
+  </Profile>  <Profile id="httpd_restrict_root_directory">
+    <title xml:lang="en-US">httpd_restrict_root_directory</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_restrict_root_directory</description>
+    <select idref="httpd_restrict_root_directory" selected="true"/>
+  </Profile>  <Profile id="httpd_restrict_web_directory">
+    <title xml:lang="en-US">httpd_restrict_web_directory</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_restrict_web_directory</description>
+    <select idref="httpd_restrict_web_directory" selected="true"/>
+  </Profile>  <Profile id="httpd_restrict_critical_directories">
+    <title xml:lang="en-US">httpd_restrict_critical_directories</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_restrict_critical_directories</description>
+    <select idref="httpd_restrict_critical_directories" selected="true"/>
+  </Profile>  <Profile id="httpd_limit_available_methods">
+    <title xml:lang="en-US">httpd_limit_available_methods</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_limit_available_methods</description>
+    <select idref="httpd_limit_available_methods" selected="true"/>
+  </Profile>  <Profile id="httpd_install_mod_ssl">
+    <title xml:lang="en-US">httpd_install_mod_ssl</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_install_mod_ssl</description>
+    <select idref="httpd_install_mod_ssl" selected="true"/>
+  </Profile>  <Profile id="httpd_install_mod_security">
+    <title xml:lang="en-US">httpd_install_mod_security</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_install_mod_security</description>
+    <select idref="httpd_install_mod_security" selected="true"/>
+  </Profile>  <Profile id="httpd_logs_permissions">
+    <title xml:lang="en-US">httpd_logs_permissions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_logs_permissions</description>
+    <select idref="httpd_logs_permissions" selected="true"/>
+  </Profile>  <Profile id="httpd_conf_dir_permissions">
+    <title xml:lang="en-US">httpd_conf_dir_permissions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_conf_dir_permissions</description>
+    <select idref="httpd_conf_dir_permissions" selected="true"/>
+  </Profile>  <Profile id="httpd_conf_files_permissions">
+    <title xml:lang="en-US">httpd_conf_files_permissions</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for httpd_conf_files_permissions</description>
+    <select idref="httpd_conf_files_permissions" selected="true"/>
+  </Profile>  <Profile id="disable_dovecot">
+    <title xml:lang="en-US">disable_dovecot</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_dovecot</description>
+    <select idref="disable_dovecot" selected="true"/>
+  </Profile>  <Profile id="uninstall_dovecot">
+    <title xml:lang="en-US">uninstall_dovecot</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_dovecot</description>
+    <select idref="uninstall_dovecot" selected="true"/>
+  </Profile>  <Profile id="dovecot_enable_ssl">
+    <title xml:lang="en-US">dovecot_enable_ssl</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for dovecot_enable_ssl</description>
+    <select idref="dovecot_enable_ssl" selected="true"/>
+  </Profile>  <Profile id="dovecot_configure_ssl_cert">
+    <title xml:lang="en-US">dovecot_configure_ssl_cert</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for dovecot_configure_ssl_cert</description>
+    <select idref="dovecot_configure_ssl_cert" selected="true"/>
+  </Profile>  <Profile id="dovecot_configure_ssl_key">
+    <title xml:lang="en-US">dovecot_configure_ssl_key</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for dovecot_configure_ssl_key</description>
+    <select idref="dovecot_configure_ssl_key" selected="true"/>
+  </Profile>  <Profile id="dovecot_disable_plaintext_auth">
+    <title xml:lang="en-US">dovecot_disable_plaintext_auth</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for dovecot_disable_plaintext_auth</description>
+    <select idref="dovecot_disable_plaintext_auth" selected="true"/>
+  </Profile>  <Profile id="disable_smb_server">
+    <title xml:lang="en-US">disable_smb_server</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_smb_server</description>
+    <select idref="disable_smb_server" selected="true"/>
+  </Profile>  <Profile id="smb_server_disable_root">
+    <title xml:lang="en-US">smb_server_disable_root</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for smb_server_disable_root</description>
+    <select idref="smb_server_disable_root" selected="true"/>
+  </Profile>  <Profile id="require_smb_client_signing">
+    <title xml:lang="en-US">require_smb_client_signing</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for require_smb_client_signing</description>
+    <select idref="require_smb_client_signing" selected="true"/>
+  </Profile>  <Profile id="require_smb_client_signing_mount.cifs">
+    <title xml:lang="en-US">require_smb_client_signing_mount.cifs</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for require_smb_client_signing_mount.cifs</description>
+    <select idref="require_smb_client_signing_mount.cifs" selected="true"/>
+  </Profile>  <Profile id="disable_squid">
+    <title xml:lang="en-US">disable_squid</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_squid</description>
+    <select idref="disable_squid" selected="true"/>
+  </Profile>  <Profile id="uninstall_squid">
+    <title xml:lang="en-US">uninstall_squid</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_squid</description>
+    <select idref="uninstall_squid" selected="true"/>
+  </Profile>  <Profile id="disable_snmpd">
+    <title xml:lang="en-US">disable_snmpd</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for disable_snmpd</description>
+    <select idref="disable_snmpd" selected="true"/>
+  </Profile>  <Profile id="uninstall_net-snmp">
+    <title xml:lang="en-US">uninstall_net-snmp</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for uninstall_net-snmp</description>
+    <select idref="uninstall_net-snmp" selected="true"/>
+  </Profile>  <Profile id="snmpd_use_newer_protocol">
+    <title xml:lang="en-US">snmpd_use_newer_protocol</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for snmpd_use_newer_protocol</description>
+    <select idref="snmpd_use_newer_protocol" selected="true"/>
+  </Profile>  <Profile id="snmpd_not_default_password">
+    <title xml:lang="en-US">snmpd_not_default_password</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for snmpd_not_default_password</description>
+    <select idref="snmpd_not_default_password" selected="true"/>
+  </Profile>  <Profile id="met_inherently_generic">
+    <title xml:lang="en-US">met_inherently_generic</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for met_inherently_generic</description>
+    <select idref="met_inherently_generic" selected="true"/>
+  </Profile>  <Profile id="met_inherently_auditing">
+    <title xml:lang="en-US">met_inherently_auditing</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for met_inherently_auditing</description>
+    <select idref="met_inherently_auditing" selected="true"/>
+  </Profile>  <Profile id="met_inherently_nonselected">
+    <title xml:lang="en-US">met_inherently_nonselected</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for met_inherently_nonselected</description>
+    <select idref="met_inherently_nonselected" selected="true"/>
+  </Profile>  <Profile id="unmet_nonfinding_nonselected_scope">
+    <title xml:lang="en-US">unmet_nonfinding_nonselected_scope</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for unmet_nonfinding_nonselected_scope</description>
+    <select idref="unmet_nonfinding_nonselected_scope" selected="true"/>
+  </Profile>  <Profile id="unmet_finding_nonselected">
+    <title xml:lang="en-US">unmet_finding_nonselected</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for unmet_finding_nonselected</description>
+    <select idref="unmet_finding_nonselected" selected="true"/>
+  </Profile>  <Profile id="unmet_nonfinding_scope">
+    <title xml:lang="en-US">unmet_nonfinding_scope</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for unmet_nonfinding_scope</description>
+    <select idref="unmet_nonfinding_scope" selected="true"/>
+  </Profile>  <Profile id="update_process">
+    <title xml:lang="en-US">update_process</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This is an unbundled profile for update_process</description>
+    <select idref="update_process" selected="true"/>
+  </Profile>

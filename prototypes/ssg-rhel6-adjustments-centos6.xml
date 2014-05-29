@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Benchmark xmlns="http://checklists.govready.org/adjustments/0.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="RHEL-6" resolved="1" xml:lang="en-US">
+  <status date="2014-05-24">draft</status>
+  <title xml:lang="en-US">Default Adjustments of Guide to the Secure Configuration to Red Hat Enterprise Linux 6 for Testing on CentOS 6</title>
+  <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This guide presents a catalog of security-relevant
+  configuration settings adjustments that maps tests performed on CentOS Linux 6 to for Red Hat Enterprise Linux 6. Since not all tests for Red Hat Enterprise Linux 6 can be successfully performed on CentOS Linux 6, this file provides itemized adjustments for rules.  
+  <br xmlns="http://www.w3.org/1999/xhtml"/>
+  <br xmlns="http://www.w3.org/1999/xhtml"/>
+  The purpose of these adjustments is to explicitly track qualified reasons why a SCAP test that fails, errors, not checked, or not applicable should be considered a pass (or remediated) test. Without explicit adjustment mappings contained in reports, information outside of the report itself must be manually exchanged to explain false negatives, errors, and other extentuating conditions. Explicit adjustments allows for specific pre-approved adjustments rules to be incorporated into the testing process thus resulting in the ability to test and display for 100% compliance to a compliance policy.
+  </description>
+  <notice xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" id="terms_of_use">It is your responsibility to confirm the accuracy of the adjustments for your needs.</notice>
+  <front-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">GovReady Default Adjustments<br xmlns="http://www.w3.org/1999/xhtml"/>https://govready.org/adjustments/centos6-rhel6/</front-matter>
+  <rear-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Red Hat and Red Hat Enterprise Linux are either registered
+trademarks or trademarks of Red Hat, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.</rear-matter>
+  <platform idref="cpe:/o:redhat:enterprise_linux:6"/>
+  <platform idref="cpe:/o:redhat:enterprise_linux:6::client"/>
+  <version>0.1</version>
+  <model system="urn:xccdf:scoring:default"/>
+
+
+
+  <Rules>
+
+    <Rule id="ensure_redhat_gpgkey_installed" selected="false" severity="high">
+      <title xml:lang="en-US">Ensure Red Hat GPG Key Installed</title>
+      <adjustments>
+      	<adjustment initial="fail" revised="pass" xml:lang="en-US">Red Hat GPG Key cannot be installed on CentOS.</adjustment>
+      	<adjustment initial="error" revised="pass" xml:lang="en-US">Red Hat GPG Key cannot be installed on CentOS.</adjustment>
+      	<adjustment initial="notchecked" revised="pass" xml:lang="en-US">Red Hat GPG Key cannot be installed on CentOS.</adjustment>
+      </adjustments>
+    </Rule>
+
+    <Rule id="ensure_gpgcheck_globally_activated" selected="false" severity="high">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Ensure gpgcheck Enabled In Main Yum Configuration</title>
+      <adjustments>
+        <adjustment initial="fail" revised="pass" xml:lang="en-US">Red Hat GPG Key cannot be installed on CentOS.</adjustment>
+        <adjustment initial="error" revised="pass" xml:lang="en-US">Red Hat GPG Key cannot be installed on CentOS.</adjustment>
+        <adjustment initial="notchecked" revised="pass" xml:lang="en-US">Red Hat GPG Key cannot be installed on CentOS.</adjustment>
+      </adjustments>
+    </Rule>
+
+    <Rule id="disable_ctrlaltdel_reboot" selected="false" severity="high">
+      <title xml:lang="en-US">Disable Ctrl-Alt-Del Reboot Activation</title>
+      <adjustments>
+        <adjustment initial="notchecked" revised="pass" xml:lang="en-US">Recommended fix was manually applied by Greg Elin, 05/25/14</adjustment>
+      </adjustments>
+    </Rule>
+
+    <Rule id="install_hids" selected="false" severity="high">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Install Intrusion Detection Software</title>
+      <adjustments>
+        <adjustment initial="fail" revised="pass" xml:lang="en-US">Organizations should select and install their preferred Instrusion Detection Software</adjustment>
+        <adjustment initial="notchecked" revised="pass" xml:lang="en-US">Organizations should select and install their preferred Instrusion Detection Software</adjustment>
+      </adjustments>
+    </Rule>
+
+    <Rule id="security_patches_up_to_date" selected="false" severity="high">
+      <title xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Ensure Software Patches Installed</title>
+      <adjustments>
+        <adjustment initial="fail" revised="pass" xml:lang="en-US">No automated check. Software patches must be routinely applied.</adjustment>
+        <adjustment initial="error" revised="pass" xml:lang="en-US">No automated check. Software patches must be routinely applied.</adjustment>
+        <adjustment initial="notchecked" revised="pass" xml:lang="en-US">No automated check. Software patches must be routinely applied.</adjustment>
+      </adjustments>
+    </Rule>
+
+    <Rule id="sshd_disable_empty_passwords" selected="false" severity="high">
+      <title xml:lang="en-US">Disable SSH Access via Empty Passwords</title>
+      <adjustments>
+      	<adjustment initial="not applicable" revised="fail" xml:lang="en-US">Test should always be applicable.</adjustment>
+      	<adjustment initial="not applicable" revised="pass" condition="ssh not installed" xml:lang="en-US">Test should always be applicable.</adjustment>
+      	<adjustment initial="error" revised="pass" xml:lang="en-US">Unknown error in version 0.9 of SSG.</adjustment>
+      	<adjustment initial="notchecked" revised="pass" xml:lang="en-US">Item not selected</adjustment>
+      </adjustments>
+    </Rule>
+  </Rules>
+
+
+
+</Benchmark>

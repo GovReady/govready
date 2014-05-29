@@ -1,0 +1,308 @@
+<Benchmark xmlns="http://checklists.nist.gov/xccdf/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="RHEL-6" resolved="1" xml:lang="en-US">
+  <status date="2013-10-24">draft</status>
+  <title xml:lang="en-US">Guide to the Secure Configuration of Red Hat Enterprise Linux 6</title>
+  <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This guide presents a catalog of security-relevant
+configuration settings for Red Hat Enterprise Linux 6 formatted in the
+eXtensible Configuration Checklist Description Format (XCCDF).  
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+<br xmlns="http://www.w3.org/1999/xhtml"/>
+Providing system administrators with such guidance informs them how to securely
+configure systems under their control in a variety of network roles.  Policy
+makers and baseline creators can use this catalog of settings, with its
+associated references to higher-level security control catalogs, in order to
+assist them in security baseline creation.  This guide is a <i xmlns="http://www.w3.org/1999/xhtml">catalog, not a
+checklist,</i> and satisfaction of every item is not likely to be possible or
+sensible in many operational scenarios.  However, the XCCDF format enables
+granular selection and adjustment of settings, and their association with OVAL
+and OCIL content provides an automated checking capability.  Transformations of
+this document, and its associated automated checking content, are capable of
+providing baselines that meet a diverse set of policy objectives.  Some example
+XCCDF <i xmlns="http://www.w3.org/1999/xhtml">Profiles</i>, which are selections of items that form checklists and
+can be used as baselines, are available with this guide.  They can be
+processed, in an automated fashion, with tools that support the Security
+Content Automation Protocol (SCAP).  The DISA STIG for RHEL 6 is one example of
+a baseline created from this guidance.
+</description>
+  <notice xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US" id="terms_of_use">Do not attempt to implement any of the settings in
+this guide without first testing them in a non-operational environment. The
+creators of this guidance assume no responsibility whatsoever for its use by
+other parties, and makes no guarantees, expressed or implied, about its
+quality, reliability, or any other characteristic.</notice>
+  <front-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">The SCAP Security Guide Project<br xmlns="http://www.w3.org/1999/xhtml"/>https://fedorahosted.org/scap-security-guide</front-matter>
+  <rear-matter xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">Red Hat and Red Hat Enterprise Linux are either registered
+trademarks or trademarks of Red Hat, Inc. in the United States and other
+countries. All other names are registered trademarks or trademarks of their
+respective companies.</rear-matter>
+  <platform idref="cpe:/o:redhat:enterprise_linux:6"/>
+  <platform idref="cpe:/o:redhat:enterprise_linux:6::client"/>
+  <version>0.9</version>
+  <model system="urn:xccdf:scoring:default"/>
+  <Profile id="test">
+    <title xml:lang="en-US">test</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">This profile is for testing.</description>
+    
+
+    <select idref="no_empty_passwords" selected="true"/>
+    <select idref="no_hashes_outside_shadow" selected="true"/>
+    
+
+  </Profile>
+  
+  <Value id="conditional_clause" operator="equals" type="string">
+    <title xml:lang="en-US">A conditional clause for check statements.</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">A conditional clause for check statements.</description>
+    <value>This is a placeholder.</value>
+  </Value>
+  <Group id="intro">
+    <title xml:lang="en-US">Introduction</title>
+    <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US"><!-- purpose and scope of guidance -->
+The purpose of this guidance is to provide security configuration
+recommendations and baselines for the Red Hat Enterprise Linux (RHEL) 6 operating
+system. The guidance provided here should be applicable to all variants
+(Desktop, Server, Advanced Platform) of the product. Recommended
+settings for the basic operating system are provided, as well as for many
+network services that the system can provide to other systems.
+<!-- audience -->The guide is intended for system administrators. Readers are assumed to
+possess basic system administration skills for Unix-like systems, as well
+as some familiarity with Red Hat's documentation and administration
+conventions. Some instructions within this guide are complex.
+All directions should be followed completely and with understanding of
+their effects in order to avoid serious adverse effects on the system
+and its security.
+</description>
+    <Group id="general-principles">
+      <title xml:lang="en-US">General Principles</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+The following general principles motivate much of the advice in this
+guide and should also influence any configuration decisions that are
+not explicitly covered.
+</description>
+      <Group id="principle-encrypt-transmitted-data">
+        <title xml:lang="en-US">Encrypt Transmitted Data Whenever Possible</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+Data transmitted over a network, whether wired or wireless, is susceptible
+to passive monitoring. Whenever practical solutions for encrypting
+such data exist, they should be applied. Even if data is expected to
+be transmitted only over a local network, it should still be encrypted.
+Encrypting authentication data, such as passwords, is particularly
+important. Networks of RHEL 6 machines can and should be configured
+so that no unencrypted authentication data is ever transmitted between
+machines.
+</description>
+      </Group>
+      <Group id="principle-minimize-software">
+        <title xml:lang="en-US">Minimize Software to Minimize Vulnerability</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+The simplest way to avoid vulnerabilities in software is to avoid
+installing that software. On RHEL, the RPM Package Manager (originally
+Red Hat Package Manager, abbreviated RPM) allows for careful management of
+the set of software packages installed on a system. Installed software
+contributes to system vulnerability in several ways. Packages that
+include setuid programs may provide local attackers a potential path to
+privilege escalation. Packages that include network services may give
+this opportunity to network-based attackers. Packages that include
+programs which are predictably executed by local users (e.g. after
+graphical login) may provide opportunities for trojan horses or other
+attack code to be run undetected. The number of software packages
+installed on a system can almost always be significantly pruned to include
+only the software for which there is an environmental or operational need.
+</description>
+      </Group>
+      <Group id="principle-separate-servers">
+        <title xml:lang="en-US">Run Different Network Services on Separate Systems</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+Whenever possible, a server should be dedicated to serving exactly one
+network service. This limits the number of other services that can
+be compromised in the event that an attacker is able to successfully
+exploit a software flaw in one network service.
+</description>
+      </Group>
+      <Group id="principle-use-security-tools">
+        <title xml:lang="en-US">Configure Security Tools to Improve System Robustness</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+Several tools exist which can be effectively used to improve a system's
+resistance to and detection of unknown attacks. These tools can improve
+robustness against attack at the cost of relatively little configuration
+effort. In particular, this guide recommends and discusses the use of
+Iptables for host-based firewalling, SELinux for protection against
+vulnerable services, and a logging and auditing infrastructure for
+detection of problems.
+</description>
+      </Group>
+      <Group id="principle-least-privilege">
+        <title xml:lang="en-US">Least Privilege</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+Grant the least privilege necessary for user accounts and software to perform tasks.
+For example, <xhtml:code>sudo</xhtml:code> can be implemented to limit authorization to super user
+accounts on the system only to designated personnel. Another example is to limit
+logins on server systems to only those administrators who need to log into them in
+order to perform administration tasks. Using SELinux also follows the principle of
+least privilege: SELinux policy can confine software to perform only actions on the
+system that are specifically allowed. This can be far more restrictive than the
+actions permissible by the traditional Unix permissions model.
+</description>
+      </Group>
+    </Group>
+    <Group id="how-to-use">
+      <title xml:lang="en-US">How to Use This Guide</title>
+      <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+Readers should heed the following points when using the guide.
+</description>
+      <Group id="intro-read-sections-completely">
+        <title xml:lang="en-US">Read Sections Completely and in Order</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+Each section may build on information and recommendations discussed in
+prior sections. Each section should be read and understood completely;
+instructions should never be blindly applied. Relevant discussion may
+occur after instructions for an action. 
+</description>
+      </Group>
+      <Group id="intro-test-non-production">
+        <title xml:lang="en-US">Test in Non-Production Environment</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+This guidance should always be tested in a non-production environment
+before deployment. This test environment should simulate the setup in
+which the system will be deployed as closely as possible.
+</description>
+      </Group>
+      <Group id="intro-root-shell-assumed">
+        <title xml:lang="en-US">Root Shell Environment Assumed</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+Most of the actions listed in this document are written with the
+assumption that they will be executed by the root user running the
+<xhtml:code>/bin/bash</xhtml:code> shell. Commands preceded with a hash mark (#)
+assume that the administrator will execute the commands as root, i.e.
+apply the command via <xhtml:code>sudo</xhtml:code> whenever possible, or use
+<xhtml:code>su</xhtml:code> to gain root privileges if <xhtml:code>sudo</xhtml:code> cannot be
+used. Commands which can be executed as a non-root user are are preceded
+by a dollar sign ($) prompt.
+</description>
+      </Group>
+      <Group id="intro-formatting-conventions">
+        <title xml:lang="en-US">Formatting Conventions</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+Commands intended for shell execution, as well as configuration file text,
+are featured in a <xhtml:code>monospace font</xhtml:code>. <i xmlns="http://www.w3.org/1999/xhtml">Italics</i> are used
+to indicate instances where the system administrator must substitute
+the appropriate information into a command or configuration file.
+</description>
+      </Group>
+      <Group id="intro-reboot-required">
+        <title xml:lang="en-US">Reboot Required</title>
+        <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+A system reboot is implicitly required after some actions in order to
+complete the reconfiguration of the system. In many cases, the changes
+will not take effect until a reboot is performed. In order to ensure
+that changes are applied properly and to test functionality, always
+reboot the system after applying a set of recommendations from this guide.
+</description>
+      </Group>
+    </Group>
+  </Group>
+
+
+<Group id="password_storage">
+          <title xml:lang="en-US">Verify Proper Storage and Existence of Password
+Hashes</title>
+          <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+By default, password hashes for local accounts are stored
+in the second field (colon-separated) in
+<xhtml:code>/etc/shadow</xhtml:code>. This file should be readable only by
+processes running with root credentials, preventing users from
+casually accessing others' password hashes and attempting
+to crack them.
+However, it remains possible to misconfigure the system
+and store password hashes
+in world-readable files such as <xhtml:code>/etc/passwd</xhtml:code>, or
+to even store passwords themselves in plaintext on the system.
+Using system-provided tools for password change/creation
+should allow administrators to avoid such misconfiguration.
+</description>
+
+
+<!--TEST-->
+          <Rule id="no_empty_passwords" selected="false" severity="high">
+            <title xml:lang="en-US">Prevent Log In to Accounts With Empty Password</title>
+            <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">If an account is configured for password authentication
+but does not have an assigned password, it may be possible to log
+into the account without authentication. Remove any instances of the <xhtml:code>nullok</xhtml:code>
+option in <xhtml:code>/etc/pam.d/system-auth</xhtml:code> to
+prevent logins with empty passwords.
+</description>
+            <reference href="http://csrc.nist.gov/publications/nistpubs/800-53-Rev3/sp800-53-rev3-final.pdf">IA-5(b)</reference>
+            <reference href="http://csrc.nist.gov/publications/nistpubs/800-53-Rev3/sp800-53-rev3-final.pdf">IA-5(c)</reference>
+            <reference href="http://csrc.nist.gov/publications/nistpubs/800-53-Rev3/sp800-53-rev3-final.pdf">IA-5(1)(a)</reference>
+            <reference xmlns:dc="http://purl.org/dc/elements/1.1/" href="test_attestation">
+              <dc:contributor>DS</dc:contributor>
+              <dc:date>20121024</dc:date>
+            </reference>
+            <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+If an account has an empty password, anyone could log in and
+run commands with the privileges of that account. Accounts with
+empty passwords should never be used in operational
+environments.
+</rationale>
+            <ident system="http://cce.mitre.org">CCE-27038-9</ident>
+            <fix system="urn:xccdf:fix:script:sh">sed -i 's/\&lt;nullok\&gt;//g' /etc/pam.d/system-auth
+</fix>
+            <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+              <check-content-ref name="oval:ssg:def:377" href="ssg-rhel6-oval.xml"/>
+            </check>
+            <check system="ocil-transitional">
+              <check-export export-name="NULL passwords can be used" value-id="conditional_clause"/>
+              <check-content xmlns:xhtml="http://www.w3.org/1999/xhtml">
+To verify that null passwords cannot be used, run the following command:
+<pre xmlns="http://www.w3.org/1999/xhtml"># grep nullok /etc/pam.d/system-auth</pre>
+If this produces any output, it may be possible to log into accounts
+with empty passwords.
+</check-content>
+            </check>
+          </Rule>
+
+
+
+<!--TEST-->
+          <Rule id="no_hashes_outside_shadow" selected="false" severity="medium">
+            <title xml:lang="en-US">Verify All Account Password Hashes are Shadowed</title>
+            <description xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+If any password hashes are stored in <xhtml:code>/etc/passwd</xhtml:code> (in the second field,
+instead of an <xhtml:code>x</xhtml:code>), the cause of this misconfiguration should be
+investigated.  The account should have its password reset and the hash should be
+properly stored, or the account should be deleted entirely.
+</description>
+            <reference href="http://csrc.nist.gov/publications/nistpubs/800-53-Rev3/sp800-53-rev3-final.pdf">IA-5(h)</reference>
+            <reference href="http://iase.disa.mil/cci/index.html">201</reference>
+            <reference xmlns:dc="http://purl.org/dc/elements/1.1/" href="test_attestation">
+              <dc:contributor>DS</dc:contributor>
+              <dc:date>20121024</dc:date>
+            </reference>
+            <rationale xmlns:xhtml="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+The hashes for all user account passwords should be stored in
+the file <xhtml:code>/etc/shadow</xhtml:code> and never in <xhtml:code>/etc/passwd</xhtml:code>,
+which is readable by all users.
+</rationale>
+            <ident system="http://cce.mitre.org">CCE-26476-2</ident>
+            <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5">
+              <check-content-ref name="oval:ssg:def:717" href="ssg-rhel6-oval.xml"/>
+            </check>
+            <check system="ocil-transitional">
+              <check-export export-name="any stored hashes are found in /etc/passwd" value-id="conditional_clause"/>
+              <check-content xmlns:xhtml="http://www.w3.org/1999/xhtml">
+To check that no password hashes are stored in
+<xhtml:code>/etc/passwd</xhtml:code>, run the following command:
+<pre xmlns="http://www.w3.org/1999/xhtml"># awk -F: '($2 != "x") {print}' /etc/passwd</pre>
+If it produces any output, then a password hash is
+stored in <xhtml:code>/etc/passwd</xhtml:code>.
+</check-content>
+            </check>
+          </Rule>
+
+
+
+
+        </Group>
+
+
+
+
+</Benchmark>
