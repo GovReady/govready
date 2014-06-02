@@ -5,8 +5,11 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
-# usage: curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
-#
+# usage: 
+#  install:    curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
+#  uninstall:  curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo UNINSTALL=1 bash
+
+# 
 set -e -E -u -o pipefail; shopt -s failglob; set -o posix; set +o histexpand
 
 RED="\e[1;31m"
@@ -34,6 +37,9 @@ INSTALL="install"
 # prepare build directory
 BUILD_DIR=$(mktemp -d -t 'govready_build.XXXXXXXXXX')
 
+# Do you want install or uninstall software, by default install.
+: ${UNINSTALL:=0}
+
 # what scripts install/uninstall
 BASH_TARGET="epel.sh"
 
@@ -47,12 +53,27 @@ install_bins(){
     rm -rf "${BUILD_DIR}"
 }
 
+uninstall_bins(){
+    cd "${PREFIX}" && rm -f "${BASH_TARGET}"
+}
 
-# No error handling yet. Just testing.
+fail_guard(){
+    log_error "Install/Uninstall failed."
+    # clean BUILD_DIR if exist
+    if [[ -d ${BUILD_DIR} ]]; then
+        rm -rf ${BUILD_DIR}
+    fi
+    exit 1
+}
 
-echo "Installing into ${BUILD_DIR}/${BASH_TARGET}...\n"
-install_bins
-log_info "Install succeeded."
-
-echo "Done\n"
-
+trap fail_guard SIGHUP SIGINT SIGTERM ERR
+if [[ ${UNINSTALL} -eq 1 ]]; then
+    uninstall_bins
+    log_info "Uninstall succeeded."
+else
+    echo "Installing into ${BUILD_DIR}/${BASH_TARGET}..."
+    install_bins
+    log_info "Install succeeded."
+    echo "Installed: ${PREFIX}/${BASH_TARGET}"
+    echo "fini"
+fi
