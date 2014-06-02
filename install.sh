@@ -72,9 +72,6 @@ if [[ ${UNINSTALL} -eq 1 ]]; then
     uninstall_bins
     log_info "Uninstall succeeded."
 else
-    echo "Installing into ${BUILD_DIR}/${BASH_TARGET}..."
     install_bins
-    log_info "Install succeeded."
-    echo "Installed: ${PREFIX}/${BASH_TARGET}"
-    echo "fini"
+    log_info "Install succeeded. ${BUILD_DIR}/${BASH_TARGET}"
 fi
