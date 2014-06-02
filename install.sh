@@ -55,6 +55,7 @@ install_bins(){
 
 uninstall_bins(){
     cd "${PREFIX}" && rm -f "${BASH_TARGET}"
+    cd .. && rmdir "${PREFIX}"
 }
 
 fail_guard(){
