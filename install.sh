@@ -5,6 +5,8 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 #
+# usage: curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
+#
 set -e -E -u -o pipefail; shopt -s failglob; set -o posix; set +o histexpand
 
 RED="\e[1;31m"
@@ -38,11 +40,11 @@ BASH_TARGET="epel.sh"
 install_bins(){
     TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/scripts/epel.sh"
     # https://raw.githubusercontent.com/GovReady/govready/master/scripts/epel.sh
-    curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASH_TARGET}" ||\
+    curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASH_TARGET}.tmp" ||\
         (log_error "download govready bin failed." && return 1)
-    #${INSTALL} -m 0755 -d "${PREFIX}"
-    #${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASH_TARGET}"
-    #rm -rf "${BUILD_DIR}"
+    ${INSTALL} -m 0755 -d "${PREFIX}"
+    ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASH_TARGET}"
+    rm -rf "${BUILD_DIR}"
 }
 
 
