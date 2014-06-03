@@ -21,9 +21,14 @@ log_info(){
 
 #install epel repos
 install_epel(){
-	echo "installing epel repos "
-	wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-	sudo rpm -Uvh epel-release-6*.rpm
+	if [ ! -f /etc/yum.repos.d/epel.repo ]
+	then
+		echo "installing epel repos "
+		wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+		sudo rpm -Uvh epel-release-6*.rpm
+	else 
+		echo "epel already installed"
+	fi
 }
 
 install_remi(){
