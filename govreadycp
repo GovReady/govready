@@ -137,7 +137,7 @@ function read_input(){
 		7)	oscap_install ;;
 		8)	echo "May DevOps be with you!"; exit 0 ;;
 		*)	
-			echo "Please select between 1 to 7. Select one choice only."
+			echo "Please select between 1 to 8. Select one choice only."
 			pause
 	esac
 }
