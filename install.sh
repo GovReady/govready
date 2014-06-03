@@ -44,8 +44,8 @@ BUILD_DIR=$(mktemp -d -t 'govready_build.XXXXXXXXXX')
 BASH_TARGET="epel.sh"
 
 install_bins(){
-    TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/scripts/epel.sh"
-    # https://raw.githubusercontent.com/GovReady/govready/master/scripts/epel.sh
+    TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/scripts/setup-rhel6.5.sh"
+    # https://raw.githubusercontent.com/GovReady/govready/master/scripts/setup-rhel6.5.sh
     curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASH_TARGET}.tmp" ||\
         (log_error "download govready bin failed." && return 1)
     ${INSTALL} -m 0755 -d "${PREFIX}"
