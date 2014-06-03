@@ -1,0 +1,413 @@
+#!/bin/bash
+
+# The BSD License - https://github.com/wilas/vbkick/blob/master/LICENSE
+
+# Helps civic innovators be better developers
+# Inspired by: Vagrant, Openscap, Git, vbkick and more
+# Special thanks: Shawn Wells (Red Hat) https://github.com/wilas/vbkick
+
+
+# Secure bash
+# More about options: http://wiki.bash-hackers.org/commands/builtin/set
+# treat unset variables as an error
+set -u;
+# exit when cmd fail (use ERR trap for clean exit)
+set -e; set -E;
+# fail the entire pipeline if any part of it fails
+set -o pipefail;
+# debug mode
+#set -x;
+# http://mywiki.wooledge.org/glob
+shopt -s failglob;
+# enable POSIX mode
+# http://www.gnu.org/software/bash/manual/html_node/Bash-POSIX-Mode.html
+set -o posix
+
+# For nice printing
+_GREEN="\e[1;32m"
+_RED="\e[1;31m"
+_YELLOW="\e[1;33m"
+_NORMAL="\e[0m"
+__log_info() {
+    printf "[INFO] ${*}\n"
+}
+__log_ginfo() {
+    printf "${_GREEN}[INFO] ${*}${_NORMAL}\n"
+}
+__log_warning() {
+    printf "${_YELLOW}[WARNING] ${*}${_NORMAL}\n"
+}
+__log_error() {
+    printf "${_RED}[ERROR] ${*}${_NORMAL}\n" >&2
+}
+
+# Global preferences
+BASEDIR="/codedata/virtualmachines"
+
+
+# Global variables - do not use it in definition file (will be overwrite during program runtime)
+# name of global "private" variables should start with underscore
+__init_global_state_variables(){
+    # 0 - webserver is not running or kill isn't able to stop it
+    _webserver_state=0
+    # 0 - webserver was killed cleanly or we didn't try kill it yet
+    _webserver_kill_cmd_state=0
+    # during exporting tmp directory is created
+    _tmp_dir=""
+    # during creation VM may be temporary in inconsistent state
+    # e.g. not all ports mapping, options etc. were setup
+    # this flag is used to make sure that vm was created completely or not at all
+}
+
+# Display help
+#@action
+_usage() {
+    printf "Description: the GovReady Toolkit\n"
+    printf "\n"
+    printf "Usage: govready <command> [<args>] \n"
+    printf "\tcreatevm              Create a known virtual machine\n"
+    printf "\tversion               Print the version and exit\n"
+
+    printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
+
+    printf "\thelp                  Print this help\n"
+    printf "\n"
+    printf "Common commands:\n"
+    printf "\tcreatevm                Create a local instance of a known vm\n"
+    printf "\n"
+    printf "For help on any individual command run 'govready <command> -h'\n"
+    printf "\n"
+}
+
+#@action
+_context_usage(){
+    case "${1}" in
+        "createvm")
+            printf "Usage: govready create <VM_NAME> [definition_file]\n"
+            printf "If no definition file specify 'definition.cfg' is used.\n" ;;
+        *) _usage; exit ;;
+    esac
+}
+
+#@special
+_process_2_args() {
+    # 2 args are required, 3 may be optional
+    if [[ "${2}" == "-h" ]] || [[ "${3:-}" == "-h" ]]; then
+        _context_usage "${1}"
+        exit 0
+    fi
+    _Vm="${2}"
+    case "${1}" in
+        "create") _create_vm ;;
+        "build") _build_vm "${3:-}" ;;
+        *) _usage; exit ;;
+    esac
+}
+
+#@special
+_process_1_args() {
+    # 1 arg is required
+    case "${1}" in
+        "list") _list_all_vms ;;
+        "version") _prog_version ;;
+        "createvm") _create_vm ;;
+        "createvm-govreadyc6") _create_vm_govreadyc6 ;;
+        "install_ssg") _install_ssg_all ;;
+        *) _usage; exit ;;
+    esac
+}
+
+#@action
+_prog_version(){
+    printf "0.1.0-dev\n"
+    exit 0
+}
+
+__depend_check() {
+    local __dep_cmd="${1}"
+    local __dep_name="${2}"
+    # check whether __dep_name is installed - __dep_cmd command exist
+    if ! command -v ${__dep_cmd} >/dev/null 2>&1; then
+        __log_error "${__dep_cmd} command doesn't exist - install '${__dep_name}' to continue."
+        return 1
+    fi
+}
+
+__dependencies_check() {
+    __depend_check "VBoxManage" "Virtualbox"
+    __depend_check "curl" "curl"
+    __depend_check "ssh" "ssh-client (e.g. openssh-client)"
+    __depend_check "scp" "scp-client (e.g. openssh-client)"
+    __depend_check "python" "python"
+    __depend_check "bash" "bash"
+    __depend_check "openssl" "openssl"
+    __depend_check "sed" "sed"
+    __depend_check "grep" "grep"
+    __depend_check "cut" "coreutils"
+    __depend_check "sort" "coreutils"
+    __depend_check "tail" "coreutils"
+}
+
+# Every action which requires vm settings must use this function to load them.
+__load_definition() {
+    __load_default_settings
+    # definition.cfg is a default definition file
+    # loading definition file overwrite default settings
+    local __definition_fname="${1:-definition.cfg}"
+    if [[ -s "${__definition_fname}" ]]; then
+        # In POSIX mode the '.' and 'source' builtins do not search the current directory
+        # for the filename argument if it is not found by searching PATH.
+        __log_info "Loading \"${__definition_fname}\" definition..."
+        if ! . "./${__definition_fname}"; then
+            __log_error "Loading failed."
+            return 1
+        fi
+    else
+        __log_error "Not existing or empty \"${__definition_fname}\" file in $(pwd). Terminating..."
+        return 1
+    fi
+    # if someone overwrite them in definition file
+    __init_global_state_variables
+    _vb_version=$(__get_vb_version)
+    __check_required_settings
+    __autoupdate_files_with_vbox_version
+}
+
+# Get virtualbox version
+__get_vb_version() {
+    local __version=$(VBoxManage --version) # e.g. 4.2.12r84980
+    local __pos=$(expr "${__version}" : '[0-9.]\+')
+    __version=${__version:0:${__pos}} #e.g. 4.2.12
+    printf "${__version}"
+}
+
+__is_present() {
+    local __pattern="${1:-\"${_Vm}\"}"
+    VBoxManage list vms | grep -qw "${__pattern}"
+}
+
+__is_running() {
+    VBoxManage showvminfo "${_Vm}" | grep -q "State:\s\+running"
+}
+
+__is_powered_off() {
+    VBoxManage showvminfo "${_Vm}" | grep -q "State:\s\+powered off"
+}
+
+__is_paused() {
+    VBoxManage showvminfo "${_Vm}" | grep -q "State:\s\+paused"
+}
+
+__is_alive() {
+    # Alive machine may be in paused|running state
+    # Useful to change state: VBoxManage controlvm "${_Vm}" pause|resume
+    local __pattern="${1:-\"${_Vm}\"}"
+    VBoxManage list runningvms | grep -qw "${__pattern}"
+}
+
+# checks whether port is not used by other proc
+__check_port_usage() {
+    local __port_nr="${1}"
+    local __port_message="${2}"
+    if __is_port_used ${__port_nr}; then
+        __log_error "${__port_nr} port (${__port_message}) is already used by an other process."
+        return 1
+    fi
+}
+
+# Check whether given directory exist
+__prepare_path() {
+    local __path="${1}"
+    local __mkdir_path="${2}"
+    # Process special variables in path definition e.g. __path="%VBOXFOLDER%/%NAME%"
+    local __location=$(VBoxManage list  systemproperties | grep "Default machine folder" | cut -d':' -f 2 | sed 's/^\s*//g')
+    __path=${__path//%SRCPATH%/${boot_file_src_path}}
+    __path=${__path//%VBOXFOLDER%/${__location}}
+    __path=${__path//%PWD%/$(pwd)}
+    # get homedir - $(getent passwd UID) doesn't work for MacOS; $HOME is less portable than ~
+    __path=${__path//%HOME%/~}
+    __path=${__path//%NAME%/${_Vm}}
+    # expand a special variable - e.g. tilde (~) and
+    # strips out > characters which could clobber a file during the eval
+    __path=$(eval echo "${__path//>}")
+    # Creates dir if necessary
+    if [[ ${__mkdir_path} -eq 1 ]] && [[ ! -z "${__path}" ]] && [[ ! -d "${__path}" ]]; then
+        mkdir -p "${__path}"
+    fi
+    # Return __path
+    printf "${__path}"
+}
+
+__curl_safe() {
+    local __src="${1}"
+    local __dest="${2}"
+    local __statuscode=$(curl -Lkfw "%{http_code}\n" "${__src}" -o "${__dest}")
+    if [[ ${__statuscode} -ne 200 ]]; then
+        __log_error "${__src} status code is ${__statuscode}. Terminating..."
+        return 1
+    fi
+}
+
+
+#@action
+_destroy_vm() {
+    # check whether VM already exist
+    if ! __is_present; then
+        __log_error "'${_Vm}' doesn't exist"
+        exit 1
+    fi
+
+    # destroy VM
+    __log_info "Destroy '${_Vm}'"
+    local __ans
+    read -r -p "Are you sure? [y/N]" __ans
+    if [[ ! ${__ans} =~ ^[Yy]$ ]]; then
+        exit 1
+    fi
+
+    # check whether VM is alive
+    if __is_alive; then
+        __log_info "Poweroff '${_Vm}'"
+        VBoxManage controlvm "${_Vm}" poweroff
+        sleep 1
+    fi
+
+    __log_info "Destroying '${_Vm}'..."
+    VBoxManage unregistervm "${_Vm}" --delete
+    exit 0
+}
+
+
+#
+# GovReady Scripts
+# 
+
+#@action
+_install_epel(){
+    if [ ! -f /etc/yum.repos.d/epel.repo ]
+    then
+        echo "installing epel repo "
+        wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+        sudo rpm -Uvh epel-release-6*.rpm
+    else 
+        echo "epel already installed"
+    fi
+}
+
+#@action
+_install_remi(){
+    
+    if [ ! -f /etc/yum.repos.d/remi.repo ]
+    then
+        echo "installing remi repo "
+        wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+        sudo rpm -Uvh remi-release-6*.rpm
+    else 
+        echo "remi already installed"
+    fi
+}
+
+#@action
+_install_openscap(){
+    if [ ! -f /etc/yum.repos.d/epel-6-openscap.repo ]
+    then
+        echo "openSCAP repo not installed, installing"
+        # Install openSCAP as per http://www.open-scap.org/page/Download
+        yum install openscap openscap-utils openscap-content -y
+    else
+        echo "openSCAP already installed"
+    fi
+}
+
+#@action
+_install_ssg(){
+    rpm -q scap-security-guide > /dev/null
+    if [ $? -ne 0 ]
+    then
+        echo "scap-security-guide not installed, installing"
+        yum -y install scap-security-guide -y
+    else
+        echo "scap-security-guide already installed"
+    fi
+}
+
+#@action
+_install_ssg_all(){
+    _install_epel
+    _install_remi
+    _install_openscap
+}
+
+
+#@action
+_create_vm() {
+    printf "Place holder for launching vm"
+    printf "\n"
+}
+
+_create_vm_govreadyc6() {
+    printf "Cloning and creating centos-openscap with date stamp"
+    printf "will be created in $BASEDIR/centos-openscap\n"
+    # set a timestamp to be used for this vm
+    vmsuffix=$(date +%Y%m%d-%M)
+    cd ${BASEDIR}/
+    time git clone git@github.com:GovReady/centos-openscap.git centos-openscap-$vmsuffix
+    cd $BASEDIR/centos-openscap-$vmsuffix
+    time vagrant up
+    printf "Done."
+}
+
+
+# (signals and error handler) - cleaning after ctr-c, etc.
+#@special
+_clean_up() {
+    __log_info "Signal handler - cleanup before exiting..."
+    # run _on_exit function to make real cleaning
+    exit 1
+}
+
+#@special
+_on_exit(){
+    # this is a finally block - exec always on exit
+    # if [[ ${_webserver_kill_cmd_state} -eq 0 ]]; then
+    #     # stop webserver (only if __stop_web_server function didn't fail previuosly)
+    #     __stop_web_server
+    # else
+    #     # previuosly executed __stop_web_server function fail in killing $_web_pid
+    #     __log_warning "problem with killing webserver (proc ${_web_pid}). Kill process manually."
+    # fi
+    # clean _tmp_dir if exist
+    if [[ -d ${_tmp_dir} ]]; then
+        rm -rf ${_tmp_dir}
+    fi
+    # help recover some changes made on VM during exporting
+    #__recover_vm_state
+}
+
+#@special
+_main() {
+    local __args_num=$#
+    # virtual machine name
+    _Vm=""
+    __init_global_state_variables
+    if [[ ${__args_num} -eq 1 ]]; then
+        # check whether we have everything to start with vbkick
+        __dependencies_check
+        _process_1_args "${1}"
+    elif [[ ${__args_num} -eq 2 ]] || [[ ${__args_num} -eq 3 ]]; then
+        # check whether we have everything to start with vbkick
+        __dependencies_check
+        _vb_version=$(__get_vb_version)
+        _process_2_args "${1}" "${2}" "${3:-}"
+    else
+        # wrong number of arguments
+        _usage
+        exit 1
+    fi
+}
+
+## MAIN ##
+# signals and errors handler
+trap _clean_up SIGHUP SIGINT SIGTERM ERR
+trap _on_exit EXIT
+_main "${@}"

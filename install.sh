@@ -23,7 +23,7 @@ log_info(){
 
 # default install location for bins and man
 : ${MANDIR:=/usr/local/man/man1}
-: ${PREFIX:=/usr/local/govready}
+: ${PREFIX:=/usr/local/bin}
 
 # get info about env. for default settings
 BASH_DEFAULT=$(command -v bash || (log_error "bash command not available." && exit 1))
@@ -41,7 +41,22 @@ BUILD_DIR=$(mktemp -d -t 'govready_build.XXXXXXXXXX')
 : ${UNINSTALL:=0}
 
 # what scripts install/uninstall
-BASH_TARGET="setup-rhel6.5.sh"
+BASH_TARGET="govready"
+
+# install directories
+install_dirs(){
+    ${INSTALL} -m 0755 -d "/var/www/govready/scans"
+}
+
+uninstall_dirs(){
+    local DIR_TARGET="/var/www/govready/scans"
+    if [[ ! -d "${DIR_TARGET}" ]]
+    then
+        rm -f "${DIR_TARGET}"
+    else
+        echo "${DIR_TARGET} not found"
+    fi
+}
 
 install_bins(){
     TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/scripts/setup-rhel6.5.sh"
