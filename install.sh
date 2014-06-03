@@ -68,7 +68,7 @@ install_bins(){
 }
 
 uninstall_bins(){
-    if [[ ! -f "${PREFIX}/${BASH_TARGET}" ]]; then
+    if [[ -f "${PREFIX}/${BASH_TARGET}" ]]; then
         cd "${PREFIX}" && rm -f "${BASH_TARGET}"
         cd .. && rmdir "${PREFIX}"
     else
