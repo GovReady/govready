@@ -41,11 +41,10 @@ BUILD_DIR=$(mktemp -d -t 'govready_build.XXXXXXXXXX')
 : ${UNINSTALL:=0}
 
 # what scripts install/uninstall
-BASH_TARGET="epel.sh"
+BASH_TARGET="setup-rhel6.5.sh"
 
 install_bins(){
     TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/scripts/setup-rhel6.5.sh"
-    # https://raw.githubusercontent.com/GovReady/govready/master/scripts/setup-rhel6.5.sh
     curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASH_TARGET}.tmp" ||\
         (log_error "download govready bin failed." && return 1)
     ${INSTALL} -m 0755 -d "${PREFIX}"
@@ -54,8 +53,18 @@ install_bins(){
 }
 
 uninstall_bins(){
-    cd "${PREFIX}" && rm -f "${BASH_TARGET}"
-    cd .. && rmdir "${PREFIX}"
+    if [[ ! -f "${PREFIX}/${BASH_TARGET}" ]]; then
+        cd "${PREFIX}" && rm -f "${BASH_TARGET}"
+        cd .. && rmdir "${PREFIX}"
+    else
+        echo "${PREFIX}/${BASH_TARGET} not found"
+        if [[ ! -f "${PREFIX}" ]]; then
+            rmdir "${PREFIX}"
+        else
+            echo "${PREFIX} not found"
+        fi
+    fi
+
 }
 
 fail_guard(){
