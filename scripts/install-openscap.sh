@@ -29,4 +29,8 @@ if [ $? -ne 0 ]
 then
 	echo "scap-security-guide not installed, installing"
 	yum -y install scap-security-guide
+else
+	echo "scap-security-guide already installed"
 fi
+
+
