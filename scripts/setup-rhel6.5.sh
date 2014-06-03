@@ -50,7 +50,7 @@ install_openscap(){
 	then
 		echo "openSCAP repo not installed, installing"
 		# Install openSCAP as per http://www.open-scap.org/page/Download
-		yum install openscap openscap-utils openscap-content
+		yum install openscap openscap-utils openscap-content -y
 	else
 		echo "openSCAP already installed"
 	fi
@@ -62,7 +62,7 @@ install_ssg(){
 	if [ $? -ne 0 ]
 	then
 		echo "scap-security-guide not installed, installing"
-		yum -y install scap-security-guide
+		yum -y install scap-security-guide -y
 	else
 		echo "scap-security-guide already installed"
 	fi
