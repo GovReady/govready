@@ -63,6 +63,7 @@ uninstall_bins(){
         else
             echo "${PREFIX} not found"
         fi
+    fi
 }
 
 fail_guard(){
