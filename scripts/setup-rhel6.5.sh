@@ -23,7 +23,7 @@ log_info(){
 install_epel(){
 	if [ ! -f /etc/yum.repos.d/epel.repo ]
 	then
-		echo "installing epel repos "
+		echo "installing epel repo "
 		wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
 		sudo rpm -Uvh epel-release-6*.rpm
 	else 
@@ -32,8 +32,15 @@ install_epel(){
 }
 
 install_remi(){
-	wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-	sudo rpm -Uvh remi-release-6*.rpm
+	
+	if [ ! -f /etc/yum.repos.d/remi.repo ]
+	then
+		echo "installing remi repo "
+		wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+		sudo rpm -Uvh remi-release-6*.rpm
+	else 
+		echo "remi already installed"
+	fi
 }
 
 
