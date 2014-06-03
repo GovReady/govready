@@ -58,12 +58,11 @@ uninstall_bins(){
         cd .. && rmdir "${PREFIX}"
     else
         echo "${PREFIX}/${BASH_TARGET} not found"
-        if [[ ! -f "${PREFIX}" ]]; then
+        if [[ ! -d "${PREFIX}" ]]; then
             rmdir "${PREFIX}"
         else
             echo "${PREFIX} not found"
         fi
-    fi
 
 }
 
