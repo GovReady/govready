@@ -96,5 +96,6 @@ if [[ ${UNINSTALL} -eq 1 ]]; then
     log_info "Uninstall succeeded."
 else
     install_bins
-    log_info "Install succeeded. ${BUILD_DIR}/${BASH_TARGET}"
+    install_dirs
+    log_info "Install succeeded."
 fi
