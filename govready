@@ -69,6 +69,7 @@ _usage() {
     printf "\tversion               Print the version and exit\n"
 
     printf "\tinstall_ssg_all       Install openSCAP & scap-security-guide\n"
+    printf "\tinstall_epel          Install EPEL repo\n"
 
     printf "\thelp                  Print this help\n"
     printf "\n"
@@ -113,6 +114,7 @@ _process_1_args() {
         "createvm") _create_vm ;;
         "createvm-govreadyc6") _create_vm_govreadyc6 ;;
         "install_ssg_all") _install_ssg_all ;;
+        "install_epel") _install_epel ;;
         *) _usage; exit ;;
     esac
 }
