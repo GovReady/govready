@@ -59,7 +59,7 @@ uninstall_dirs(){
 }
 
 install_bins(){
-    TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/scripts/setup-rhel6.5.sh"
+    TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govready"
     curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASH_TARGET}.tmp" ||\
         (log_error "download govready bin failed." && return 1)
     ${INSTALL} -m 0755 -d "${PREFIX}"
