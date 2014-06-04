@@ -61,11 +61,12 @@ uninstall_dirs(){
 
 install_bins(){
     TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govready"
+    TEMPCP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govreadycp"
     # Download govready to temporary build dir
     curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASH_TARGET}.tmp" ||\
         (log_error "download govready bin failed." && return 1)
-    # Download govready to build dir
-    curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASHCP_TARGET}.tmp" ||\
+    # Download govreadycp to temporary build dir
+    curl -Lksf "${TEMPCP_SRC}" -o "${BUILD_DIR}/${BASHCP_TARGET}.tmp" ||\
         (log_error "download govready bin failed." && return 1)
     # Make sure permament Linux Hierarchy File System (HFS) dir exists with correct permissions
     ${INSTALL} -m 0755 -d "${PREFIX}"
