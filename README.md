@@ -16,7 +16,7 @@ GPL 3.0
 
 Install is currently only for Linux and Unix and won't work on Windows.
 
-## Using curl
+Using curl
 ```
 # Install
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
