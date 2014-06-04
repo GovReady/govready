@@ -42,6 +42,7 @@ BUILD_DIR=$(mktemp -d -t 'govready_build.XXXXXXXXXX')
 
 # what scripts install/uninstall
 BASH_TARGET="govready"
+BASHCP_TARGET="govreadycp"
 
 # install directories
 install_dirs(){
@@ -60,19 +61,30 @@ uninstall_dirs(){
 
 install_bins(){
     TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govready"
+    # Download govready to temporary build dir
     curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASH_TARGET}.tmp" ||\
         (log_error "download govready bin failed." && return 1)
+    # Download govready to build dir
+    curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASHCP_TARGET}.tmp" ||\
+        (log_error "download govready bin failed." && return 1)
+    # Make sure permament Linux Hierarchy File System (HFS) dir exists with correct permissions
     ${INSTALL} -m 0755 -d "${PREFIX}"
-    ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASH_TARGET}"
+    # Install (move) files into permament Linux HFS dir
+   ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASH_TARGET}"
+   ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASHCP_TARGET}"
     rm -rf "${BUILD_DIR}"
 }
 
 uninstall_bins(){
-    if [[ -f "${PREFIX}/${BASH_TARGET}" ]]; then
-        cd "${PREFIX}" && rm -f "${BASH_TARGET}"
+    # To Do: Make removal of files more module and less brittle
+    if [[ -f "${PREFIX}/${BASH_TARGET}" ]] || [[ -f "${PREFIX}/${BASHCP_TARGET}" ]]
+    then
+        cd "${PREFIX}" 
+        rm -f "${BASH_TARGET}"
+        rm -f "${BASHCP_TARGET}"
         cd .. && rmdir "${PREFIX}"
     else
-        echo "${PREFIX}/${BASH_TARGET} not found"
+        echo "Neither ${PREFIX}/${BASH_TARGET} or ${PREFIX}/${BASHCP_TARGET} found"
         if [[ -d "${PREFIX}" ]]; then
             rmdir "${PREFIX}"
         else
