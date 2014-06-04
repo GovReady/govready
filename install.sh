@@ -72,7 +72,7 @@ install_bins(){
     ${INSTALL} -m 0755 -d "${PREFIX}"
     # Install (move) files into permament Linux HFS dir
    ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASH_TARGET}"
-   ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASHCP_TARGET}"
+   ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASHCP_TARGET}.tmp" "${PREFIX}/${BASHCP_TARGET}"
     rm -rf "${BUILD_DIR}"
 }
 
