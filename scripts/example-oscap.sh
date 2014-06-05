@@ -77,6 +77,12 @@ resultsdir="."
 oscap xccdf eval --profile $profile --results $resultsdir/$profile-1 \
 /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
 
+#This failed on CentOS with --cpe not specified, no cpe specifiec results show notapplicable
+profile="usgcb-rhel6-server"
+resultsdir="/var/www/govready/scans"
+oscap xccdf eval --profile $profile --results $resultsdir/$profile-1 \
+/usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
+
 
 rule="no_empty_passwords"
 ruledir="/vagrant/vendor/govready/prototypes/ssg/rhel6/rule"
