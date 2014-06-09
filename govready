@@ -309,11 +309,15 @@ _install_remi(){
 
 #@action
 _install_openscap(){
+    # todo : add checks for distribution
     if [ ! -f /etc/yum.repos.d/epel-6-openscap.repo ]
     then
         echo "openSCAP repo not installed, installing"
         # Install openSCAP as per http://www.open-scap.org/page/Download
-        yum install openscap openscap-utils openscap-content -y
+        # Fedora
+        # yum install openscap openscap-utils openscap-content -y
+        # RHEL
+        yum install openscap openscap-utils -y
     else
         echo "openSCAP already installed"
     fi
@@ -336,6 +340,7 @@ _install_ssg_all(){
     _install_epel
     _install_remi
     _install_openscap
+    _install_ssg
 }
 
 
