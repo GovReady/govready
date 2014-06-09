@@ -120,6 +120,27 @@ oscap xccdf eval --profile $rule \
 	--cpe $cpe \
 	/vagrant/vendor/govready/prototypes/ssg-rhel6-xccdf-unbundled.xml ; true
 
+
+#
+# Running on RHEL using STIG and generating fix.sh at same time
+# sudo immportant depending on where results are being written
+#
+suffix="$(date +%m%d-%H%M)"
+profile="stig-rhel6-server-upstream"
+resultsdir="/var/www/govready/scans"
+sudo oscap xccdf eval --profile $profile \
+--results $resultsdir/$profile-results-$suffix.xml \
+--report $resultsdir/$profile-results-$suffix.html \
+--cpe /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml \
+/usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
+# generate fix file
+sudo oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile  $resultsdir/$profile-results-$suffix.xml > $resultsdir/$profile-fix-$suffix.sh
+
+
+
+
+
+
 # Unbundling just profiles does not work bc results generation spits out all rules from input xml.
 
 # Profiles for severity
