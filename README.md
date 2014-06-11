@@ -15,8 +15,6 @@ GPL 3.0
 
 For a demo of the GovReady vision, text "wordpress" to 860-245-2269.
 
-# To explore the pre-release
-
 # Install
 
 Install is currently only for Linux RedHat, CentOS, Fedora. Does not currently work on Ubuntu, OS X, or Windows. 
