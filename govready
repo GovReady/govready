@@ -44,6 +44,9 @@ __log_error() {
 # Global preferences
 BASEDIR="/codedata/virtualmachines"
 
+# Default scap-security-guide content directory
+SSGCONTENTDIR="/usr/share/xml/scap/ssg/content/"
+
 # Default profile for OpenSCAP scans
 BASELINE="usgcb-rhel6-server"
 
@@ -80,7 +83,8 @@ _usage() {
     printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
     printf "\tinstall_epel          Install EPEL repo\n"
 
-    printf "\tscan <baseline>       Scan system against specified baseline\n" 
+    printf "\tprofiles              Available baselines and profiles\n" 
+    printf "\tscan <profiles>       Scan system against specified profiles\n" 
 
     printf "\thelp                  Print this help\n"
     printf "\n"
@@ -127,6 +131,7 @@ _process_1_args() {
         "createvm-govreadyc6") _create_vm_govreadyc6 ;;
         "install_ssg") _install_ssg ;;
         "install_epel") _install_epel ;;
+        "profiles") _govoscap_info ;;
         "scan") _govoscap "${BASELINE}" ;;
         *) _usage; exit ;;
     esac
@@ -340,13 +345,13 @@ _install_openscap(){
 
 #@action
 _install_ssg(){
-    rpm -q scap-security-guide > /dev/null
-    if [ $? -ne 0 ]
+    rpm -q scap-security-guide 2>&1 > /dev/null
+    if ! rpm -qa | grep -q scap-security-guide 
     then
         echo "scap-security-guide not installed, installing"
         _install_epel
         _install_remi
-        yum -y install openscap openscap-utils scap-security-guide lynx -y
+        yum install openscap openscap-utils scap-security-guide lynx -y
     else
         echo "scap-security-guide already installed"
     fi
@@ -372,6 +377,14 @@ _create_vm_govreadyc6() {
 }
 
 #@action
+_govoscap_info() {
+    # list available profiles
+    printf "Profiles are listed in output of information in xccdf file\n\n"
+    printf "Running oscap command: oscap info $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\n"
+    oscap info $SSGCONTENTDIR/ssg-rhel6-xccdf.xml
+}
+
+#@action
 _govoscap() {
     # usage: _govoscap("stig-rhel6-server-upstream")
     # profile defined?
@@ -383,7 +396,7 @@ _govoscap() {
         profile="${1}"
     fi
 
-    printf "Scanning system for compliance to baseline ${1}\n"
+    printf "Scanning system for compliance to profile ${1}\n"
 
     # set params
     suffix="${SUFFIX}"
@@ -393,8 +406,8 @@ _govoscap() {
     oscap xccdf eval --profile $profile \
     --results $resultsdir/$profile-results-$suffix.xml \
     --report $resultsdir/$profile-results-$suffix.html \
-    --cpe /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml \
-    /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
+    --cpe $SSGCONTENTDIR/ssg-rhel6-cpe-dictionary.xml \
+    $SSGCONTENTDIR/ssg-rhel6-xccdf.xml
     
     # make results readable
     chmod go+r $resultsdir/$profile-results-$suffix.html
