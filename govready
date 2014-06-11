@@ -348,7 +348,6 @@ _install_openscap(){
 
 #@action
 _install_ssg(){
-    rpm -q scap-security-guide 2>&1 > /dev/null
     if ! rpm -qa | grep -q scap-security-guide 
     then
         echo "scap-security-guide not installed, installing"
