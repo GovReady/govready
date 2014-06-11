@@ -40,6 +40,9 @@ __log_warning() {
 __log_error() {
     printf "${_RED}[ERROR] ${*}${_NORMAL}\n" >&2
 }
+__log_govready() {
+    printf "${_GREEN}[GovReady] ${*}${_NORMAL}\n"
+}
 
 # Global preferences
 BASEDIR="/codedata/virtualmachines"
@@ -379,8 +382,8 @@ _create_vm_govreadyc6() {
 #@action
 _govoscap_info() {
     # list available profiles
-    printf "Profiles are listed in output of information in xccdf file\n\n"
-    printf "Running oscap command: oscap info $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\n"
+    __log_govready "Profiles are listed in output of information in xccdf file" 
+    __log_govready "Running command: \"oscap info $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\"\n"
     oscap info $SSGCONTENTDIR/ssg-rhel6-xccdf.xml
 }
 
@@ -390,13 +393,18 @@ _govoscap() {
     # profile defined?
     
     if [ -z "$1" ]; then
-        printf "No profile specified. Using default.\n"
+        __log_govready "No profile specified. Using default.\n"
         profile="${BASELINE}"
     else
         profile="${1}"
     fi
 
-    printf "Scanning system for compliance to profile ${1}\n"
+    __log_govready "Scanning system for compliance to profile ${1}"
+    __log_govready "Running command: \"oscap xccdf eval --profile $profile \
+    --results $resultsdir/$profile-results-$suffix.xml \
+    --report $resultsdir/$profile-results-$suffix.html \
+    --cpe $SSGCONTENTDIR/ssg-rhel6-cpe-dictionary.xml \
+    $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\""
 
     # set params
     suffix="${SUFFIX}"
@@ -414,6 +422,7 @@ _govoscap() {
     chmod go+r $resultsdir/$profile-results-$suffix.xml
     
     # generate fix file
+    __log_govready "Running command: \"oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $profile-fix-$suffix.sh\""
     oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $profile-fix-$suffix.sh
 }
 
