@@ -307,11 +307,11 @@ _destroy_vm() {
 _install_epel(){
     if [ ! -f /etc/yum.repos.d/epel.repo ]
     then
-        echo "installing epel repo "
+        __log_warning "installing epel repo "
         wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
         sudo rpm -Uvh epel-release-6*.rpm
     else 
-        echo "epel already installed"
+        __log_ginfo "epel already installed"
     fi
 }
 
@@ -320,11 +320,11 @@ _install_remi(){
     
     if [ ! -f /etc/yum.repos.d/remi.repo ]
     then
-        echo "installing remi repo "
+        __log_warning "installing remi repo "
         wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
         sudo rpm -Uvh remi-release-6*.rpm
     else 
-        echo "remi already installed"
+        __log_govready "remi already installed"
     fi
 }
 
@@ -333,7 +333,7 @@ _install_openscap(){
     # todo : add checks for distribution
     if [ ! -f /etc/yum.repos.d/epel-6-openscap.repo ]
     then
-        echo "openSCAP repo not installed, installing"
+        __log_warning "openSCAP repo not installed, installing"
         # Install openSCAP as per http://www.open-scap.org/page/Download
         # Fedora
         # yum install openscap openscap-utils openscap-content -y
@@ -342,7 +342,7 @@ _install_openscap(){
         _install_remi
         yum install openscap openscap-utils -y
     else
-        echo "openSCAP already installed"
+        __log_ginfo "openSCAP already installed"
     fi
 }
 
@@ -356,20 +356,20 @@ _install_ssg(){
         _install_remi
         yum install openscap openscap-utils scap-security-guide lynx -y
     else
-        echo "scap-security-guide already installed"
+        __log_ginfo "scap-security-guide already installed"
     fi
 }
 
 #@action
 _create_vm() {
-    printf "Place holder for launching vm"
+    __log_warning "Place holder for launching vm"
     printf "\n"
 }
 
 #@action
 _create_vm_govreadyc6() {
-    printf "Cloning and creating centos-openscap with date stamp"
-    printf "will be created in $BASEDIR/centos-openscap\n"
+    __log_govready "Cloning and creating centos-openscap with date stamp"
+    __log_govready "will be created in $BASEDIR/centos-openscap\n"
     # set a timestamp to be used for this vm
     vmsuffix=$(date +%Y%m%d-%M)
     cd ${BASEDIR}/
