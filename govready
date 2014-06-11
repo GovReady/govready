@@ -71,6 +71,8 @@ _usage() {
     printf "\tinstall_ssg_all       Install openSCAP & scap-security-guide\n"
     printf "\tinstall_epel          Install EPEL repo\n"
 
+    printf "\tscan <baseline>        Scan system against specified baseline" 
+
     printf "\thelp                  Print this help\n"
     printf "\n"
     printf "Common commands:\n"
@@ -101,6 +103,7 @@ _process_2_args() {
     case "${1}" in
         "create") _create_vm ;;
         "build") _build_vm "${3:-}" ;;
+        "scan") _govoscap ;;
         *) _usage; exit ;;
     esac
 }
@@ -362,6 +365,37 @@ _create_vm_govreadyc6() {
     printf "Done."
 }
 
+_govoscap() {
+    # usage: _govoscap("stig-rhel6-server-upstream")
+    # profile defined?
+    
+    if [ ! -z "$1" ]; then
+        echo "No profile specified. Using default."
+        profile="usgcb-rhel6-server"
+    else
+        profile=$1
+    fi
+
+    printf "Scanning system for compliance to baseline $1"
+
+    # set params
+    suffix="$(date +%m%d-%H%M)"
+    resultsdir="/var/www/govready/scans"
+    
+    # run openscap checklist
+    oscap xccdf eval --profile $profile \
+    --results $resultsdir/$profile-results-$suffix.xml \
+    --report $resultsdir/$profile-results-$suffix.html \
+    --cpe /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml \
+    /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
+    
+    # make results readable
+    chmod go+r $resultsdir/$profile-results-$suffix.html
+    chmod go+r $resultsdir/$profile-results-$suffix.xml
+    
+    # generate fix file
+    oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $profile-fix-$suffix.sh
+}
 
 # (signals and error handler) - cleaning after ctr-c, etc.
 #@special
