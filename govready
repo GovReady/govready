@@ -351,9 +351,29 @@ _install_ssg(){
     if ! rpm -qa | grep -q scap-security-guide 
     then
         echo "scap-security-guide not installed, installing"
-        _install_epel
-        _install_remi
-        yum install openscap openscap-utils scap-security-guide lynx -y
+        local NOPKGMANAGER=FALSE
+
+        if which yum &> /dev/null; then
+            # install with yum on RHEL/CentOS/Fedora
+            _install_epel
+            _install_remi
+            yum install openscap openscap-utils scap-security-guide lynx -y
+        elif which apt-get &> /dev/null; then
+            __log_error "Ubuntu and apt-get not yet supported."
+            __log_govready "Installing OpenSCAP, Lynx, libopenscap8 and existing"
+            # install with apt-get on Ubuntu
+            # WARNING: Incomplete
+            # todo: auto install ubuntu-scap
+            apt-get install openscap openscap-utils lynx -y
+            # install scap-security-guide from https://github.com/GovReady/ubuntu-scap 
+            apt-get install libopenscap8
+            #git clone https://github.com/GovReady/ubuntu-scap.git
+            exit 1
+        else
+            local NOPKGMANAGER=TRUE
+            __log_error "Neither apt-get or yum package manager found. Unable to install software packages."
+            exit 1
+        fi
     else
         __log_ginfo "scap-security-guide already installed"
     fi
