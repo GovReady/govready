@@ -71,7 +71,7 @@ _usage() {
     printf "\tinstall_ssg_all       Install openSCAP & scap-security-guide\n"
     printf "\tinstall_epel          Install EPEL repo\n"
 
-    printf "\tscan <baseline>        Scan system against specified baseline" 
+    printf "\tscan <baseline>       Scan system against specified baseline" 
 
     printf "\thelp                  Print this help\n"
     printf "\n"
@@ -353,6 +353,7 @@ _create_vm() {
     printf "\n"
 }
 
+#@action
 _create_vm_govreadyc6() {
     printf "Cloning and creating centos-openscap with date stamp"
     printf "will be created in $BASEDIR/centos-openscap\n"
@@ -365,6 +366,7 @@ _create_vm_govreadyc6() {
     printf "Done."
 }
 
+#@action
 _govoscap() {
     # usage: _govoscap("stig-rhel6-server-upstream")
     # profile defined?
