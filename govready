@@ -399,17 +399,13 @@ _govoscap() {
         profile="${1}"
     fi
 
-    __log_govready "Scanning system for compliance to profile ${1}"
-    __log_govready "Running command: \"oscap xccdf eval --profile $profile \
-    --results $resultsdir/$profile-results-$suffix.xml \
-    --report $resultsdir/$profile-results-$suffix.html \
-    --cpe $SSGCONTENTDIR/ssg-rhel6-cpe-dictionary.xml \
-    $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\""
-
     # set params
-    suffix="${SUFFIX}"
-    resultsdir="${RESULTSDIR}"
+    local suffix="${SUFFIX}"
+    local resultsdir="${RESULTSDIR}"
     
+    __log_govready "Scanning system for compliance to profile ${1}"
+    __log_govready "Running command: \"oscap xccdf eval --profile $profile --results $resultsdir/$profile-results-$suffix.xml --report $resultsdir/$profile-results-$suffix.html --cpe $SSGCONTENTDIR/ssg-rhel6-cpe-dictionary.xml $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\""
+
     # run openscap checklist
     oscap xccdf eval --profile $profile \
     --results $resultsdir/$profile-results-$suffix.xml \
