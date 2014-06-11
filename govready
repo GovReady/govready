@@ -68,7 +68,7 @@ _usage() {
     printf "\tcreatevm              Create a known virtual machine\n"
     printf "\tversion               Print the version and exit\n"
 
-    printf "\tinstall_ssg_all       Install openSCAP & scap-security-guide\n"
+    printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
     printf "\tinstall_epel          Install EPEL repo\n"
 
     printf "\tscan <baseline>       Scan system against specified baseline\n" 
@@ -116,7 +116,7 @@ _process_1_args() {
         "version") _prog_version ;;
         "createvm") _create_vm ;;
         "createvm-govreadyc6") _create_vm_govreadyc6 ;;
-        "install_ssg_all") _install_ssg_all ;;
+        "install_ssg") _install_ssg ;;
         "install_epel") _install_epel ;;
         *) _usage; exit ;;
     esac
@@ -320,6 +320,8 @@ _install_openscap(){
         # Fedora
         # yum install openscap openscap-utils openscap-content -y
         # RHEL
+        _install_epel
+        _install_remi
         yum install openscap openscap-utils -y
     else
         echo "openSCAP already installed"
@@ -332,20 +334,13 @@ _install_ssg(){
     if [ $? -ne 0 ]
     then
         echo "scap-security-guide not installed, installing"
-        yum -y install scap-security-guide -y
+        _install_epel
+        _install_remi
+        yum -y install openscap openscap-utils scap-security-guide lynx -y
     else
         echo "scap-security-guide already installed"
     fi
 }
-
-#@action
-_install_ssg_all(){
-    _install_epel
-    _install_remi
-    _install_openscap
-    _install_ssg
-}
-
 
 #@action
 _create_vm() {
@@ -371,14 +366,14 @@ _govoscap() {
     # usage: _govoscap("stig-rhel6-server-upstream")
     # profile defined?
     
-    if [ ! -z "$1" ]; then
-        echo "No profile specified. Using default.\n"
+    if [ -z "$1" ]; then
+        printf "No profile specified. Using default.\n"
         profile="usgcb-rhel6-server"
     else
         profile=$1
     fi
 
-    printf "Scanning system for compliance to baseline $1\n"
+    printf "Scanning system for compliance to baseline ${1}\n"
 
     # set params
     suffix="$(date +%m%d-%H%M)"
