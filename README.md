@@ -3,7 +3,7 @@ govready
 
 Toolkit for getting open source apps ready for secure, approved government use
 
-# About 
+## About 
 This about page is under development.
 
 # License
@@ -11,11 +11,11 @@ Copyright 2013, 2014 Greg Elin and GovReady. All Rights Reserved.
 
 GPL 3.0
 
-# Demo
+## Demo
 
 For a demo of the GovReady vision, text "wordpress" to 860-245-2269.
 
-# Install
+## Install
 
 Install is currently only for Linux RedHat, CentOS, Fedora. Does not currently work on Ubuntu, OS X, or Windows. 
 
@@ -24,12 +24,12 @@ Using curl
 # Install
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
 
-# Uninstall
+## Uninstall
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo UNINSTALL=1 bash
 
 ```
 
-# Getting Started
+## Getting Started
 First, use GovReady to install OpenSCAP and scap-security-guide content onto your system for doing scans.
 
 ```
@@ -59,7 +59,7 @@ lynx /var/www/govready/scans/usgcb-rhel6-server-results-0611-1025.html
 
 ```
 
-# Scan against available profiles/baselines
+## Scan profiles/baselines
 ```
 # List profiles
 govready profiles
