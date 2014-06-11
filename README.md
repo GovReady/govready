@@ -64,8 +64,7 @@ lynx /var/www/govready/scans/usgcb-rhel6-server-results-0611-1025.html
 # List profiles
 govready profiles
 
-# Use specific profile
-# Default profile is usgcb-rhel6-server
+# Use specific profile. Default profile is usgcb-rhel6-server.
 govready scan stig-rhel6-server-upstream
 
 
