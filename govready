@@ -71,7 +71,7 @@ _usage() {
     printf "\tinstall_ssg_all       Install openSCAP & scap-security-guide\n"
     printf "\tinstall_epel          Install EPEL repo\n"
 
-    printf "\tscan <baseline>       Scan system against specified baseline" 
+    printf "\tscan <baseline>       Scan system against specified baseline\n" 
 
     printf "\thelp                  Print this help\n"
     printf "\n"
@@ -103,7 +103,7 @@ _process_2_args() {
     case "${1}" in
         "create") _create_vm ;;
         "build") _build_vm "${3:-}" ;;
-        "scan") _govoscap ;;
+        "scan") _govoscap "${2}" ;;
         *) _usage; exit ;;
     esac
 }
@@ -372,13 +372,13 @@ _govoscap() {
     # profile defined?
     
     if [ ! -z "$1" ]; then
-        echo "No profile specified. Using default."
+        echo "No profile specified. Using default.\n"
         profile="usgcb-rhel6-server"
     else
         profile=$1
     fi
 
-    printf "Scanning system for compliance to baseline $1"
+    printf "Scanning system for compliance to baseline $1\n"
 
     # set params
     suffix="$(date +%m%d-%H%M)"
