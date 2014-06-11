@@ -51,7 +51,7 @@ govready scan
 
 View results. Lynx browser will let you browse html report from command line.
 ```
-lynx /var/www/govready/scans/&lt;profile&gt;-results-&lt;timestamp&gt;.html
+lynx /var/www/govready/scans/{profile}-results-{timestamp}.html
 
 # Reports use profile name and timestamp added automatically. 
 # Example:
