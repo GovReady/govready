@@ -44,6 +44,15 @@ __log_error() {
 # Global preferences
 BASEDIR="/codedata/virtualmachines"
 
+# Default profile for OpenSCAP scans
+BASELINE="usgcb-rhel6-server"
+
+# Default results directory for OpenSCAP scan output
+RESULTSDIR="/var/www/govready/scans"
+
+# Default file suffix
+SUFFIX="$(date +%m%d-%H%M)"
+
 
 # Global variables - do not use it in definition file (will be overwrite during program runtime)
 # name of global "private" variables should start with underscore
@@ -118,6 +127,7 @@ _process_1_args() {
         "createvm-govreadyc6") _create_vm_govreadyc6 ;;
         "install_ssg") _install_ssg ;;
         "install_epel") _install_epel ;;
+        "scan") _govoscap "${BASELINE}" ;;
         *) _usage; exit ;;
     esac
 }
@@ -368,16 +378,16 @@ _govoscap() {
     
     if [ -z "$1" ]; then
         printf "No profile specified. Using default.\n"
-        profile="usgcb-rhel6-server"
+        profile="${BASELINE}"
     else
-        profile=$1
+        profile="${1}"
     fi
 
     printf "Scanning system for compliance to baseline ${1}\n"
 
     # set params
-    suffix="$(date +%m%d-%H%M)"
-    resultsdir="/var/www/govready/scans"
+    suffix="${SUFFIX}"
+    resultsdir="${RESULTSDIR}"
     
     # run openscap checklist
     oscap xccdf eval --profile $profile \
