@@ -54,7 +54,7 @@ SSGCONTENTDIR="/usr/share/xml/scap/ssg/content/"
 BASELINE="usgcb-rhel6-server"
 
 # Default results directory for OpenSCAP scan output
-RESULTSDIR="/var/www/govready/scans"
+RESULTSDIR="."
 
 # Default file suffix
 SUFFIX="$(date +%m%d-%H%M)"
