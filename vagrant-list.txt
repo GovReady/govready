@@ -1,0 +1,106 @@
+/Applications/Vagrant/embedded/gems/gems/vagrant-1.6.2/plugins/providers/docker/hostmachine/Vagrantfile
+/Applications/Vagrant/embedded/gems/gems/vagrant-1.6.2/test/acceptance/skeletons/network_intnet/Vagrantfile
+/codedata/code/GovReady Library/archive/gitmachines-projects/basic-LAP-ansible-vagrant/Vagrantfile
+/codedata/code/GovReady Library/archive/gitmachines-projects/cloudstart-gitmachine-deprecated/Vagrantfile
+/codedata/code/GovReady Library/archive/gitmachines-projects/GitMachines/env/e1/Vagrantfile
+/codedata/code/GovReady Library/archive/gitmachines-projects/GitMachines/env/e2/Vagrantfile
+/codedata/code/GovReady Library/current/cloudstart/vm/basic/Vagrantfile
+/codedata/code/GovReady Library/current/gitmachines-projects/basic-LAP-ansible-vagrant/Vagrantfile
+/codedata/code/GovReady Library/current/gitmachines-projects/GitMachines/env/e1/Vagrantfile
+/codedata/code/GovReady Library/current/gitmachines-projects/GitMachines/env/e2/Vagrantfile
+/codedata/code/GovReady Library/current/GovReady.github.io/_site/Vagrantfile
+/codedata/code/GovReady Library/current/GovReady.github.io/Vagrantfile
+/codedata/code/GovReady Library/current/ubuntu-scap/Vagrantfile
+/codedata/virtualmachines/bpif_vagrant/Vagrantfile
+/codedata/virtualmachines/centos-govready-0529/Vagrantfile
+/codedata/virtualmachines/centos-openscap-2014-05-26/Vagrantfile
+/codedata/virtualmachines/centos-openscap-2014-05-28/Vagrantfile
+/codedata/virtualmachines/centos-openscap-20140528-08/Vagrantfile
+/codedata/virtualmachines/centos-openscap-20140618/Vagrantfile
+/codedata/virtualmachines/centos-openscap.0526.prototyping/Vagrantfile
+/codedata/virtualmachines/centos_aquaduct/Vagrantfile
+/codedata/virtualmachines/chef-ckan/Vagrantfile
+/codedata/virtualmachines/chef-ckan.CodeandoMexico/Vagrantfile
+/codedata/virtualmachines/ckan-vagrant/Vagrantfile
+/codedata/virtualmachines/ckan-vagrant-2014-01-05/Vagrantfile
+/codedata/virtualmachines/ckan-vagrant-basebox/Vagrantfile
+/codedata/virtualmachines/ckan-vagrant.gitmachines/Vagrantfile
+/codedata/virtualmachines/cloudstart-gitmachine/vm/basic/Vagrantfile
+/codedata/virtualmachines/coreos-vagrant/Vagrantfile
+/codedata/virtualmachines/docker/hack/Vagrantfile
+/codedata/virtualmachines/docker/packaging/debian/Vagrantfile
+/codedata/virtualmachines/docker/packaging/ubuntu/Vagrantfile
+/codedata/virtualmachines/docker/testing/Vagrantfile
+/codedata/virtualmachines/docker/Vagrantfile
+/codedata/virtualmachines/dockerroacobb/Vagrantfile
+/codedata/virtualmachines/generic-gm-centos6/Vagrantfile
+/codedata/virtualmachines/gm-centos6/Vagrantfile
+/codedata/virtualmachines/gm-centos6-ckan-temp/Vagrantfile
+/codedata/virtualmachines/gm-centos6-scap-learning/Vagrantfile
+/codedata/virtualmachines/gm-centos6-scap-learning-2014-01-02/Vagrantfile
+/codedata/virtualmachines/gm-centos6.4-minimal-study-1/Vagrantfile
+/codedata/virtualmachines/gm-dashboard/Vagrantfile
+/codedata/virtualmachines/govready-centos6.5-min/Vagrantfile
+/codedata/virtualmachines/govready-Tea/Vagrantfile
+/codedata/virtualmachines/govready-tea-2014-04-21/Vagrantfile
+/codedata/virtualmachines/govready-tea-2014-04-24/Vagrantfile
+/codedata/virtualmachines/govready-tea-2014-06-17/Vagrantfile
+/codedata/virtualmachines/govready-tea-2014-06-18/Vagrantfile
+/codedata/virtualmachines/jekyll/_site/Vagrantfile
+/codedata/virtualmachines/jekyll/Vagrantfile
+/codedata/virtualmachines/lamp-ansible-centos/Vagrantfile
+/codedata/virtualmachines/lamp-gm-centos6/Vagrantfile
+/codedata/virtualmachines/mailinabox/Vagrantfile
+/codedata/virtualmachines/minus/minus-d/Vagrantfile
+/codedata/virtualmachines/minus/minus-r/Vagrantfile
+/codedata/virtualmachines/minus/Vagrantfile
+/codedata/virtualmachines/myvm/Vagrantfile
+/codedata/virtualmachines/openscap/Vagrantfile
+/codedata/virtualmachines/pre-build/Vagrantfile
+/codedata/virtualmachines/PuPHPet-QTT9J0/Vagrantfile
+/codedata/virtualmachines/Puppet_LAMP/Vagrantfile
+/codedata/virtualmachines/Puppet_LAMP2/Vagrantfile
+/codedata/virtualmachines/statedecoded-56c/Vagrantfile
+/codedata/virtualmachines/statedecoded-gm-centos6-2014-04-21/Vagrantfile
+/codedata/virtualmachines/statedecoded-gm-centos6-2014-04-24/Vagrantfile
+/codedata/virtualmachines/statedecoded-gm-centos6-2014-05-18/Vagrantfile
+/codedata/virtualmachines/statedecoded-gm-centos6-2014-05-23/Vagrantfile
+/codedata/virtualmachines/vbkick-templates-forge-gitmachines/RHEL6/Vagrantfile
+/codedata/virtualmachines/widget-the-people/Vagrantfile
+find: /dev/fd/3: Not a directory
+find: /dev/fd/4: Not a directory
+/Library/Ruby/Gems/1.8/gems/sass-3.1.19/vendor/listen/Vagrantfile
+/Users/greg/.vagrant.d/boxes/centos/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/centos-6.3-nrel/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/centos-64-x64-vbox4210/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/centos-64-x64-vbox4210-fresh/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/centos65/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/centos_56_puppet/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/centos_6_2_puppet/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/centos_6_3_min/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/centos_MIN/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/centos_nrel/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/centos_nrel_wtp/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/ckan-box/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/coreos/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/coreos-alpha/317.0.0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/debian-squeeze/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/gm-centos6.4-minimal-study-1/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/govready-centos6.5-min/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/precise32/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/precise64/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/rhel6.4-web2/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/ubuntu/0/virtualbox/Vagrantfile
+/Users/greg/.vagrant.d/boxes/ubuntu-server-12042-x64-vbox4210/0/virtualbox/Vagrantfile
+/Users/greg/Dropbox/projects/GitMachines/hackforchange/gm-dev-gov-centos/Vagrantfile
+/Users/greg/Dropbox/projects/GitMachines/hackforchange/we-the-people-r/Vagrantfile
+/Users/greg/Dropbox/projects/GitMachines/hackforchange/widget-the-people-live/Vagrantfile
+/Users/greg/Dropbox/projects/GitMachines/hackforchange/widget-the-people-nrel_old/Vagrantfile
+/Users/greg/Dropbox/projects/GitMachines/hackforchange/widget-the-people-yum_old/Vagrantfile
+/Users/greg/Dropbox/projects/GitMachines/hackforchange/widget-the-people_old/Vagrantfile
+/Users/greg/Dropbox/projects/GitMachines/hackforchange/wtp2/Vagrantfile
+/Users/greg/Dropbox/projects/GitMachines/temp/vagrant-postgress/Vagrantfile
+/Users/greg/Dropbox/projects/GitMachines/wtp-nrel/Vagrantfile
+/Users/greg/Google Drive/GitMachines Desktop/ckan-data.gov/Vagrantfile
+/Users/greg/Library/Mail/V2/IMAP-gregelin@gitmachines.com@imap.gmail.com/[Gmail].mbox/All Mail.mbox/C0B55BAF-C77C-4BE5-A4F5-9A7D87D7E8D8/Data/3/Attachments/3595/2/Vagrantfile
+/Users/greg/statedecoded-gm-centos6-2014-01-26/Vagrantfile

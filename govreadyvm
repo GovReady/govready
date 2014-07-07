@@ -1,0 +1,89 @@
+#!/bin/bash
+# Maintainer Rodney Cobb <rocobb@gitmachines.com>
+ 
+# Define variables
+LSB=/usr/bin/lsb_release
+ 
+# Display pause prompt
+# $1-> Message (optional)
+function pause(){
+	local message="$@"
+	[ -z $message ] && message="Press [Enter] key to continue..."
+	read -p "$message" readEnterKey
+}
+ 
+# Display a menu on screen
+function show_menu(){
+    date
+    echo "---------------------------"
+    echo "GovReady System Info Panel"
+    echo "---------------------------"
+	echo "1) List Vagrantfiles"
+	echo "2) Update Vagrantfiles list"
+	echo "3) List VBKick definition files"
+	echo "8) quit"
+}
+ 
+# Display header message
+# $1 - message
+function write_header(){
+	local h="$@"
+	echo "---------------------------------------------------------------"
+	echo "     ${h}"
+	echo "---------------------------------------------------------------"
+}
+ 
+# List known Vagrantfiles
+function list_vagrantfiles(){
+	write_header " Vagrantfiles "
+	# split each path/to/Vagrantfile by dir separator and present with row number
+	awk -F'/' '{for (i=2;i<=NF;i++)if($i=="Vagrantfile") printf "%s. %s\n        path: ", 
+				NR, $(i-1); for(j=2;j<=i-2;j++) printf "%s/", $j; print " \n"}' vagrant-list.txt
+	# pause "Press [Enter] key to continue..."
+	pause
+}
+
+# List known vbkick definition files
+function list_vbkickdef(){
+	write_header " VBKick definition files "
+	# cat definition-list.txt
+	# split each path/to/Vagrantfile by dir separator and present with row number
+	awk -F'/' '{for (i=2;i<=NF;i++)if($i=="definition.cfg") printf "%s. %s\n        path: ", 
+				NR, $(i-1); for(j=2;j<=i-2;j++) printf "%s/", $j; print " \n"}' definition-list.txt
+	# pause "press [Enter] key to continue..."
+	pause
+}
+
+function update_vagrantfiles(){
+	write_header " Updating Vagrantfile list - Please be patient "
+	find / -name Vagrantfile 2>&1 | grep -v 'Permission denied' > vagrant-list.txt
+	wc -l vagrant-list.txt | awk '{printf "%s Vagrant files found\n", $1}'
+	pause
+}
+ 
+# Get input via the keyboard and make a decision using case..esac 
+function read_input(){
+	local c
+	read -p "Enter your choice [ 1 - 8 ]: " c
+	case $c in
+		1)	list_vagrantfiles ;;
+		2)  update_vagrantfiles ;;
+		3)  list_vbkickdef ;;
+		8)	echo "May DevOps be with you!"; exit 0 ;;
+		q)	echo "May DevOps be with you!"; exit 0 ;;
+		*)	
+			echo "Please select between 1 to 8. Select one choice only."
+			pause
+	esac
+}
+ 
+# ignore CTRL+C, CTRL+Z and quit singles using the trap
+trap '' SIGINT SIGQUIT SIGTSTP
+ 
+# main logic
+while true
+do
+	clear
+ 	show_menu	# display memu
+ 	read_input  # wait for user input
+done

@@ -1,0 +1,9 @@
+/codedata/code/GovReady Library/archive/vbkick-CentOS6-govready/CentOS6/definition.cfg
+/codedata/code/GovReady Library/archive/vbkick-CentOS6-govready/definition.cfg
+/codedata/code/GovReady Library/archive/vbkick-govready/examples/SL6_injection_method/definition.cfg
+/codedata/code/GovReady Library/archive/vbkick-govready/examples/SL6_lazy_method/definition.cfg
+/codedata/code/GovReady Library/archive/vbkick-govready/examples/SL6_provisioner/definition.cfg
+/codedata/virtualmachines/Boot2Docker/definition.cfg
+/codedata/virtualmachines/CoreOS/definition.cfg
+/codedata/virtualmachines/govready-ubuntu12.04/definition.cfg
+/codedata/virtualmachines/vbkick-centos6.5-kw/definition.cfg
