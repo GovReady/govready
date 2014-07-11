@@ -1,0 +1,4 @@
+# Some variables which are usefull for all tests
+# info: using export in sh, variable become available for all scripts exec by adm_features
+VBOX_VERSION="4.3.12"
+export VBOX_VERSION

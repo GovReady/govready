@@ -1,0 +1,16 @@
+# this is comment
+# Note: scripts are exec in order defined here
+base.sh
+repos.sh
+sudo.sh
+virtualbox.sh
+ruby.sh
+ansible.sh
+puppet.sh
+chef.sh
+cfengine.sh
+rh_devtoolset.sh
+rh_software_collections.sh
+nfs.sh
+cleanup.sh
+zerodisk.sh

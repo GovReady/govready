@@ -2,3 +2,7 @@
 .vagrant/**
 *.iso
 iso/**
+*.box
+
+# Mac
+.DS_Store
