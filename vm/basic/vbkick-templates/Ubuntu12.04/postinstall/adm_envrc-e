@@ -1,5 +1,0 @@
-# Some variables which may help customize box
-# info: using export in sh, variable become available for all scripts exec by adm_postinstall
-# Example:
-VBOX_VERSION="4.3.12"
-export VBOX_VERSION
