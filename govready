@@ -92,9 +92,6 @@ _usage() {
 
     printf "\thelp                  Print this help\n"
     printf "\n"
-    printf "Common commands:\n"
-    printf "\tcreatevm                Create a local instance of a known vm\n"
-    printf "\n"
     printf "For help on any individual command run 'govready <command> -h'\n"
     printf "\n"
 }
