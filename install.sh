@@ -44,6 +44,14 @@ BUILD_DIR=$(mktemp -d -t 'govready_build.XXXXXXXXXX')
 BASH_TARGET="govready"
 BASHCP_TARGET="govreadycp"
 
+# utilities
+
+_ping_govready(){
+    # Ping GovReady to track a download
+    GOVREADY_PING_URL="http://io.govready.org/io/"
+    curl -Lkfso /dev/null  "${GOVREADY_PING_URL}"
+}
+
 # install directories
 install_dirs(){
     ${INSTALL} -m 0755 -d "/var/www/govready/scans"
@@ -113,6 +121,8 @@ if [[ ${UNINSTALL} -eq 1 ]]; then
     uninstall_bins
     log_info "GovReady uninstall succeeded."
 else
+    log_info "Pinging GovReady"
+    _ping_govready
     install_bins
     install_dirs
     log_info "GovReady install succeeded."
