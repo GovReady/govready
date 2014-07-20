@@ -106,9 +106,9 @@ fail_guard(){
 trap fail_guard SIGHUP SIGINT SIGTERM ERR
 if [[ ${UNINSTALL} -eq 1 ]]; then
     uninstall_bins
-    log_info "Uninstall succeeded."
+    log_info "GovReady uninstall succeeded."
 else
     install_bins
     install_dirs
-    log_info "Install succeeded."
+    log_info "GovReady install succeeded."
 fi
