@@ -62,17 +62,22 @@ uninstall_dirs(){
 install_bins(){
     TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govready"
     TEMPCP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govreadycp"
+    # Make sure permament Linux Hierarchy File System (HFS) dir exists with correct permissions
+    log_info "Make sure directory ${PREFIX} exists"
+    ${INSTALL} -m 0755 -d "${PREFIX}"
     # Download govready to temporary build dir
+    log_info "Downloading and installing ${TEMP_SRC}"
     curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASH_TARGET}.tmp" ||\
         (log_error "download govready bin failed." && return 1)
-    # Download govreadycp to temporary build dir
-    curl -Lksf "${TEMPCP_SRC}" -o "${BUILD_DIR}/${BASHCP_TARGET}.tmp" ||\
-        (log_error "download govready bin failed." && return 1)
-    # Make sure permament Linux Hierarchy File System (HFS) dir exists with correct permissions
-    ${INSTALL} -m 0755 -d "${PREFIX}"
     # Install (move) files into permament Linux HFS dir
-   ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASH_TARGET}"
-   ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASHCP_TARGET}.tmp" "${PREFIX}/${BASHCP_TARGET}"
+    ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASH_TARGET}"
+    # Download govreadycp to temporary build dir
+    log_info "Downloading and installing ${TEMPCP_SRC}"
+    curl -Lksf "${TEMPCP_SRC}" -o "${BUILD_DIR}/${BASHCP_TARGET}.tmp" ||\
+        (log_error "download govreadycp bin failed." && return 1)
+    # Install (move) files into permament Linux HFS dir
+    ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASHCP_TARGET}.tmp" "${PREFIX}/${BASHCP_TARGET}"
+    #Remove temp files from download
     rm -rf "${BUILD_DIR}"
 }
 
@@ -111,4 +116,6 @@ else
     install_bins
     install_dirs
     log_info "GovReady install succeeded."
+    echo "govready version"
+    source ${PREFIX}/govready version
 fi
