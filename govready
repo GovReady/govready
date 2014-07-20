@@ -83,6 +83,7 @@ _usage() {
     printf "\tcreatevm              Create a known virtual machine\n"
     printf "\tversion               Print the version and exit\n"
 
+    printf "\tinstall_openscap      Install openSCAP\n"
     printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
     printf "\tinstall_epel          Install EPEL repo\n"
 
@@ -132,6 +133,7 @@ _process_1_args() {
         "version") _prog_version ;;
         "createvm") _create_vm ;;
         "createvm-govreadyc6") _create_vm_govreadyc6 ;;
+        "install_openscap") _install_openscap ;;
         "install_ssg") _install_ssg ;;
         "install_epel") _install_epel ;;
         "profiles") _govoscap_info ;;
