@@ -326,7 +326,7 @@ _install_remi(){
         wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
         sudo rpm -Uvh remi-release-6*.rpm
     else 
-        __log_govready "remi already installed"
+        __log_ginfo "remi already installed"
     fi
 }
 
