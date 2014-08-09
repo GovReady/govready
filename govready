@@ -354,6 +354,7 @@ _install_openscap(){
             local NOPKGMANAGER=TRUE
             __log_error "Neither apt-get or yum package manager found. Unable to install software packages."
             exit 1
+        fi
     else
         __log_ginfo "OpenSCAP already installed"
     fi
