@@ -327,21 +327,35 @@ _install_remi(){
     fi
 }
 
-#@action
+#@action\
 _install_openscap(){
     # todo : add checks for distribution
     if [ ! -f /etc/yum.repos.d/epel-6-openscap.repo ]
     then
-        __log_warning "openSCAP repo not installed, installing"
-        # Install openSCAP as per http://www.open-scap.org/page/Download
-        # Fedora
-        # yum install openscap openscap-utils openscap-content -y
-        # RHEL
-        _install_epel
-        _install_remi
-        yum install openscap openscap-utils -y
+        __log_warning "OpenSCAP repo not installed, installing"
+        local NOPKGMANAGER=FALSE
+
+        if which yum &> /dev/null; then
+            _install_epel
+            _install_remi
+            __log_govready "installing OpenSCAP on via yum (CentOS/Fedora/RedHat)"
+            __log_govready "Running command: yum install openscap openscap-utils -y"
+            yum install openscap openscap-utils -y
+        elif which apt-get &> /dev/null; then
+            __log_ginfo "installing OpenSCAP on via apt-get (Ubuntu)"
+            __log_ginfo "attempting libopenscap8 for 14.04, fallback to libopenscap1 for 12.04"
+            __log_govready "Running command: apt-get install libopenscap8 -y || apt-get install libopenscap1 -y"
+            apt-get install libopenscap8 -y || apt-get install libopenscap1 -y
+            # install lynx
+            __log_ginfo "install lynx browser"
+            __log_govready "Running command: apt-get install lynx -y"
+            apt-get install lynx -y
+        else
+            local NOPKGMANAGER=TRUE
+            __log_error "Neither apt-get or yum package manager found. Unable to install software packages."
+            exit 1
     else
-        __log_ginfo "openSCAP already installed"
+        __log_ginfo "OpenSCAP already installed"
     fi
 }
 
