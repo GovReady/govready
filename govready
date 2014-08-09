@@ -45,7 +45,7 @@ __log_govready() {
 }
 
 # Global preferences
-BASEDIR="/codedata/virtualmachines"
+VERSION="0.2.0-dev"
 
 # Default scap-security-guide content directory
 SSGCONTENTDIR="/usr/share/xml/scap/ssg/content/"
@@ -141,7 +141,7 @@ _process_1_args() {
 
 #@action
 _prog_version(){
-    printf "0.1.0-dev\n"
+    printf "${VERSION}\n"
     exit 0
 }
 
