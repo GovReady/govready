@@ -69,9 +69,5 @@ govready scan stig-rhel6-server-upstream
 
 ```
 
-## Included Virtual Machines
-The `vm` directory includes virtual machines for learning and testing GovReady. 
-
-`vm/basic` provides for a multiple virtual machine environment for testing GovReady. 
-
-`vm/basic/vbkick-templates` provides vbkick virtual machine configuration files for building VirtualBox VM's from source ISO and kick start files.
+## Testmachines 
+Use https://github.com/GovReady/testmachines for virtual machines to test GovReady.
