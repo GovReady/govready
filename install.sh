@@ -40,6 +40,9 @@ BUILD_DIR=$(mktemp -d -t 'govready_build.XXXXXXXXXX')
 # Do you want install or uninstall software, by default install.
 : ${UNINSTALL:=0}
 
+# What branch to install, master by default
+: ${BRANCH:="master"}
+
 # what scripts install/uninstall
 BASH_TARGET="govready"
 BASHCP_TARGET="govreadycp"
@@ -68,7 +71,7 @@ uninstall_dirs(){
 }
 
 install_bins(){
-    TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govready"
+    TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/${BRANCH}/govready"
     TEMPCP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govreadycp"
     # Make sure permament Linux Hierarchy File System (HFS) dir exists with correct permissions
     log_info "Make sure directory ${PREFIX} exists"
