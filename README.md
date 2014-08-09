@@ -23,9 +23,14 @@ Using curl
 # Install
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
 
-## Uninstall
+# Uninstall
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo UNINSTALL=1 bash
+```
 
+For development, you can force install a different branch. 
+```
+# Install branch other than master
+install branch:  curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo BRANCH=branch_name bash
 ```
 
 ## Getting Started

@@ -8,6 +8,8 @@
 # usage: 
 #  install:    curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
 #  uninstall:  curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo UNINSTALL=1 bash
+#  install branch:  curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo BRANCH=branch bash
+
 
 # 
 set -e -E -u -o pipefail; shopt -s failglob; set -o posix; set +o histexpand

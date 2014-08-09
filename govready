@@ -363,11 +363,11 @@ _install_ssg(){
             __log_ginfo "installing scap-security-guide on via apt-get (Ubuntu)"
             __log_ginfo "attempting libopenscap8 for 14.04, fallback to libopenscap1 for 12.04"
             __log_govready "Running command: apt-get install libopenscap8 -y || apt-get install libopenscap1 -y"
-            apt-get install libopenscap8 || apt-get install libopenscap1
+            apt-get install libopenscap8 -y || apt-get install libopenscap1 -y
             # install lynx
             __log_ginfo "install lynx browser"
             __log_govready "Running command: apt-get install lynx -y"
-            apt-get install lynx
+            apt-get install lynx -y
         else
             local NOPKGMANAGER=TRUE
             __log_error "Neither apt-get or yum package manager found. Unable to install software packages."
