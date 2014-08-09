@@ -349,25 +349,25 @@ _install_openscap(){
 _install_ssg(){
     if ! rpm -qa | grep -q scap-security-guide 
     then
-        echo "scap-security-guide not installed, installing"
+        __log_ginfo "scap-security-guide not installed"
         local NOPKGMANAGER=FALSE
 
         if which yum &> /dev/null; then
             # install with yum on RHEL/CentOS/Fedora
             _install_epel
             _install_remi
+            __log_govready "installing scap-security-guide on via yum (CentOS/Fedora/RedHat)"
+            __log_govready "Running command: yum install openscap openscap-utils scap-security-guide lynx -y"
             yum install openscap openscap-utils scap-security-guide lynx -y
         elif which apt-get &> /dev/null; then
-            __log_error "Ubuntu and apt-get not yet supported."
-            __log_govready "Installing OpenSCAP, Lynx, libopenscap8 and existing"
-            # install with apt-get on Ubuntu
-            # WARNING: Incomplete
-            # todo: auto install ubuntu-scap
-            apt-get install openscap openscap-utils lynx -y
-            # install scap-security-guide from https://github.com/GovReady/ubuntu-scap 
-            apt-get install libopenscap8
-            #git clone https://github.com/GovReady/ubuntu-scap.git
-            exit 1
+            __log_ginfo "installing scap-security-guide on via apt-get (Ubuntu)"
+            __log_ginfo "attempting libopenscap8 for 14.04, fallback to libopenscap1 for 12.04"
+            __log_govready "Running command: apt-get install libopenscap8 -y || apt-get install libopenscap1 -y"
+            apt-get install libopenscap8 || apt-get install libopenscap1
+            # install lynx
+            __log_ginfo "install lynx browser"
+            __log_govready "Running command: apt-get install lynx -y"
+            apt-get install lynx
         else
             local NOPKGMANAGER=TRUE
             __log_error "Neither apt-get or yum package manager found. Unable to install software packages."
