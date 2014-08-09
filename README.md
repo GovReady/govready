@@ -30,7 +30,7 @@ curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh |
 For development, you can force install a different branch. 
 ```
 # Install branch other than master
-install branch:  curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo BRANCH=branch_name bash
+curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo BRANCH=branch_name bash
 ```
 
 ## Getting Started
