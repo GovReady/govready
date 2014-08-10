@@ -80,7 +80,6 @@ _usage() {
     printf "Description: the GovReady Toolkit\n"
     printf "\n"
     printf "Usage: govready <command> [<args>] \n"
-    printf "\tcreatevm              Create a known virtual machine\n"
     printf "\tversion               Print the version and exit\n"
 
     printf "\tinstall_openscap      Install openSCAP\n"
@@ -89,7 +88,9 @@ _usage() {
 
     printf "\tprofiles              Available baselines and profiles\n" 
     printf "\tscan <profiles>       Scan system against specified profiles\n" 
-
+    
+    printf "\ttest                  test passing value\n"
+    
     printf "\thelp                  Print this help\n"
     printf "\n"
     printf "For help on any individual command run 'govready <command> -h'\n"
@@ -99,9 +100,9 @@ _usage() {
 #@action
 _context_usage(){
     case "${1}" in
-        "createvm")
-            printf "Usage: govready create <VM_NAME> [definition_file]\n"
-            printf "If no definition file specify 'definition.cfg' is used.\n" ;;
+        "test")
+            printf "Usage: govready test <VALUE> \n"
+            printf "Test passing of value\n" ;;
         *) _usage; exit ;;
     esac
 }
@@ -115,7 +116,7 @@ _process_2_args() {
     fi
     _Vm="${2}"
     case "${1}" in
-        "create") _create_vm ;;
+        "test") _test ;;
         "build") _build_vm "${3:-}" ;;
         "scan") _govoscap "${2}" ;;
         *) _usage; exit ;;
@@ -128,8 +129,7 @@ _process_1_args() {
     case "${1}" in
         "list") _list_all_vms ;;
         "version") _prog_version ;;
-        "createvm") _create_vm ;;
-        "createvm-govreadyc6") _create_vm_govreadyc6 ;;
+        "test") _test ;;
         "install_openscap") _install_openscap ;;
         "install_ssg") _install_ssg ;;
         "install_epel") _install_epel ;;
@@ -394,8 +394,8 @@ _install_ssg(){
 }
 
 #@action
-_create_vm() {
-    __log_warning "Place holder for launching vm"
+test() {
+    __log_warning "Test command"
     printf "\n"
 }
 
