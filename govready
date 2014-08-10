@@ -269,37 +269,8 @@ __curl_safe() {
 }
 
 
-#@action
-_destroy_vm() {
-    # check whether VM already exist
-    if ! __is_present; then
-        __log_error "'${_Vm}' doesn't exist"
-        exit 1
-    fi
-
-    # destroy VM
-    __log_info "Destroy '${_Vm}'"
-    local __ans
-    read -r -p "Are you sure? [y/N]" __ans
-    if [[ ! ${__ans} =~ ^[Yy]$ ]]; then
-        exit 1
-    fi
-
-    # check whether VM is alive
-    if __is_alive; then
-        __log_info "Poweroff '${_Vm}'"
-        VBoxManage controlvm "${_Vm}" poweroff
-        sleep 1
-    fi
-
-    __log_info "Destroying '${_Vm}'..."
-    VBoxManage unregistervm "${_Vm}" --delete
-    exit 0
-}
-
-
 #
-# GovReady Scripts
+# GovReady Methods
 # 
 
 #@action
@@ -397,19 +368,6 @@ _install_ssg(){
 _test() {
     __log_warning "Test command"
     printf "\n"
-}
-
-#@action
-_create_vm_govreadyc6() {
-    __log_govready "Cloning and creating centos-openscap with date stamp"
-    __log_govready "will be created in $BASEDIR/centos-openscap\n"
-    # set a timestamp to be used for this vm
-    vmsuffix=$(date +%Y%m%d-%M)
-    cd ${BASEDIR}/
-    time git clone git@github.com:GovReady/centos-openscap.git centos-openscap-$vmsuffix
-    cd $BASEDIR/centos-openscap-$vmsuffix
-    time vagrant up
-    printf "Done."
 }
 
 #@action
