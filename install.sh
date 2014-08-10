@@ -133,4 +133,6 @@ else
     log_info "GovReady install succeeded."
     echo "govready version"
     source ${PREFIX}/govready version
+    source ${PREFIX}/govready install_openscap
+    source ${PREFIX}/govready install_ssg
 fi
