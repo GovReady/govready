@@ -45,7 +45,7 @@ __log_govready() {
 }
 
 # Global preferences
-VERSION="0.2.0-dev"
+VERSION="0.3.0-dev"
 
 # Default scap-security-guide content directory
 SSGCONTENTDIR="/usr/share/xml/scap/ssg/content/"
@@ -394,7 +394,7 @@ _install_ssg(){
 }
 
 #@action
-test() {
+_test() {
     __log_warning "Test command"
     printf "\n"
 }
