@@ -45,7 +45,7 @@ __log_govready() {
 }
 
 # Global preferences
-VERSION="0.3.0-dev"
+VERSION="0.3.1-dev"
 
 # Default scap-security-guide content directory
 SSGCONTENTDIR="/usr/share/xml/scap/ssg/content/"
