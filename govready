@@ -51,7 +51,7 @@ VERSION="0.3.1-dev"
 SSGCONTENTDIR="/usr/share/xml/scap/ssg/content/"
 
 # Default profile for OpenSCAP scans
-BASELINE="usgcb-rhel6-server"
+# BASELINE="usgcb-rhel6-server"
 
 # Default results directory for OpenSCAP scan output
 RESULTSDIR="."
@@ -81,6 +81,7 @@ _usage() {
     printf "\n"
     printf "Usage: govready <command> [<args>] \n"
     printf "\tversion               Print the version and exit\n"
+    printf "\tinit                  Initialize a GovReady directory to track scans\n"
 
     printf "\tinstall_openscap      Install openSCAP\n"
     printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
@@ -129,6 +130,7 @@ _process_1_args() {
     case "${1}" in
         "list") _list_all_vms ;;
         "version") _prog_version ;;
+        "init") _govready_init ;;
         "test") _test ;;
         "install_openscap") _install_openscap ;;
         "install_ssg") _install_ssg ;;
@@ -365,6 +367,28 @@ _install_ssg(){
 }
 
 #@action
+_govready_init(){
+    __log_info "Initializing GovReady directory"
+    __log_info "Creating .govready subdirectories and files"
+    mkdir -p .govready/scans
+    touch .govready/config
+    touch .govready/log
+    __log_info "Creating default GovReadyfile"
+    touch GovReadyfile
+}
+
+#@action
+_parse_config(){
+    CONFIGFILE="GovReadyfile"
+    # Following sed should find only lines with an `=`, ignore blank lines, and ignore bad code
+    eval $(sed '/=/!d;/^ *#/d;s/=/ /;/^ *$/d;' < "$CONFIGFILE" | while read -r key val
+    do
+        str="$key='$val'"
+        echo "$str"
+    done)
+}
+
+#@action
 _test() {
     __log_warning "Test command"
     printf "\n"
@@ -381,11 +405,13 @@ _govoscap_info() {
 #@action
 _govoscap() {
     # usage: _govoscap("stig-rhel6-server-upstream")
-    # profile defined?
     
+    # TODO: Makesure proper GovReadyfile exists 
+
+    # Overwrite values from GovReadyfile with command line values
     if [ -z "$1" ]; then
         __log_govready "No profile specified. Using default.\n"
-        profile="${BASELINE}"
+        profile="${PROFILE}"
     else
         profile="${1}"
     fi
@@ -395,7 +421,7 @@ _govoscap() {
     local resultsdir="${RESULTSDIR}"
     
     __log_govready "Scanning system for compliance to profile ${1}"
-    __log_govready "Running command: \"oscap xccdf eval --profile $profile --results $resultsdir/$profile-results-$suffix.xml --report $resultsdir/$profile-results-$suffix.html --cpe $SSGCONTENTDIR/ssg-rhel6-cpe-dictionary.xml $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\""
+    __log_govready "Running command: \"oscap xccdf eval --profile $profile --results $resultsdir/$profile-results-$suffix.xml --report $resultsdir/$profile-results-$suffix.html --cpe $CPE $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\""
 
     # run openscap checklist
     oscap xccdf eval --profile $profile \
@@ -445,6 +471,7 @@ _main() {
     # virtual machine name
     _Vm=""
     __init_global_state_variables
+    _parse_config
     if [[ ${__args_num} -eq 1 ]]; then
         # check whether we have everything to start with govready
         __dependencies_check
