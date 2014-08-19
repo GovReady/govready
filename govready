@@ -372,7 +372,7 @@ _govready_init(){
     mkdir -p .govready/scans
     touch .govready/config
     touch .govready/log
-    
+
     __log_info "Creating default GovReadyfile"
     read -d '' grf << EOF
 # GovReadyfile
@@ -389,6 +389,16 @@ EOF
 #@action
 _parse_config(){
     CONFIGFILE="GovReadyfile"
+
+    # Check if GovReadyFile exists
+    if [[ -f "$CONFIGFILE" ]]; then
+        _parse_config
+    else
+        __log_error "Missing GovReadyfile"
+        echo "Missing GovReadyfile. Did you forget to 'govready init'?"
+        exit 1
+    fi
+
     # Following sed should find only lines with an `=`, ignore blank lines, and ignore bad code
     eval $(sed '/=/!d;/^ *#/d;s/=/ /;/^ *$/d;' < "$CONFIGFILE" | while read -r key val
     do
@@ -415,7 +425,7 @@ _govoscap_info() {
 _govoscap() {
     # usage: _govoscap("stig-rhel6-server-upstream")
     
-    # TODO: Makesure proper GovReadyfile exists 
+    _parse_config
 
     # Overwrite values from GovReadyfile with command line values
     if [ -z "$1" ]; then
@@ -480,14 +490,6 @@ _main() {
     # virtual machine name
     _Vm=""
     __init_global_state_variables
-    if [[ -f GovReadyfile ]]; then
-        _parse_config
-    else
-        __log_error "Missing GovReadyfile"
-        echo "Missing GovReadyfiles. Did you forget to `govready init`?"
-        exit 1
-    fi
-    _parse_config
     if [[ ${__args_num} -eq 1 ]]; then
         # check whether we have everything to start with govready
         __dependencies_check
