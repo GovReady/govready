@@ -377,6 +377,16 @@ _govready_init(){
     touch GovReadyfile
 }
 
+#@check
+__govreadyfile_exists() {
+    # TODO: Check if GovReadyfile exists
+    if [ ! -fs "./GovReadyfile" ]; then
+        __log_error "GovReadyfile not found"
+        echo "Missing GovReadyfile. Have you run `govready init`?"
+        exit 1
+    fi
+}
+
 #@action
 _parse_config(){
     CONFIGFILE="GovReadyfile"
