@@ -48,7 +48,7 @@ __log_govready() {
 VERSION="0.4.1"
 
 # Default scap-security-guide content directory
-SSGCONTENTDIR="/usr/share/xml/scap/ssg/content/"
+SSGCONTENTDIR="/usr/share/xml/scap/ssg/content"
 
 # Default profile for OpenSCAP scans
 # BASELINE="usgcb-rhel6-server"
@@ -144,7 +144,6 @@ _process_1_args() {
 #@action
 _prog_version(){
     printf "${VERSION}\n"
-    exit 0
 }
 
 __depend_check() {
@@ -373,18 +372,18 @@ _govready_init(){
     mkdir -p .govready/scans
     touch .govready/config
     touch .govready/log
+    
     __log_info "Creating default GovReadyfile"
-    touch GovReadyfile
-}
+    read -d '' grf << EOF
+# GovReadyfile
+# This file must exist for govready to run
 
-#@check
-__govreadyfile_exists() {
-    # TODO: Check if GovReadyfile exists
-    if [ ! -fs "./GovReadyfile" ]; then
-        __log_error "GovReadyfile not found"
-        echo "Missing GovReadyfile. Have you run `govready init`?"
-        exit 1
-    fi
+API = 0.1.0
+CPE = /usr/share/xml/scap/ssg/content/somefile
+PROFILE = test
+EOF
+
+    echo $grf > GovReadyfile
 }
 
 #@action
@@ -481,6 +480,13 @@ _main() {
     # virtual machine name
     _Vm=""
     __init_global_state_variables
+    if [[ -f GovReadyfile ]]; then
+        _parse_config
+    else
+        __log_error "Missing GovReadyfile"
+        echo "Missing GovReadyfiles. Did you forget to `govready init`?"
+        exit 1
+    fi
     _parse_config
     if [[ ${__args_num} -eq 1 ]]; then
         # check whether we have everything to start with govready
