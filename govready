@@ -374,16 +374,15 @@ _govready_init(){
     touch .govready/log
 
     __log_info "Creating default GovReadyfile"
-    read -d '' grf << EOF
+    GRF="
 # GovReadyfile
 # This file must exist for govready to run
 
 API = 0.1.0
 CPE = /usr/share/xml/scap/ssg/content/somefile
 PROFILE = test
-EOF
-
-    echo $grf > GovReadyfile
+"
+    echo "$GRF" > GovReadyfile
 }
 
 #@action
