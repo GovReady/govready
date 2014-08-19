@@ -136,7 +136,7 @@ _process_1_args() {
         "install_ssg") _install_ssg ;;
         "install_epel") _install_epel ;;
         "profiles") _govoscap_info ;;
-        "scan") _govoscap "${BASELINE}" ;;
+        "scan") _govoscap "${PROFILE}" ;;
         *) _usage; exit ;;
     esac
 }
