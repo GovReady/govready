@@ -2,6 +2,6 @@
       <cpe-item name="cpe:/o:redhat:enterprise_linux:6">
             <title xml:lang="en-us">Red Hat Enterprise Linux 6</title>
             <!-- the check references an OVAL file that contains an inventory definition -->
-            <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" href="ssg-rhel6-cpe-oval.xml">oval:ssg:def:100</check>
+            <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" href="ssg-centos6-cpe-oval.xml">oval:ssg:def:100</check>
       </cpe-item>
 </cpe-list>
