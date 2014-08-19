@@ -136,7 +136,7 @@ _process_1_args() {
         "install_ssg") _install_ssg ;;
         "install_epel") _install_epel ;;
         "profiles") _govoscap_info ;;
-        "scan") _govoscap "${PROFILE}" ;;
+        "scan") _govoscap ;;
         *) _usage; exit ;;
     esac
 }
@@ -390,9 +390,7 @@ _parse_config(){
     CONFIGFILE="GovReadyfile"
 
     # Check if GovReadyFile exists
-    if [[ -f "$CONFIGFILE" ]]; then
-        _parse_config
-    else
+    if [[ ! -f "$CONFIGFILE" ]]; then
         __log_error "Missing GovReadyfile"
         echo "Missing GovReadyfile. Did you forget to 'govready init'?"
         exit 1
@@ -427,8 +425,8 @@ _govoscap() {
     _parse_config
 
     # Overwrite values from GovReadyfile with command line values
-    if [ -z "$1" ]; then
-        __log_govready "No profile specified. Using default.\n"
+    if [ "$#" -ne 1 ]; then
+        __log_govready "Using profile ${PROFILE}.\n"
         profile="${PROFILE}"
     else
         profile="${1}"
@@ -438,7 +436,7 @@ _govoscap() {
     local suffix="${SUFFIX}"
     local resultsdir="${RESULTSDIR}"
     
-    __log_govready "Scanning system for compliance to profile ${1}"
+    __log_govready "Scanning system for compliance to profile ${PROFILE}"
     __log_govready "Running command: \"oscap xccdf eval --profile $profile --results $resultsdir/$profile-results-$suffix.xml --report $resultsdir/$profile-results-$suffix.html --cpe $CPE $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\""
 
     # run openscap checklist
