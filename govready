@@ -435,24 +435,22 @@ _govoscap() {
     # set params
     local suffix="${SUFFIX}"
     local resultsdir="${RESULTSDIR}"
+
+    local scan_command="oscap xccdf eval --profile ${profile} --results ${resultsdir}/${profile}-results-$suffix.xml --report ${resultsdir}/${profile}-results-${suffix}.html --cpe ${CPE} ${SSGCONTENTDIR}/ssg-rhel6-xccdf.xml"
     
     __log_govready "Scanning system for compliance to profile ${PROFILE}"
-    __log_govready "Running command: \"oscap xccdf eval --profile $profile --results $resultsdir/$profile-results-$suffix.xml --report $resultsdir/$profile-results-$suffix.html --cpe $CPE $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\""
-
+    __log_govready "Running command: ${scan_command}"
     # run openscap checklist
-    oscap xccdf eval --profile $profile \
-    --results $resultsdir/$profile-results-$suffix.xml \
-    --report $resultsdir/$profile-results-$suffix.html \
-    --cpe $SSGCONTENTDIR/ssg-rhel6-cpe-dictionary.xml \
-    $SSGCONTENTDIR/ssg-rhel6-xccdf.xml
+    eval $scan_command
     
     # make results readable
     chmod go+r $resultsdir/$profile-results-$suffix.html
     chmod go+r $resultsdir/$profile-results-$suffix.xml
     
     # generate fix file
-    __log_govready "Running command: \"oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $profile-fix-$suffix.sh\""
-    oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $profile-fix-$suffix.sh
+    scan_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $profile-fix-$suffix.sh"
+    __log_govready "Running command: \"${scan_command}\""
+    eval $scan_command
 }
 
 # (signals and error handler) - cleaning after ctr-c, etc.
