@@ -66,7 +66,7 @@ ls -l scans
 lynx scans/test-results-0820-0220.html
 
 # See available profiles (e.g., baselines)
-govready scan profiles
+govready profiles
 
 # Run a scan for a different profile (e.g., baseline)
 govready scan usgcb-rhel6-server
@@ -107,7 +107,7 @@ ls -l scans
 lynx scans/test-results-0820-0220.html
 
 # See available profiles (e.g., baselines)
-govready scan profiles
+govready profiles
 
 # Run a scan for a different profile (e.g., baseline)
 govready scan usgcb-rhel6-server
