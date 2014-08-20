@@ -1,32 +1,42 @@
 govready
 ========
 
-An accreditation-helper and toolkit for making FISMA easier.
+An accreditation-helper toolkit to make FISMA easier.
 
 # Vision 
 The GovReady vision is to make FISMA easier for innovators by
 
 - making compliance part of Agile/DevOps
-- sharing compliance status with Dev, Ops, Sec, and Mgt
+- sharing compliance progress data among Dev, Ops, Sec, and Mgt
 - making baseline development collaborative
-- providing trusted SCAP content that is open source friendly
+- providing trusted SCAP content with open source friendly licenses
 - embracing compliance as a practice distinct from security
 
 
 # Product
-Our first product is "govready", a git-like utility for running FISMA scans and managing results. 
+Our first product is "govready", a toolkit for running FISMA scans and managing results with a git-like feel. 
 
-Install govready and have a much nicer time running security scans and managing reports. 
+Govready uses (and is a contributor to) the NIST Certified SCAP 1.2 toolkit (OpenSCAP)[https://github.com/OpenSCAP/openscap] and (Scap-Security-Guide)[https://github.com/OpenSCAP/scap-security-guide]. 
+
+Our design goal is to make scanning easier and more collaborative regardless of your knowledge of FISMA.
 
 # License
 Copyright 2013, 2014 Greg Elin and GovReady. All Rights Reserved.
 
-GPL 3.0
+License: GPL 3.0
 
+# Project Status
+Govready is under heavy development and is pre-release. The current version is 0.4.x.
+
+We recommend only using govready currently on non-production virtual machines. 
+
+Feedback via GitHub issues is appreciated!
+
+The govready toolkit is funded by a generous grant from the (John S and James L Knight Foundation)[http://www.knightfoundation.org/grants/201345714/]
 
 # Get Started
 
-Use the quickstart appropriate to your OS.
+Below are several quickstarts. Use the quickstart for your preferred OS.
 
 ( Need a vm to test GovReady? Try: https://github.com/GovReady/testmachines )
 
@@ -36,7 +46,7 @@ Use the quickstart appropriate to your OS.
 # Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
 
-# switch to root so scanner can run all tests properly
+# Switch to root so scanner can run all tests properly
 su - 
 
 # Create a directory and cd into it
@@ -49,16 +59,16 @@ govready init
 # Run a scan
 govready scan
 
-# list results
+# List results
 ls -l scans
 
-# view a report - from the command line, old school style using lynx browser
+# View a report - from the command line, old school style using lynx browser
 lynx scans/test-results-0820-0220.html
 
 # See available profiles (e.g., baselines)
 govready scan profiles
 
-# Run a scan with a different baseline
+# Run a scan for a different profile (e.g., baseline)
 govready scan usgcb-rhel6-server
 ```
 
@@ -68,7 +78,7 @@ govready scan usgcb-rhel6-server
 # Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
 
-# switch to root so scanner can run all tests properly
+# Switch to root so scanner can run all tests properly
 su - 
 
 # Create a directory and cd into it
@@ -90,16 +100,16 @@ sed -i 's:^CPE.*:CPE = scap/content/ssg-centos6-cpe-dictionary.xml:' GovReadyfil
 # Run a scan
 govready scan
 
-# list results
+# List results
 ls -l scans
 
-# view a report - from the command line, old school style using lynx browser
+# View a report - from the command line, old school style using lynx browser
 lynx scans/test-results-0820-0220.html
 
 # See available profiles (e.g., baselines)
 govready scan profiles
 
-# Run a scan with a different baseline
+# Run a scan for a different profile (e.g., baseline)
 govready scan usgcb-rhel6-server
 
 ```
