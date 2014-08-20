@@ -16,7 +16,7 @@ The GovReady vision is to make FISMA easier for innovators by
 # Product
 Our first product is "govready", a toolkit for running FISMA scans and managing results with a git-like feel. 
 
-Govready uses (and is a contributor to) the NIST Certified SCAP 1.2 toolkit (OpenSCAP)[https://github.com/OpenSCAP/openscap] and (Scap-Security-Guide)[https://github.com/OpenSCAP/scap-security-guide]. 
+Govready uses (and is a contributor to) the NIST Certified SCAP 1.2 toolkit [OpenSCAP](https://github.com/OpenSCAP/openscap) and [Scap-Security-Guide](https://github.com/OpenSCAP/scap-security-guide). 
 
 Our design goal is to make scanning easier and more collaborative regardless of your knowledge of FISMA.
 
@@ -32,7 +32,7 @@ We recommend only using govready currently on non-production virtual machines.
 
 Feedback via GitHub issues is appreciated!
 
-The govready toolkit is funded by a generous grant from the (John S and James L Knight Foundation)[http://www.knightfoundation.org/grants/201345714/]
+The govready toolkit is funded by a generous grant from the [John S and James L Knight Foundation](http://www.knightfoundation.org/grants/201345714/)
 
 # Get Started
 
