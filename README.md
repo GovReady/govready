@@ -47,6 +47,7 @@ Below are several quickstarts. Use the quickstart for your preferred OS.
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
 
 # Switch to root so scanner can run all tests properly
+# It's OK. You are using a non-production vm, right?
 su - 
 
 # Create a directory and cd into it
