@@ -377,6 +377,7 @@ _govready_init(){
 API = 0.1.0
 SCANDIR = scans
 PROFILE = test
+CPE = /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml
 "
     echo "$GRF" > GovReadyfile
 }
