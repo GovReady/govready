@@ -50,12 +50,6 @@ VERSION="0.4.1"
 # Default scap-security-guide content directory
 SSGCONTENTDIR="/usr/share/xml/scap/ssg/content"
 
-# Default profile for OpenSCAP scans
-# BASELINE="usgcb-rhel6-server"
-
-# Default results directory for OpenSCAP scan output
-RESULTSDIR="."
-
 # Default file suffix
 SUFFIX="$(date +%m%d-%H%M)"
 
@@ -370,6 +364,8 @@ _govready_init(){
     __log_info "Initializing GovReady directory"
     __log_info "Creating .govready subdirectories and files"
     mkdir -p .govready/scans
+    mkdir -p scap/content
+    mkdir -p scans
     touch .govready/config
     touch .govready/log
 
@@ -379,7 +375,7 @@ _govready_init(){
 # This file must exist for govready to run
 
 API = 0.1.0
-CPE = /usr/share/xml/scap/ssg/content/somefile
+SCANDIR = scans
 PROFILE = test
 "
     echo "$GRF" > GovReadyfile
@@ -434,7 +430,7 @@ _govoscap() {
 
     # set params
     local suffix="${SUFFIX}"
-    local resultsdir="${RESULTSDIR}"
+    local resultsdir="${SCANDIR}"
 
     local scan_command="oscap xccdf eval --profile ${profile} --results ${resultsdir}/${profile}-results-$suffix.xml --report ${resultsdir}/${profile}-results-${suffix}.html --cpe ${CPE} ${SSGCONTENTDIR}/ssg-rhel6-xccdf.xml"
     
