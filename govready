@@ -152,10 +152,8 @@ __depend_check() {
 
 __dependencies_check() {
     __depend_check "curl" "curl"
-    __depend_check "ssh" "ssh-client (e.g. openssh-client)"
-    __depend_check "scp" "scp-client (e.g. openssh-client)"
     __depend_check "bash" "bash"
-    __depend_check "openssl" "openssl"
+    # __depend_check "openssl" "openssl"
     __depend_check "sed" "sed"
     __depend_check "grep" "grep"
     __depend_check "cut" "coreutils"
@@ -274,7 +272,7 @@ _install_epel(){
     then
         __log_warning "installing epel repo "
         wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-        sudo rpm -Uvh epel-release-6*.rpm
+        rpm -Uvh epel-release-6*.rpm
     else 
         __log_ginfo "epel already installed"
     fi
@@ -287,7 +285,7 @@ _install_remi(){
     then
         __log_warning "installing remi repo "
         wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-        sudo rpm -Uvh remi-release-6*.rpm
+        rpm -Uvh remi-release-6*.rpm
     else 
         __log_ginfo "remi already installed"
     fi
