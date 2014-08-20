@@ -24,20 +24,106 @@ Copyright 2013, 2014 Greg Elin and GovReady. All Rights Reserved.
 GPL 3.0
 
 
+# Get Started
 
-# Install
-Install is currently only for Linux RedHat, CentOS, Fedora 64 bit. (GovReady installs on Ubuntu 12 and 14, but Ubuntu SCAP content is scarce.)
+Use the quickstart appropriate to your OS.
+
+( Need a vm to test GovReady? Try: https://github.com/GovReady/testmachines )
+
+### RedHat 6, 7 quickstart (64 bit)
+
+```
+# Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
+curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
+
+# switch to root so scanner can run all tests properly
+su - 
+
+# Create a directory and cd into it
+mkdir myfisma
+cd myfisma
+
+# Initialize the directory
+govready init
+
+# Run a scan
+govready scan
+
+# list results
+ls -l scans
+
+# view a report - from the command line, old school style using lynx browser
+lynx scans/test-results-0820-0220.html
+
+# See available profiles (e.g., baselines)
+govready scan profiles
+
+# Run a scan with a different baseline
+govready scan usgcb-rhel6-server
+```
+
+### Centos 6 quickstart (64 bit)
+
+```
+# Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
+curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
+
+# switch to root so scanner can run all tests properly
+su - 
+
+# Create a directory and cd into it
+mkdir myfisma
+cd myfisma
+
+# Initialize the directory
+govready init
+
+# Download and add CentOS cpe-dictionary.xml and cpe-oval.xml SCAP data
+# Be certain to place the SCAP files into scap/content directory
+wget https://raw.githubusercontent.com/GovReady/govready/xplatform/templates/ssg-centos6-cpe-dictionary.xml --output-document scap/content/ssg-centos6-cpe-dictionary.xml
+
+wget https://raw.githubusercontent.com/GovReady/govready/xplatform/templates/ssg-centos6-cpe-oval.xml --output-document scap/content/ssg-centos6-cpe-oval.xml
+
+# Update GovReadyfile using sed command (or update the CPE line manually using a text editor)
+sed -i 's:^CPE.*:CPE = scap/content/ssg-centos6-cpe-dictionary.xml:' GovReadyfile
+
+# Run a scan
+govready scan
+
+# list results
+ls -l scans
+
+# view a report - from the command line, old school style using lynx browser
+lynx scans/test-results-0820-0220.html
+
+# See available profiles (e.g., baselines)
+govready scan profiles
+
+# Run a scan with a different baseline
+govready scan usgcb-rhel6-server
+
+```
+
+### Ubuntu 12 and 14 quick start (64 bit)
+
+```
+# Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
+curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
+
+# Sorry - this is all you can do on Ubuntu at the moment. :-(
+# Fork the code and help us include Ubuntu and Debian!!
+```
+
+
+# Uninstall govready
 
 Using curl
 ```
-# Install
-curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
-
 # Uninstall
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo UNINSTALL=1 bash
 ```
 
-For development, you can force install from a different branch. 
+# Install development branches
 ```
 # Install branch other than master
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo BRANCH=branch_name bash
@@ -46,46 +132,6 @@ curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh |
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/branch_name/install.sh | sudo BRANCH=branch_name bash
 ```
 
-## Getting Started
-First, use GovReady to install OpenSCAP and scap-security-guide content onto your system for doing scans.
 
-```
-# switch to root (Yes, this is undesirable, but govready is still pre-release)
-su -
-# install required packages
-govready install_ssg
-# exit root
-exit
-```
-
-Next, run the default scan. Results written to `/var/www/govready/scans/`
-
-```
-govready scan
-
-# If govready has problems accessing or writing files, adjust directory permissions or switching to root.
-```
-
-View results. Lynx browser will let you browse html report from command line.
-```
-lynx {profile}-results-{timestamp}.html
-
-# Reports use profile name and timestamp added automatically. 
-# Example:
-lynx usgcb-rhel6-server-results-0611-1025.html
-
-```
-
-## Scan profiles/baselines
-```
-# List profiles
-govready profiles
-
-# Use specific profile. Default profile is usgcb-rhel6-server.
-govready scan stig-rhel6-server-upstream
-
-
-```
-
-## Testmachines 
+# Testmachines 
 Use https://github.com/GovReady/testmachines for virtual machines to test GovReady.
