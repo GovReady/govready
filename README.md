@@ -4,32 +4,29 @@ govready
 An accreditation-helper and toolkit for making FISMA easier.
 
 # Vision 
-The GovReady vision is to make FISMA easier for innovators by:
+The GovReady vision is to make FISMA easier for innovators by
 
-- making compliance scanning part of Agile, DevOps and software supply chains
-- sharing awareness of FISMA Risk Management progress among Dev, Ops, Sec, _and Mission_
-- making risk management and baseline development collaborative and data-driven
-- providing baselines and SCAP content that is open source friendly
-- embracing compliance as an information-sharing practice distinct from security
+- making compliance part of Agile/DevOps
+- sharing compliance status with Dev, Ops, Sec, and Mgt
+- making baseline development collaborative
+- providing trusted SCAP content that is open source friendly
+- embracing compliance as a practice distinct from security
+
 
 # Product
 Our first product is "govready", a git-like utility for running FISMA scans and managing results. 
 
-In essence, govready is a wrapper around OpenSCAP (a NIST-certified SCAP Scanner) making it easier to 
-
-We've built a frien
-
-Think of govready as an accrediation-helper, making it easier to use a variety of tools to scan your system and lock it down according to official NIST guidance. 
-
-Our 
+Install govready and have a much nicer time running security scans and managing reports. 
 
 # License
 Copyright 2013, 2014 Greg Elin and GovReady. All Rights Reserved.
 
 GPL 3.0
 
-## Install
-Install is currently only for Linux RedHat, CentOS, Fedora. Does not currently work on Ubuntu, OS X, or Windows. 
+
+
+# Install
+Install is currently only for Linux RedHat, CentOS, Fedora 64 bit. (GovReady installs on Ubuntu 12 and 14, but Ubuntu SCAP content is scarce.)
 
 Using curl
 ```
@@ -40,10 +37,13 @@ curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh |
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo UNINSTALL=1 bash
 ```
 
-For development, you can force install a different branch. 
+For development, you can force install from a different branch. 
 ```
 # Install branch other than master
 curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo BRANCH=branch_name bash
+
+# Use an installer from a different branch
+curl -Lk https://raw.githubusercontent.com/GovReady/govready/branch_name/install.sh | sudo BRANCH=branch_name bash
 ```
 
 ## Getting Started
