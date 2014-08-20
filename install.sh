@@ -132,7 +132,9 @@ else
     install_dirs
     log_info "GovReady install succeeded."
     echo "govready version"
-    source ${PREFIX}/govready version
-    source ${PREFIX}/govready install_openscap
-    source ${PREFIX}/govready install_ssg
+    ${PREFIX}/govready version
+    log_info "GovReady requires OpenSCAP. Installing. CTL-c to halt."
+    ${PREFIX}/govready install_openscap
+    log_info "GovReady needs SCAP content. Installing SCAP-Security-Guide. CTL-c to halt."
+    ${PREFIX}/govready install_ssg
 fi
