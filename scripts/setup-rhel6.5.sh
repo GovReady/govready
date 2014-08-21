@@ -31,17 +31,17 @@ install_epel(){
 	fi
 }
 
-# install_remi(){
+install_remi(){
 	
-	#if [ ! -f /etc/yum.repos.d/remi.repo ]
-	#then
-	#	echo "installing remi repo "
-	#	wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-	#	sudo rpm -Uvh remi-release-6*.rpm
-	#else 
-	#	echo "remi already installed"
-	#fi
-# }
+	if [ ! -f /etc/yum.repos.d/remi.repo ]
+	then
+		echo "installing remi repo "
+		wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+		sudo rpm -Uvh remi-release-6*.rpm
+	else 
+		echo "remi already installed"
+	fi
+}
 
 
 # install openscap
