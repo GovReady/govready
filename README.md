@@ -44,7 +44,7 @@ Below are several quickstarts. Use the quickstart for your preferred OS.
 
 ```
 # Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
-curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
+curl -Lk io.govready.org/install | sudo bash
 
 # Switch to root so scanner can run all tests properly
 # It's OK. You are using a non-production vm, right?
@@ -77,7 +77,7 @@ govready scan usgcb-rhel6-server
 
 ```
 # Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
-curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
+curl -Lk io.govready.org/install | sudo bash
 
 # Switch to root so scanner can run all tests properly
 su - 
@@ -119,7 +119,7 @@ govready scan usgcb-rhel6-server
 
 ```
 # Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
-curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
+curl -Lk io.govready.org/install | sudo bash
 
 # Sorry - this is all you can do on Ubuntu at the moment. :-(
 # Fork the code and help us include Ubuntu and Debian!!
