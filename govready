@@ -281,14 +281,15 @@ _install_epel(){
 #@action
 _install_remi(){
     
-    if [ ! -f /etc/yum.repos.d/remi.repo ]
-    then
-        __log_warning "installing remi repo "
-        wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-        rpm -Uvh remi-release-6*.rpm
-    else 
-        __log_ginfo "remi already installed"
-    fi
+    #if [ ! -f /etc/yum.repos.d/remi.repo ]
+    #then
+    #    __log_warning "installing remi repo "
+    #    wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+    #    rpm -Uvh remi-release-6*.rpm
+    #else 
+    #    __log_ginfo "remi already installed"
+    #fi
+    __log_warning "NOT installing remi repo "
 }
 
 #@action\
@@ -301,7 +302,7 @@ _install_openscap(){
 
         if which yum &> /dev/null; then
             _install_epel
-            _install_remi
+            #_install_remi
             __log_govready "installing OpenSCAP on via yum (CentOS/Fedora/RedHat)"
             __log_govready "Running command: yum install openscap openscap-utils -y"
             yum install openscap openscap-utils -y
@@ -334,7 +335,7 @@ _install_ssg(){
         if which yum &> /dev/null; then
             # install with yum on RHEL/CentOS/Fedora
             _install_epel
-            _install_remi
+            #_install_remi
             __log_govready "installing scap-security-guide on via yum (CentOS/Fedora/RedHat)"
             __log_govready "Running command: yum install openscap openscap-utils scap-security-guide lynx -y"
             yum install openscap openscap-utils scap-security-guide lynx -y
