@@ -441,7 +441,7 @@ _import() {
     __log_govready "Starting import"
     __log_govready "Import url is ${1}"
     filename=$(basename "${1}")
-    curl -Lk "${1}" -o "./scap/content/${filename}"
+    wget --no-check-certificate "${1}" --output-document "scap/content/${filename}"
 }
 
 # (signals and error handler) - cleaning after ctr-c, etc.
