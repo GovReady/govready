@@ -440,7 +440,7 @@ _govoscap() {
 _import() {
     __log_govready "Starting import"
     __log_govready "Import url is ${1}"
-    filename=$(basename "$fullfile")
+    filename=$(basename "${1}")
     curl -Lk "${1}" -o ".scap/content/${filename}"
 }
 
