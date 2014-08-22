@@ -89,8 +89,7 @@ cd myfisma
 # Initialize the directory
 govready init
 
-# Import CentOS cpe-dictionary.xml and cpe-oval.xml SCAP data
-# Be certain to place the SCAP files into scap/content directory
+# Import CentOS cpe-dictionary.xml and cpe-oval.xml SCAP data into local scap/content directory
 govready import https://raw.githubusercontent.com/GovReady/govready/xplatform/templates/ssg-centos6-cpe-dictionary.xml
 govready import https://raw.githubusercontent.com/GovReady/govready/xplatform/templates/ssg-centos6-cpe-oval.xml
 
