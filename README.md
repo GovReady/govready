@@ -129,7 +129,6 @@ cd myfisma
 # Initialize the directory
 govready init
 
-
 # Run an oscap command just to see things fail because we have no SCAP content installed for Ubuntu
 oscap xccdf eval --profile test --results scans/test-results-0822-1319.xml --report scans/test-results-0822-1319.html  /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
 
