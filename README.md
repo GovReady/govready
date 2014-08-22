@@ -119,8 +119,23 @@ govready scan usgcb-rhel6-server
 # Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
 curl -Lk io.govready.org/install | sudo bash
 
+# Switch to root so scanner can run all tests properly
+su - 
+
+# Create a directory and cd into it
+mkdir myfisma
+cd myfisma
+
+# Initialize the directory
+govready init
+
+
+# Run an oscap command just to see things fail because we have no SCAP content installed for Ubuntu
+oscap xccdf eval --profile test --results scans/test-results-0822-1319.xml --report scans/test-results-0822-1319.html  /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
+
 # Sorry - this is all you can do on Ubuntu at the moment. :-(
-# Fork the code and help us include Ubuntu and Debian!!
+# Fork the code and help us include Ubuntu and Debi
+
 ```
 
 
