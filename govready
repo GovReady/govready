@@ -424,16 +424,17 @@ _govoscap() {
     __log_govready "Scanning system for compliance to profile ${PROFILE}"
     __log_govready "Running command: ${scan_command}"
     # run openscap checklist
-    eval $scan_command
+    eval $scan_command || __log_warning "..."
     
     # make results readable
     chmod go+r $resultsdir/$profile-results-$suffix.html
     chmod go+r $resultsdir/$profile-results-$suffix.xml
     
     # generate fix file
-    scan_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $profile-fix-$suffix.sh"
+    scan_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $resultsdir/$profile-fix-$suffix.sh"
     __log_govready "Running command: \"${scan_command}\""
-    eval $scan_command
+    eval $scan_command || __log_warning "..."
+    
 }
 
 #@action
