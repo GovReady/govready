@@ -438,8 +438,7 @@ _govoscap() {
 
 #@action
 _import() {
-    __log_govready "Starting import"
-    __log_govready "Import url is ${1}"
+    __log_govready "Importing ${1} to scap/content"
     filename=$(basename "${1}")
     wget --no-check-certificate "${1}" --output-document "scap/content/${filename}"
 }
