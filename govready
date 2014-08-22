@@ -81,6 +81,9 @@ _usage() {
     printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
     printf "\tinstall_epel          Install EPEL repo\n"
 
+    printf "\timport <file>         Import SCAP content into scap/content/\n"
+
+
     printf "\tprofiles              Available baselines and profiles\n" 
     printf "\tscan <profiles>       Scan system against specified profiles\n" 
     
@@ -112,8 +115,8 @@ _process_2_args() {
     _Vm="${2}"
     case "${1}" in
         "test") _test ;;
-        "build") _build_vm "${3:-}" ;;
         "scan") _govoscap "${2}" ;;
+        "import") _import "${2}" ;;
         *) _usage; exit ;;
     esac
 }
@@ -431,6 +434,12 @@ _govoscap() {
     scan_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $profile-fix-$suffix.sh"
     __log_govready "Running command: \"${scan_command}\""
     eval $scan_command
+}
+
+#@action
+_import() {
+    __log_govready "Starting import"
+    __log_govready "Import url is ${1}"
 }
 
 # (signals and error handler) - cleaning after ctr-c, etc.
