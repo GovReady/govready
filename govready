@@ -162,6 +162,7 @@ __dependencies_check() {
     __depend_check "cut" "coreutils"
     __depend_check "sort" "coreutils"
     __depend_check "tail" "coreutils"
+    __depend_check "xsltproc" "xsltrpoc"  # Used to generate quick reports at commandline
 }
 
 # Every action which requires vm settings must use this function to load them.
