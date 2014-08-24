@@ -497,15 +497,17 @@ _govoscap() {
     chmod go+r $resultsdir/$profile-results-$suffix.xml
     
     # generate fix file
-    scan_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $resultsdir/$profile-fix-$suffix.sh"
-    #scan_command="oscap xccdf generate fix xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $resultsdir/$profile-fix-$suffix.sh"
-    __log_govready "Running command: \"${scan_command}\""
-    eval $scan_command || __log_govready "..."
+    local fix_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $resultsdir/$profile-fix-$suffix.sh"
+    #fix_command="oscap xccdf generate fix xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $resultsdir/$profile-fix-$suffix.sh"
+    __log_govready "Running command: \"${fix_command}\""
+    eval $fix_command || __log_govready "..."
 
     local gov_command="xsltproc .govready/xml/scaninfo.xsl $resultsdir/$profile-results-$suffix.xml"
     __log_govready "Printing quickie report..."
     __log_govready "Running command: \"${gov_command}\""
     eval $gov_command || __log_govready "..."
+
+    printf "Result of OpeSCAP scan command\n${scan_command}\n"
     
 }
 
