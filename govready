@@ -495,6 +495,9 @@ _govoscap() {
     # make results readable
     chmod go+r $resultsdir/$profile-results-$suffix.html
     chmod go+r $resultsdir/$profile-results-$suffix.xml
+
+    # Let's reprint command just run so it is handy
+    __log_govready "Above output from command: ${scan_command}"
     
     # generate fix file
     local fix_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $resultsdir/$profile-fix-$suffix.sh"
@@ -506,8 +509,6 @@ _govoscap() {
     __log_govready "Printing quickie report..."
     __log_govready "Running command: \"${gov_command}\""
     eval $gov_command || __log_govready "..."
-
-    printf "Result of OpeSCAP scan command\n${scan_command}\n"
     
 }
 
