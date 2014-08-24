@@ -77,10 +77,11 @@ _usage() {
     printf "\tversion               Print the version and exit\n"
     printf "\tinit                  Initialize a GovReady directory to track scans\n"
 
+    printf "\tinstall_epel          Install EPEL repo\n"
     printf "\tinstall_openscap      Install openSCAP\n"
     printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
-    printf "\tinstall_epel          Install EPEL repo\n"
-
+    printf "\tinstall_xsltpoc       Install xsltproc\n"
+    
     printf "\timport <file>         Import SCAP content into scap/content/\n"
 
 
@@ -129,9 +130,10 @@ _process_1_args() {
         "version") _prog_version ;;
         "init") _govready_init ;;
         "test") _test ;;
+        "install_epel") _install_epel ;;
         "install_openscap") _install_openscap ;;
         "install_ssg") _install_ssg ;;
-        "install_epel") _install_epel ;;
+        "install_xsltproc") _install_xsltproc ;;
         "profiles") _govoscap_info ;;
         "scan") _govoscap ;;
         *) _usage; exit ;;
@@ -162,7 +164,6 @@ __dependencies_check() {
     __depend_check "cut" "coreutils"
     __depend_check "sort" "coreutils"
     __depend_check "tail" "coreutils"
-    __depend_check "xsltproc" "xsltrpoc"  # Used to generate quick reports at commandline
 }
 
 # Every action which requires vm settings must use this function to load them.
@@ -347,6 +348,33 @@ _install_ssg(){
 }
 
 #@action
+_install_xsltproc() {
+    if ! rpm -qa | grep -q xsltproc
+    then
+        __log_ginfo "xsltproc not installed"
+        local NOPKGMANAGER=FALSE
+
+        if which yum &> /dev/null; then
+            # install with yum on RHEL/CentOS/Fedora
+            __log_govready "installing xsltproc on via yum (CentOS/Fedora/RedHat)"
+            __log_govready "Running command: yum install xsltproc -y"
+            yum install xsltproc -y
+        elif which apt-get &> /dev/null; then
+            __log_ginfo "installing xsltproc on via apt-get (Ubuntu)"
+            # __log_ginfo "attempting libopenscap8 for 14.04, fallback to libopenscap1 for 12.04"
+            __log_govready "Running command: apt-get install xsltproc -y"
+            apt-get install xsltproc -y
+        else
+            local NOPKGMANAGER=TRUE
+            __log_error "Neither apt-get or yum package manager found. Unable to install software packages."
+            exit 1
+        fi
+    else
+        __log_ginfo "xsltproc already installed"
+    fi
+}
+
+#@action
 _govready_init(){
     __log_info "Initializing GovReady directory"
     __log_info "Creating .govready subdirectories and files"
@@ -473,6 +501,7 @@ _govoscap() {
     # usage: _govoscap("stig-rhel6-server-upstream")
     
     _parse_config
+    __depend_check "xsltproc" "xsltrpoc"  # Used to generate quick reports at commandline
 
     # Overwrite values from GovReadyfile with command line values
     if [ "$#" -ne 1 ]; then
