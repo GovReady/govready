@@ -443,10 +443,10 @@ usage: $> libxslt scaninfo.xsl result-file-name.xml
 <xsl:template match='cdf:TestResult'>
 SCAN RESULTS ON PROFILE "<xsl:value-of select='cdf:profile/@idref'/>"
 
-pass: <xsl:value-of select='count(cdf:rule-result[cdf:result="pass"])'/>
-fail: <xsl:value-of select='count(cdf:rule-result[cdf:result="fail"])'/>
-notselected: <xsl:value-of select='count(cdf:rule-result[cdf:result="notselected"])'/>
-notapplicable: <xsl:value-of select='count(cdf:rule-result[cdf:result="notapplicable"])'/>
+
+Profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"] | cdf:rule-result[@severity="high"][cdf:result="fail"] | cdf:rule-result[@severity="high"][cdf:result="error"])' /> high severity controls. Scan reports <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"])' /> passing and <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="fail"])' /> failing.
+Profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"] | cdf:rule-result[@severity="medium"][cdf:result="fail"] | cdf:rule-result[@severity="medium"][cdf:result="error"])' /> high severity controls. Scan reports <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"])' /> passing and <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="fail"])' /> failing.
+Profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"] | cdf:rule-result[@severity="low"][cdf:result="fail"] | cdf:rule-result[@severity="low"][cdf:result="error"])' /> high severity controls. Scan reports <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"])' /> passing and <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="fail"])' /> failing.
 <xsl:text>
 </xsl:text>
 </xsl:template>
@@ -532,7 +532,7 @@ _govoscap() {
     __log_govready "Running command: \"${fix_command}\""
     eval $fix_command || __log_govready "..."
 
-    local gov_command="libxslt .govready/xml/scaninfo.xsl $resultsdir/$profile-results-$suffix.xml"
+    local gov_command="xsltproc .govready/xml/scaninfo.xsl $resultsdir/$profile-results-$suffix.xml"
     __log_govready "Printing quickie report..."
     __log_govready "Running command: \"${gov_command}\""
     eval $gov_command || __log_govready "..."

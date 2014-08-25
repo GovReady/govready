@@ -35,10 +35,11 @@ usage: $> xsltproc scaninfo.xsl result-file-name.xml
 <xsl:template match='cdf:TestResult'>
 SCAN RESULTS ON PROFILE "<xsl:value-of select='cdf:profile/@idref'/>"
 
-pass: <xsl:value-of select='count(cdf:rule-result[cdf:result="pass"])'/>
-fail: <xsl:value-of select='count(cdf:rule-result[cdf:result="fail"])'/>
-notselected: <xsl:value-of select='count(cdf:rule-result[cdf:result="notselected"])'/>
-notapplicable: <xsl:value-of select='count(cdf:rule-result[cdf:result="notapplicable"])'/>
+Controls with high severity: <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"])' /> passed of <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"] | cdf:rule-result[@severity="medium"][cdf:result="fail"])' /> tested.
+Controls with medium severity: <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"])' /> passed of <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"] | cdf:rule-result[@severity="medium"][cdf:result="fail"])' /> tested.
+Controls with low severity: <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"])' /> passed of <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"] | cdf:rule-result[@severity="low"][cdf:result="fail"])' /> tested.
+Controls not selected: <xsl:value-of select='count(cdf:rule-result[cdf:result="notselected"])'/>
+Controls not applicable: <xsl:value-of select='count(cdf:rule-result[cdf:result="notapplicable"])'/>
 <xsl:text>
 </xsl:text>
 </xsl:template>
