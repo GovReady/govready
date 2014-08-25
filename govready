@@ -80,7 +80,7 @@ _usage() {
     printf "\tinstall_epel          Install EPEL repo\n"
     printf "\tinstall_openscap      Install openSCAP\n"
     printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
-    printf "\tinstall_xsltpoc       Install xsltproc\n"
+    printf "\tinstall_xsltpoc       Install libxslt\n"
     
     printf "\timport <file>         Import SCAP content into scap/content/\n"
 
@@ -349,16 +349,16 @@ _install_ssg(){
 
 #@action
 _install_xsltproc() {
-    if ! rpm -qa | grep -q xsltproc
-    then
-        __log_ginfo "xsltproc not installed"
+#    if ! rpm -qa | grep -q libxslt
+#    then
+        __log_ginfo "libxslt required for xsltproc"
         local NOPKGMANAGER=FALSE
 
         if which yum &> /dev/null; then
             # install with yum on RHEL/CentOS/Fedora
-            __log_govready "installing xsltproc on via yum (CentOS/Fedora/RedHat)"
-            __log_govready "Running command: yum install xsltproc -y"
-            yum install xsltproc -y
+            __log_govready "installing libxslt on via yum (CentOS/Fedora/RedHat)"
+            __log_govready "Running command: yum install libxslt -y"
+            yum install libxslt -y
         elif which apt-get &> /dev/null; then
             __log_ginfo "installing xsltproc on via apt-get (Ubuntu)"
             # __log_ginfo "attempting libopenscap8 for 14.04, fallback to libopenscap1 for 12.04"
@@ -369,9 +369,9 @@ _install_xsltproc() {
             __log_error "Neither apt-get or yum package manager found. Unable to install software packages."
             exit 1
         fi
-    else
-        __log_ginfo "xsltproc already installed"
-    fi
+#    else
+#        __log_ginfo "libxslt already installed"
+#    fi
 }
 
 #@action
@@ -428,7 +428,7 @@ Copyright: Greg Elin, 2014
 This file provides a relitvely simple xslt transformation on openscap results.xml file
 to show pass / fail numbers. 
 
-usage: $> xsltproc scaninfo.xsl result-file-name.xml
+usage: $> libxslt scaninfo.xsl result-file-name.xml
 
 -->
 
@@ -501,7 +501,7 @@ _govoscap() {
     # usage: _govoscap("stig-rhel6-server-upstream")
     
     _parse_config
-    __depend_check "xsltproc" "xsltrpoc"  # Used to generate quick reports at commandline
+    #__depend_check "libxslt" "xsltrpoc"  # Used to generate quick reports at commandline
 
     # Overwrite values from GovReadyfile with command line values
     if [ "$#" -ne 1 ]; then
@@ -532,7 +532,7 @@ _govoscap() {
     __log_govready "Running command: \"${fix_command}\""
     eval $fix_command || __log_govready "..."
 
-    local gov_command="xsltproc .govready/xml/scaninfo.xsl $resultsdir/$profile-results-$suffix.xml"
+    local gov_command="libxslt .govready/xml/scaninfo.xsl $resultsdir/$profile-results-$suffix.xml"
     __log_govready "Printing quickie report..."
     __log_govready "Running command: \"${gov_command}\""
     eval $gov_command || __log_govready "..."
