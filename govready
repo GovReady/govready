@@ -531,10 +531,15 @@ _govoscap() {
     __log_govready "Running command: \"${fix_command}\""
     eval $fix_command || __log_govready "..."
 
+    # generate quick scaninfo commandline report
     local gov_command="xsltproc .govready/xml/scaninfo.xsl $resultsdir/$profile-results-$suffix.xml"
     __log_govready "Printing quickie report..."
     __log_govready "Running command: \"${gov_command}\""
     eval $gov_command || __log_govready "..."
+
+    # indicate next steps
+    printf "View detailed HTML report: lynx $resultsdir/$profile-results-$suffix.html\n"
+    printf "Run auto-generated fix file: bash $resultsdir/$profile-fix-$suffix.sh\n\n"
     
 }
 
