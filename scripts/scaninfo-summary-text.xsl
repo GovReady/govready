@@ -33,13 +33,11 @@ usage: $> xsltproc scaninfo.xsl result-file-name.xml
 </xsl:template>
 
 <xsl:template match='cdf:TestResult'>
-SCAN RESULTS ON PROFILE "<xsl:value-of select='cdf:profile/@idref'/>"
+OpenSCAP NIST Certified SCAP Scanner Results for Profile "<xsl:value-of select='cdf:profile/@idref'/>"
 
-Controls with high severity: <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"])' /> passed of <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"] | cdf:rule-result[@severity="medium"][cdf:result="fail"])' /> tested.
-Controls with medium severity: <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"])' /> passed of <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"] | cdf:rule-result[@severity="medium"][cdf:result="fail"])' /> tested.
-Controls with low severity: <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"])' /> passed of <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"] | cdf:rule-result[@severity="low"][cdf:result="fail"])' /> tested.
-Controls not selected: <xsl:value-of select='count(cdf:rule-result[cdf:result="notselected"])'/>
-Controls not applicable: <xsl:value-of select='count(cdf:rule-result[cdf:result="notapplicable"])'/>
+The "<xsl:value-of select='cdf:profile/@idref'/>" profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"] | cdf:rule-result[@severity="high"][cdf:result="fail"] | cdf:rule-result[@severity="high"][cdf:result="error"])' /> high severity controls. OpenSCAP says <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"])' /> passing and <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="fail"])' /> failing.
+The "<xsl:value-of select='cdf:profile/@idref'/>" profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"] | cdf:rule-result[@severity="medium"][cdf:result="fail"] | cdf:rule-result[@severity="medium"][cdf:result="error"])' /> medium severity controls. OpenSCAP says <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"])' /> passing and <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="fail"])' /> failing.
+The "<xsl:value-of select='cdf:profile/@idref'/>" profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"] | cdf:rule-result[@severity="low"][cdf:result="fail"] | cdf:rule-result[@severity="low"][cdf:result="error"])' /> low severity controls. OpenSCAP says <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"])' /> passing and <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="fail"])' /> failing.
 <xsl:text>
 </xsl:text>
 </xsl:template>
