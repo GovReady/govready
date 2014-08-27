@@ -501,7 +501,7 @@ _govoscap() {
     _parse_config
     #__depend_check "libxslt" "xsltrpoc"  # Used to generate quick reports at commandline
 
-    # Overwrite values from GovReadyfile with command line values
+    # overwrite values from GovReadyfile with command line values
     if [ "$#" -ne 1 ]; then
         __log_govready "Using profile ${PROFILE}.\n"
         profile="${PROFILE}"
@@ -513,30 +513,28 @@ _govoscap() {
     local suffix="${SUFFIX}"
     local resultsdir="${SCANDIR}"
 
+    # build and execute openscap eval
     local scan_command="oscap xccdf eval --profile ${profile} --results ${resultsdir}/${profile}-results-$suffix.xml --report ${resultsdir}/${profile}-results-${suffix}.html --cpe ${CPE} ${SSGCONTENTDIR}/ssg-rhel6-xccdf.xml"
-    
     __log_govready "Scanning system for compliance to profile ${profile}"
     __log_govready "Running command: ${scan_command}"
-    # run openscap checklist
     eval $scan_command || __log_govready "..."
     
     # make results readable
     chmod go+r $resultsdir/$profile-results-$suffix.html
     chmod go+r $resultsdir/$profile-results-$suffix.xml
 
-    # generate fix file
+    # build and execute openscap fix file generation
     local fix_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $resultsdir/$profile-fix-$suffix.sh"
-    #fix_command="oscap xccdf generate fix xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $resultsdir/$profile-fix-$suffix.sh"
     __log_govready "Running command: \"${fix_command}\""
     eval $fix_command || __log_govready "..."
 
-    # generate quick scaninfo commandline report
+    # build and execute govready commndline quick report
     local gov_command="xsltproc .govready/xml/scaninfo.xsl $resultsdir/$profile-results-$suffix.xml"
     __log_govready "Printing quickie report..."
     __log_govready "Running command: \"${gov_command}\""
     eval $gov_command || __log_govready "..."
 
-    # indicate next steps
+    # send govready hint to commandline
     printf "View detailed HTML report: lynx $resultsdir/$profile-results-$suffix.html\n"
     printf "Run auto-generated fix file: bash $resultsdir/$profile-fix-$suffix.sh\n\n"
     
