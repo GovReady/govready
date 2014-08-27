@@ -87,7 +87,8 @@ _usage() {
 
     printf "\tprofiles              Available baselines and profiles\n" 
     printf "\tscan <profiles>       Scan system against specified profiles\n" 
-    
+    printf "\tfix                   Apply most recent fix script\n" 
+
     printf "\ttest                  test passing value\n"
     
     printf "\thelp                  Print this help\n"
@@ -136,6 +137,7 @@ _process_1_args() {
         "install_xsltproc") _install_xsltproc ;;
         "profiles") _govoscap_info ;;
         "scan") _govoscap ;;
+        "fix") _govoscap_fix ;;
         *) _usage; exit ;;
     esac
 }
@@ -528,6 +530,14 @@ _govoscap() {
     __log_govready "Running command: \"${fix_command}\""
     eval $fix_command || __log_govready "..."
 
+    # update govready softlinks
+    ln -sf $resultsdir/$profile-results-$suffix.xml $resultsdir/$profile-results.xml
+    ln -sf $resultsdir/$profile-results-$suffix.html $resultsdir/$profile-results.html
+    ln -sf $resultsdir/$profile-fix-$suffix.sh $resultsdir/$profile-fix.sh
+    ln -sf $resultsdir/$profile-results-$suffix.xml $resultsdir/results.xml
+    ln -sf $resultsdir/$profile-results-$suffix.html $resultsdir/results.html
+    ln -sf $resultsdir/$profile-fix-$suffix.sh $resultsdir/fix.sh
+
     # build and execute govready commndline quick report
     local gov_command="xsltproc .govready/xml/scaninfo.xsl $resultsdir/$profile-results-$suffix.xml"
     __log_govready "Printing quickie report..."
@@ -536,8 +546,32 @@ _govoscap() {
 
     # send govready hint to commandline
     printf "View detailed HTML report: lynx $resultsdir/$profile-results-$suffix.html\n"
-    printf "Run auto-generated fix file: bash $resultsdir/$profile-fix-$suffix.sh\n\n"
+    printf "Run auto-generated fix file: govready fix \n\n"
     
+}
+
+#@action
+_govoscap_fix() {
+    # Function uses symbolic link to run the most recently generated fix script
+
+    # Todo: enable passing of specific fix script target
+    _parse_config
+    #__depend_check "libxslt" "xsltrpoc"  # Used to generate quick reports at commandline
+
+    # set params
+    local resultsdir="${SCANDIR}"
+    local fixfile=$(readlink scans/fix.sh)
+
+    # graceful error if fix file does not exist
+    if [ ! -f $fixfile ]
+    then
+        __log_warning "No fix file yet exists. "
+        printf "No fix file exists. Have you run a 'govready scan' yet?\n"
+    else
+        # execute most recent fix file
+        __log_govready "executing most recent fix file: ${fixfile}"
+        bash $fixfile
+    fi
 }
 
 #@action
