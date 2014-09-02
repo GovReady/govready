@@ -517,7 +517,7 @@ _govoscap() {
     local resultsdir="${SCANDIR}"
 
     # build and execute openscap eval
-    local scan_command="oscap xccdf eval --profile ${profile} --results ${resultsdir}/${profile}-results-$suffix.xml --report ${resultsdir}/${profile}-results-${suffix}.html --cpe ${CPE} ${SSGCONTENTDIR}/ssg-rhel6-xccdf.xml"
+    local scan_command="oscap xccdf eval --oval-results --profile ${profile} --results ${resultsdir}/${profile}-results-$suffix.xml --report ${resultsdir}/${profile}-results-${suffix}.html --cpe ${CPE} ${SSGCONTENTDIR}/ssg-rhel6-xccdf.xml"
     __log_govready "Scanning system for compliance to profile ${profile}"
     __log_govready "Running command: ${scan_command}"
     eval $scan_command || __log_govready "..."
