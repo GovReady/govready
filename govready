@@ -532,12 +532,12 @@ _govoscap() {
     eval $fix_command || __log_govready "..."
 
     # update govready softlinks
-    ln -sf $resultsdir/$profile-results-$suffix.xml $resultsdir/$profile-results.xml
-    ln -sf $resultsdir/$profile-results-$suffix.html $resultsdir/$profile-results.html
-    ln -sf $resultsdir/$profile-fix-$suffix.sh $resultsdir/$profile-fix.sh
-    ln -sf $resultsdir/$profile-results-$suffix.xml $resultsdir/results.xml
-    ln -sf $resultsdir/$profile-results-$suffix.html $resultsdir/results.html
-    ln -sf $resultsdir/$profile-fix-$suffix.sh $resultsdir/fix.sh
+    ln -sf $profile-results-$suffix.xml $resultsdir/$profile-results.xml
+    ln -sf $profile-results-$suffix.html $resultsdir/$profile-results.html
+    ln -sf $profile-fix-$suffix.sh $resultsdir/$profile-fix.sh
+    ln -sf $profile-results-$suffix.xml $resultsdir/results.xml
+    ln -sf $profile-results-$suffix.html $resultsdir/results.html
+    ln -sf $profile-fix-$suffix.sh $resultsdir/fix.sh
 
     # build and execute govready commndline quick report
     local gov_command="xsltproc .govready/xml/scaninfo.xsl $resultsdir/$profile-results-$suffix.xml"
