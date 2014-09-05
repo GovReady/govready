@@ -1,0 +1,8 @@
+<cpe-list xmlns="http://cpe.mitre.org/dictionary/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://cpe.mitre.org/dictionary/2.0 http://cpe.mitre.org/files/cpe-dictionary_2.1.xsd">
+	  <!--<cpe-item name="cpe:/o:amazon:amazon_linux:2014032HVM">-->
+      <cpe-item name="cpe:/o:redhat:enterprise_linux:6">
+            <title xml:lang="en-us">Amazon Linux 2014.03.2 HVM - ami-76817c1e</title>
+            <!-- the check references an OVAL file that contains an inventory definition -->
+            <check system="http://oval.mitre.org/XMLSchema/oval-definitions-5" href="./ssg-amzn2014.03.2hvm-cpe-oval.xml">oval:ssg:def:100</check>
+      </cpe-item>
+</cpe-list>
