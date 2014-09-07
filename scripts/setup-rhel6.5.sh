@@ -76,7 +76,7 @@ fail_guard(){
 
 trap fail_guard SIGHUP SIGINT SIGTERM ERR
 install_epel
-install_remi
+#install_remi
 install_openscap
 install_ssg
 

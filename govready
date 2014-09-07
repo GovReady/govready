@@ -45,16 +45,10 @@ __log_govready() {
 }
 
 # Global preferences
-BASEDIR="/codedata/virtualmachines"
+VERSION="0.4.3"
 
 # Default scap-security-guide content directory
-SSGCONTENTDIR="/usr/share/xml/scap/ssg/content/"
-
-# Default profile for OpenSCAP scans
-BASELINE="usgcb-rhel6-server"
-
-# Default results directory for OpenSCAP scan output
-RESULTSDIR="."
+SSGCONTENTDIR="/usr/share/xml/scap/ssg/content"
 
 # Default file suffix
 SUFFIX="$(date +%m%d-%H%M)"
@@ -80,19 +74,24 @@ _usage() {
     printf "Description: the GovReady Toolkit\n"
     printf "\n"
     printf "Usage: govready <command> [<args>] \n"
-    printf "\tcreatevm              Create a known virtual machine\n"
     printf "\tversion               Print the version and exit\n"
+    printf "\tinit                  Initialize a GovReady directory to track scans\n"
 
-    printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
     printf "\tinstall_epel          Install EPEL repo\n"
+    printf "\tinstall_openscap      Install openSCAP\n"
+    printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
+    printf "\tinstall_xsltproc       Install libxslt\n"
+    
+    printf "\timport <file>         Import SCAP content into scap/content/\n"
+
 
     printf "\tprofiles              Available baselines and profiles\n" 
     printf "\tscan <profiles>       Scan system against specified profiles\n" 
+    printf "\tfix                   Apply most recent fix script\n" 
 
+    printf "\ttest                  test passing value\n"
+    
     printf "\thelp                  Print this help\n"
-    printf "\n"
-    printf "Common commands:\n"
-    printf "\tcreatevm                Create a local instance of a known vm\n"
     printf "\n"
     printf "For help on any individual command run 'govready <command> -h'\n"
     printf "\n"
@@ -101,9 +100,9 @@ _usage() {
 #@action
 _context_usage(){
     case "${1}" in
-        "createvm")
-            printf "Usage: govready create <VM_NAME> [definition_file]\n"
-            printf "If no definition file specify 'definition.cfg' is used.\n" ;;
+        "test")
+            printf "Usage: govready test <VALUE> \n"
+            printf "Test passing of value\n" ;;
         *) _usage; exit ;;
     esac
 }
@@ -117,9 +116,9 @@ _process_2_args() {
     fi
     _Vm="${2}"
     case "${1}" in
-        "create") _create_vm ;;
-        "build") _build_vm "${3:-}" ;;
+        "test") _test ;;
         "scan") _govoscap "${2}" ;;
+        "import") _import "${2}" ;;
         *) _usage; exit ;;
     esac
 }
@@ -130,20 +129,22 @@ _process_1_args() {
     case "${1}" in
         "list") _list_all_vms ;;
         "version") _prog_version ;;
-        "createvm") _create_vm ;;
-        "createvm-govreadyc6") _create_vm_govreadyc6 ;;
-        "install_ssg") _install_ssg ;;
+        "init") _govready_init ;;
+        "test") _test ;;
         "install_epel") _install_epel ;;
+        "install_openscap") _install_openscap ;;
+        "install_ssg") _install_ssg ;;
+        "install_xsltproc") _install_xsltproc ;;
         "profiles") _govoscap_info ;;
-        "scan") _govoscap "${BASELINE}" ;;
+        "scan") _govoscap ;;
+        "fix") _govoscap_fix ;;
         *) _usage; exit ;;
     esac
 }
 
 #@action
 _prog_version(){
-    printf "0.1.0-dev\n"
-    exit 0
+    printf "${VERSION}\n"
 }
 
 __depend_check() {
@@ -158,10 +159,8 @@ __depend_check() {
 
 __dependencies_check() {
     __depend_check "curl" "curl"
-    __depend_check "ssh" "ssh-client (e.g. openssh-client)"
-    __depend_check "scp" "scp-client (e.g. openssh-client)"
     __depend_check "bash" "bash"
-    __depend_check "openssl" "openssl"
+    # __depend_check "openssl" "openssl"
     __depend_check "sed" "sed"
     __depend_check "grep" "grep"
     __depend_check "cut" "coreutils"
@@ -270,37 +269,8 @@ __curl_safe() {
 }
 
 
-#@action
-_destroy_vm() {
-    # check whether VM already exist
-    if ! __is_present; then
-        __log_error "'${_Vm}' doesn't exist"
-        exit 1
-    fi
-
-    # destroy VM
-    __log_info "Destroy '${_Vm}'"
-    local __ans
-    read -r -p "Are you sure? [y/N]" __ans
-    if [[ ! ${__ans} =~ ^[Yy]$ ]]; then
-        exit 1
-    fi
-
-    # check whether VM is alive
-    if __is_alive; then
-        __log_info "Poweroff '${_Vm}'"
-        VBoxManage controlvm "${_Vm}" poweroff
-        sleep 1
-    fi
-
-    __log_info "Destroying '${_Vm}'..."
-    VBoxManage unregistervm "${_Vm}" --delete
-    exit 0
-}
-
-
 #
-# GovReady Scripts
+# GovReady Methods
 # 
 
 #@action
@@ -309,40 +279,41 @@ _install_epel(){
     then
         __log_warning "installing epel repo "
         wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
-        sudo rpm -Uvh epel-release-6*.rpm
+        rpm -Uvh epel-release-6*.rpm
     else 
         __log_ginfo "epel already installed"
     fi
 }
 
-#@action
-_install_remi(){
-    
-    if [ ! -f /etc/yum.repos.d/remi.repo ]
-    then
-        __log_warning "installing remi repo "
-        wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
-        sudo rpm -Uvh remi-release-6*.rpm
-    else 
-        __log_govready "remi already installed"
-    fi
-}
-
-#@action
+#@action\
 _install_openscap(){
     # todo : add checks for distribution
     if [ ! -f /etc/yum.repos.d/epel-6-openscap.repo ]
     then
-        __log_warning "openSCAP repo not installed, installing"
-        # Install openSCAP as per http://www.open-scap.org/page/Download
-        # Fedora
-        # yum install openscap openscap-utils openscap-content -y
-        # RHEL
-        _install_epel
-        _install_remi
-        yum install openscap openscap-utils -y
+        __log_warning "OpenSCAP repo not installed, installing"
+        local NOPKGMANAGER=FALSE
+
+        if which yum &> /dev/null; then
+            _install_epel
+            __log_govready "installing OpenSCAP on via yum (CentOS/Fedora/RedHat)"
+            __log_govready "Running command: yum install openscap openscap-utils -y"
+            yum install openscap openscap-utils -y
+        elif which apt-get &> /dev/null; then
+            __log_ginfo "installing OpenSCAP on via apt-get (Ubuntu)"
+            __log_ginfo "attempting libopenscap8 for 14.04, fallback to libopenscap1 for 12.04"
+            __log_govready "Running command: apt-get install libopenscap8 -y || apt-get install libopenscap1 -y"
+            apt-get install libopenscap8 -y || apt-get install libopenscap1 -y
+            # install lynx
+            __log_ginfo "install lynx browser"
+            __log_govready "Running command: apt-get install lynx -y"
+            apt-get install lynx -y
+        else
+            local NOPKGMANAGER=TRUE
+            __log_error "Neither apt-get or yum package manager found. Unable to install software packages."
+            exit 1
+        fi
     else
-        __log_ginfo "openSCAP already installed"
+        __log_ginfo "OpenSCAP already installed"
     fi
 }
 
@@ -350,25 +321,24 @@ _install_openscap(){
 _install_ssg(){
     if ! rpm -qa | grep -q scap-security-guide 
     then
-        echo "scap-security-guide not installed, installing"
+        __log_ginfo "scap-security-guide not installed"
         local NOPKGMANAGER=FALSE
 
         if which yum &> /dev/null; then
             # install with yum on RHEL/CentOS/Fedora
             _install_epel
-            _install_remi
+            __log_govready "installing scap-security-guide on via yum (CentOS/Fedora/RedHat)"
+            __log_govready "Running command: yum install openscap openscap-utils scap-security-guide lynx -y"
             yum install openscap openscap-utils scap-security-guide lynx -y
         elif which apt-get &> /dev/null; then
-            __log_error "Ubuntu and apt-get not yet supported."
-            __log_govready "Installing OpenSCAP, Lynx, libopenscap8 and existing"
-            # install with apt-get on Ubuntu
-            # WARNING: Incomplete
-            # todo: auto install ubuntu-scap
-            apt-get install openscap openscap-utils lynx -y
-            # install scap-security-guide from https://github.com/GovReady/ubuntu-scap 
-            apt-get install libopenscap8
-            #git clone https://github.com/GovReady/ubuntu-scap.git
-            exit 1
+            __log_ginfo "installing scap-security-guide on via apt-get (Ubuntu)"
+            __log_ginfo "attempting libopenscap8 for 14.04, fallback to libopenscap1 for 12.04"
+            __log_govready "Running command: apt-get install libopenscap8 -y || apt-get install libopenscap1 -y"
+            apt-get install libopenscap8 -y || apt-get install libopenscap1 -y
+            # install lynx
+            __log_ginfo "install lynx browser"
+            __log_govready "Running command: apt-get install lynx -y"
+            apt-get install lynx -y
         else
             local NOPKGMANAGER=TRUE
             __log_error "Neither apt-get or yum package manager found. Unable to install software packages."
@@ -380,22 +350,143 @@ _install_ssg(){
 }
 
 #@action
-_create_vm() {
-    __log_warning "Place holder for launching vm"
-    printf "\n"
+_install_xsltproc() {
+#    if ! rpm -qa | grep -q libxslt
+#    then
+        __log_ginfo "libxslt required for xsltproc"
+        local NOPKGMANAGER=FALSE
+
+        if which yum &> /dev/null; then
+            # install with yum on RHEL/CentOS/Fedora
+            __log_govready "installing libxslt on via yum (CentOS/Fedora/RedHat)"
+            __log_govready "Running command: yum install libxslt -y"
+            yum install libxslt -y
+        elif which apt-get &> /dev/null; then
+            __log_ginfo "installing xsltproc on via apt-get (Ubuntu)"
+            # __log_ginfo "attempting libopenscap8 for 14.04, fallback to libopenscap1 for 12.04"
+            __log_govready "Running command: apt-get install xsltproc -y"
+            apt-get install xsltproc -y
+        else
+            local NOPKGMANAGER=TRUE
+            __log_error "Neither apt-get or yum package manager found. Unable to install software packages."
+            exit 1
+        fi
+#    else
+#        __log_ginfo "libxslt already installed"
+#    fi
 }
 
 #@action
-_create_vm_govreadyc6() {
-    __log_govready "Cloning and creating centos-openscap with date stamp"
-    __log_govready "will be created in $BASEDIR/centos-openscap\n"
-    # set a timestamp to be used for this vm
-    vmsuffix=$(date +%Y%m%d-%M)
-    cd ${BASEDIR}/
-    time git clone git@github.com:GovReady/centos-openscap.git centos-openscap-$vmsuffix
-    cd $BASEDIR/centos-openscap-$vmsuffix
-    time vagrant up
-    printf "Done."
+_govready_init(){
+    __log_info "Initializing GovReady directory"
+    __log_info "Creating .govready subdirectories and files"
+    mkdir -p .govready/scans
+    mkdir -p .govready/xml
+    _govready_init_scaninfo_file
+    mkdir -p scap/content
+    mkdir -p scans
+    touch .govready/config
+    touch .govready/log
+
+    __log_info "Creating default GovReadyfile"
+    GRF="
+# GovReadyfile
+# This file must exist for govready to run
+
+API = 0.1.0
+SCANDIR = scans
+PROFILE = test
+CPE = /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml
+"
+    echo "$GRF" > GovReadyfile
+}
+
+#@action
+_govready_init_scaninfo_file() {
+
+    __log_info "Creating scaninfo.xsl file"
+
+    # Important to include `!` to avoid sending a halt program signal
+    ! read -d '' SIF <<"EOF"
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.1"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:cdf="http://checklists.nist.gov/xccdf/1.1"
+    xmlns:exsl="http://exslt.org/common"
+    xmlns:db="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:s="http://open-scap.org/"
+    exclude-result-prefixes="xsl cdf db s exsl"
+    xmlns:ovalres="http://oval.mitre.org/XMLSchema/oval-results-5"
+    xmlns:sceres="http://open-scap.org/page/SCE_result_file"
+    >
+
+<!--
+****************************************************************************************
+
+Copyright: Greg Elin, 2014
+
+This file provides a relitvely simple xslt transformation on openscap results.xml file
+to show pass / fail numbers. 
+
+usage: $> xsltproc scaninfo.xsl result-file-name.xml
+
+-->
+
+<!--xsl:output method="xml" encoding="UTF-8" indent="yes"/-->    
+<xsl:strip-space elements="*"/>
+<xsl:output method="text" encoding="utf-8" />
+
+<xsl:template match="/">
+    <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match='cdf:TestResult'>
+OpenSCAP NIST Certified SCAP Scanner Results for Profile "<xsl:value-of select='cdf:profile/@idref'/>"
+
+The "<xsl:value-of select='cdf:profile/@idref'/>" profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"] | cdf:rule-result[@severity="high"][cdf:result="fail"] | cdf:rule-result[@severity="high"][cdf:result="error"])' /> high severity controls. OpenSCAP says <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"])' /> passing and <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="fail"])' /> failing.
+The "<xsl:value-of select='cdf:profile/@idref'/>" profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"] | cdf:rule-result[@severity="medium"][cdf:result="fail"] | cdf:rule-result[@severity="medium"][cdf:result="error"])' /> medium severity controls. OpenSCAP says <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"])' /> passing and <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="fail"])' /> failing.
+The "<xsl:value-of select='cdf:profile/@idref'/>" profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"] | cdf:rule-result[@severity="low"][cdf:result="fail"] | cdf:rule-result[@severity="low"][cdf:result="error"])' /> low severity controls. OpenSCAP says <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"])' /> passing and <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="fail"])' /> failing.
+<xsl:text>
+</xsl:text>
+</xsl:template>
+
+<!-- include to stop leakage from builtin tempaltes -->
+<xsl:template match='node()' mode='engine-results'/>
+<xsl:template match="text()"/>
+
+</xsl:stylesheet>
+
+EOF
+
+    echo "$SIF" > .govready/xml/scaninfo.xsl
+
+}
+
+#@action
+_parse_config(){
+    CONFIGFILE="GovReadyfile"
+
+    # Check if GovReadyFile exists
+    if [[ ! -f "$CONFIGFILE" ]]; then
+        __log_error "Missing GovReadyfile"
+        echo "Missing GovReadyfile. Did you forget to 'govready init'?"
+        exit 1
+    fi
+
+    # Following sed should find only lines with an `=`, ignore blank lines, and ignore bad code
+    eval $(sed '/=/!d;/^ *#/d;s/=/ /;/^ *$/d;' < "$CONFIGFILE" | while read -r key val
+    do
+        str="$key='$val'"
+        echo "$str"
+    done)
+}
+
+#@action
+_test() {
+    __log_warning "Test command"
+    printf "\n"
 }
 
 #@action
@@ -409,36 +500,86 @@ _govoscap_info() {
 #@action
 _govoscap() {
     # usage: _govoscap("stig-rhel6-server-upstream")
-    # profile defined?
     
-    if [ -z "$1" ]; then
-        __log_govready "No profile specified. Using default.\n"
-        profile="${BASELINE}"
+    _parse_config
+    #__depend_check "libxslt" "xsltrpoc"  # Used to generate quick reports at commandline
+
+    # overwrite values from GovReadyfile with command line values
+    if [ "$#" -ne 1 ]; then
+        __log_govready "Using profile ${PROFILE}.\n"
+        profile="${PROFILE}"
     else
         profile="${1}"
     fi
 
     # set params
     local suffix="${SUFFIX}"
-    local resultsdir="${RESULTSDIR}"
-    
-    __log_govready "Scanning system for compliance to profile ${1}"
-    __log_govready "Running command: \"oscap xccdf eval --profile $profile --results $resultsdir/$profile-results-$suffix.xml --report $resultsdir/$profile-results-$suffix.html --cpe $SSGCONTENTDIR/ssg-rhel6-cpe-dictionary.xml $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\""
+    local resultsdir="${SCANDIR}"
 
-    # run openscap checklist
-    oscap xccdf eval --profile $profile \
-    --results $resultsdir/$profile-results-$suffix.xml \
-    --report $resultsdir/$profile-results-$suffix.html \
-    --cpe $SSGCONTENTDIR/ssg-rhel6-cpe-dictionary.xml \
-    $SSGCONTENTDIR/ssg-rhel6-xccdf.xml
+    # build and execute openscap eval
+    local scan_command="oscap xccdf eval --oval-results --profile ${profile} --results ${resultsdir}/${profile}-results-$suffix.xml --report ${resultsdir}/${profile}-results-${suffix}.html --cpe ${CPE} ${SSGCONTENTDIR}/ssg-rhel6-xccdf.xml"
+    __log_govready "Scanning system for compliance to profile ${profile}"
+    __log_govready "Running command: ${scan_command}"
+    eval $scan_command || __log_govready "..."
     
     # make results readable
     chmod go+r $resultsdir/$profile-results-$suffix.html
     chmod go+r $resultsdir/$profile-results-$suffix.xml
+
+    # build and execute openscap fix file generation
+    local fix_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $resultsdir/$profile-fix-$suffix.sh"
+    __log_govready "Running command: \"${fix_command}\""
+    eval $fix_command || __log_govready "..."
+
+    # update govready softlinks
+    ln -sf $profile-results-$suffix.xml $resultsdir/$profile-results.xml
+    ln -sf $profile-results-$suffix.html $resultsdir/$profile-results.html
+    ln -sf $profile-fix-$suffix.sh $resultsdir/$profile-fix.sh
+    ln -sf $profile-results-$suffix.xml $resultsdir/results.xml
+    ln -sf $profile-results-$suffix.html $resultsdir/results.html
+    ln -sf $profile-fix-$suffix.sh $resultsdir/fix.sh
+
+    # build and execute govready commndline quick report
+    local gov_command="xsltproc .govready/xml/scaninfo.xsl $resultsdir/$profile-results-$suffix.xml"
+    __log_govready "Printing quickie report..."
+    __log_govready "Running command: \"${gov_command}\""
+    eval $gov_command || __log_govready "..."
+
+    # send govready hint to commandline
+    printf "View detailed HTML report: lynx $resultsdir/$profile-results-$suffix.html\n"
+    printf "Run auto-generated fix file: govready fix \n\n"
     
-    # generate fix file
-    __log_govready "Running command: \"oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $profile-fix-$suffix.sh\""
-    oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile $resultsdir/$profile-results-$suffix.xml > $profile-fix-$suffix.sh
+}
+
+#@action
+_govoscap_fix() {
+    # Function uses symbolic link to run the most recently generated fix script
+
+    # Todo: enable passing of specific fix script target
+    _parse_config
+    #__depend_check "libxslt" "xsltrpoc"  # Used to generate quick reports at commandline
+
+    # set params
+    local resultsdir="${SCANDIR}"
+    local fixfile=$(readlink scans/fix.sh)
+
+    # graceful error if fix file does not exist
+    if [ ! -f $fixfile ]
+    then
+        __log_warning "No fix file yet exists. "
+        printf "No fix file exists. Have you run a 'govready scan' yet?\n"
+    else
+        # execute most recent fix file
+        __log_govready "executing most recent fix file: ${fixfile}"
+        bash $fixfile
+    fi
+}
+
+#@action
+_import() {
+    __log_govready "Importing ${1} to scap/content"
+    filename=$(basename "${1}")
+    wget --no-check-certificate "${1}" --output-document "scap/content/${filename}"
 }
 
 # (signals and error handler) - cleaning after ctr-c, etc.

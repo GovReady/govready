@@ -11,4 +11,3 @@ spooled data	any temp to be processed		/var/spool/govready
 scans			reports, scans, etc				/var/www/govready/scans
 logs			log files						/var/log/govready
 ?				?								/usr/local/share/applications
-ls /

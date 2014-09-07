@@ -8,6 +8,8 @@
 # usage: 
 #  install:    curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
 #  uninstall:  curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo UNINSTALL=1 bash
+#  install branch:  curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo BRANCH=branch bash
+
 
 # 
 set -e -E -u -o pipefail; shopt -s failglob; set -o posix; set +o histexpand
@@ -40,9 +42,20 @@ BUILD_DIR=$(mktemp -d -t 'govready_build.XXXXXXXXXX')
 # Do you want install or uninstall software, by default install.
 : ${UNINSTALL:=0}
 
+# What branch to install, master by default
+: ${BRANCH:="master"}
+
 # what scripts install/uninstall
 BASH_TARGET="govready"
 BASHCP_TARGET="govreadycp"
+
+# utilities
+
+_ping_govready(){
+    # Ping GovReady to track a download
+    GOVREADY_PING_URL="http://io.govready.org/io/"
+    curl -Lkfso /dev/null  "${GOVREADY_PING_URL}"
+}
 
 # install directories
 install_dirs(){
@@ -60,19 +73,24 @@ uninstall_dirs(){
 }
 
 install_bins(){
-    TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govready"
+    TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/${BRANCH}/govready"
     TEMPCP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govreadycp"
+    # Make sure permament Linux Hierarchy File System (HFS) dir exists with correct permissions
+    log_info "Make sure directory ${PREFIX} exists"
+    ${INSTALL} -m 0755 -d "${PREFIX}"
     # Download govready to temporary build dir
+    log_info "Downloading and installing ${TEMP_SRC}"
     curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASH_TARGET}.tmp" ||\
         (log_error "download govready bin failed." && return 1)
-    # Download govreadycp to temporary build dir
-    curl -Lksf "${TEMPCP_SRC}" -o "${BUILD_DIR}/${BASHCP_TARGET}.tmp" ||\
-        (log_error "download govready bin failed." && return 1)
-    # Make sure permament Linux Hierarchy File System (HFS) dir exists with correct permissions
-    ${INSTALL} -m 0755 -d "${PREFIX}"
     # Install (move) files into permament Linux HFS dir
-   ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASH_TARGET}"
-   ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASHCP_TARGET}.tmp" "${PREFIX}/${BASHCP_TARGET}"
+    ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASH_TARGET}"
+    # Download govreadycp to temporary build dir
+    log_info "Downloading and installing ${TEMPCP_SRC}"
+    curl -Lksf "${TEMPCP_SRC}" -o "${BUILD_DIR}/${BASHCP_TARGET}.tmp" ||\
+        (log_error "download govreadycp bin failed." && return 1)
+    # Install (move) files into permament Linux HFS dir
+    ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASHCP_TARGET}.tmp" "${PREFIX}/${BASHCP_TARGET}"
+    #Remove temp files from download
     rm -rf "${BUILD_DIR}"
 }
 
@@ -106,9 +124,17 @@ fail_guard(){
 trap fail_guard SIGHUP SIGINT SIGTERM ERR
 if [[ ${UNINSTALL} -eq 1 ]]; then
     uninstall_bins
-    log_info "Uninstall succeeded."
+    log_info "GovReady uninstall succeeded."
 else
+    log_info "Pinging GovReady"
+    _ping_govready
     install_bins
     install_dirs
-    log_info "Install succeeded."
+    log_info "GovReady install succeeded."
+    echo "govready version"
+    ${PREFIX}/govready version
+    log_info "GovReady requires OpenSCAP. Installing. CTL-c to halt."
+    ${PREFIX}/govready install_openscap
+    log_info "GovReady needs SCAP content. Installing SCAP-Security-Guide. CTL-c to halt."
+    ${PREFIX}/govready install_ssg
 fi
