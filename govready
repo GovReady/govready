@@ -518,7 +518,7 @@ cce: <xsl:value-of select='cdf:ident[@system="http://cce.mitre.org"]'/>
 check-content-ref/@name: <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/>
 check-content-ref/@href: <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
 
-oval test (EXPERIMENTAL!): oscap oval eval --id <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/> /usr/share/xml/scap/ssg/content/<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
+oval test (EXPERIMENTAL!): oscap oval eval --id <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/> --variables scans/variables.xml /usr/share/xml/scap/ssg/content/<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
 
 <xsl:text>
 </xsl:text>
@@ -675,7 +675,7 @@ _govoscap_rules_scan_info() {
     eval $bash__command || __log_govready "..."
 
     # build and execute oval eval for a rule id
-    local oscap__command="oscap oval eval --id oval:ssg:def:153 ${SSGCONTENTDIR}/ssg-rhel6-oval.xml"
+    local oscap__command="oscap oval eval --id oval:ssg:def:153 --variables scans/variables.xml ${SSGCONTENTDIR}/ssg-rhel6-oval.xml"
     __log_govready "Running command: \"${oscap__command}\""
     eval $oscap__command || __log_govready "..."
 
