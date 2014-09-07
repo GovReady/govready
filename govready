@@ -45,7 +45,7 @@ __log_govready() {
 }
 
 # Global preferences
-VERSION="0.4.3"
+VERSION="0.4.4"
 
 # Default scap-security-guide content directory
 SSGCONTENTDIR="/usr/share/xml/scap/ssg/content"
@@ -388,6 +388,7 @@ _govready_init(){
     mkdir -p .govready/xml
     _govready_init_scaninfo_file
     _govready_init_scanruleinfo_file
+    _govready_init_getruleovaldef_file
     mkdir -p scap/content
     mkdir -p scans
     touch .govready/config
@@ -590,7 +591,7 @@ usage: $> xsltproc - -stringparam paramname paramvalue ruleinfo.xsl result-file-
 
 EOF
 
-    echo "$SIF" > .govready/xml/ruleinfo.xsl
+    echo "$SIF" > .govready/xml/getruleovaldef.xsl
 
 }
 
