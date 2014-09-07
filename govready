@@ -512,16 +512,73 @@ usage: $> xsltproc - -stringparam paramname paramvalue ruleinfo.xsl result-file-
 
 <xsl:template match="cdf:rule-result">
 <xsl:if test="@idref=$ruleid">
-Result info for <xsl:value-of select='@idref'/>
-result: <xsl:value-of select='cdf:result'/>
-cce: <xsl:value-of select='cdf:ident[@system="http://cce.mitre.org"]'/>
-check-content-ref/@name: <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/>
-check-content-ref/@href: <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
+Rule "<xsl:value-of select='@idref'/>" (AKA <xsl:value-of select='cdf:ident[@system="http://cce.mitre.org"]'/>) had result "<xsl:value-of select='cdf:result'/>" in most recent scan.
+The oval definition is "<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/>" in file "<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>" 
 
-oval test (EXPERIMENTAL!): oscap oval eval --id <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/> --variables scans/variables.xml /usr/share/xml/scap/ssg/content/<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
+Evaluate rule's oval test: govready rule $ruleid
+OpenSCAP oval eval command: oscap oval eval --id <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/> --variables scans/variables.xml /usr/share/xml/scap/ssg/content/<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
 
 <xsl:text>
 </xsl:text>
+</xsl:if>
+</xsl:template>
+
+<!-- include to stop leakage from builtin tempaltes -->
+<xsl:template match='node()' mode='engine-results'/>
+<xsl:template match="text()"/>
+
+</xsl:stylesheet>
+
+EOF
+
+    echo "$SIF" > .govready/xml/ruleinfo.xsl
+
+}
+
+#@action
+_govready_init_getruleovaldef_file() {
+
+    __log_info "Creating .govready/xml/getruleovaldef.xsl file"
+
+    # Important to include `!` to avoid sending a halt program signal
+    ! read -d '' SIF <<"EOF"
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.1"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:cdf="http://checklists.nist.gov/xccdf/1.1"
+    xmlns:exsl="http://exslt.org/common"
+    xmlns:db="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:s="http://open-scap.org/"
+    exclude-result-prefixes="xsl cdf db s exsl"
+    xmlns:ovalres="http://oval.mitre.org/XMLSchema/oval-results-5"
+    xmlns:sceres="http://open-scap.org/page/SCE_result_file"
+    >
+
+<!--
+****************************************************************************************
+
+Copyright: Greg Elin, 2014
+
+This file provides a relitvely simple xslt transformation on openscap results.xml file
+to show information regarding a single rule.
+
+usage: $> xsltproc - -stringparam paramname paramvalue ruleinfo.xsl result-file-name.xml
+
+-->
+
+<xsl:param name="ruleid">notdefined</xsl:param>
+<xsl:strip-space elements="*"/>
+<xsl:output method="text" encoding="utf-8" />
+
+<xsl:template match="/">
+    <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match="cdf:rule-result">
+<xsl:if test="@idref=$ruleid">
+<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/></xsl:if>
 </xsl:if>
 </xsl:template>
 
