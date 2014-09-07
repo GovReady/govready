@@ -579,7 +579,7 @@ usage: $> xsltproc - -stringparam paramname paramvalue ruleinfo.xsl result-file-
 
 <xsl:template match="cdf:rule-result">
 <xsl:if test="@idref=$ruleid">
-<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/></xsl:if>
+<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/>
 </xsl:if>
 </xsl:template>
 
@@ -704,7 +704,7 @@ _govoscap_fix() {
 
     # set params
     local resultsdir="${SCANDIR}"
-    local fixfile=$(readlink scans/fix.sh)
+    local fixfile="${resultsdir}/$(readlink scans/fix.sh)"
 
     # graceful error if fix file does not exist
     if [ ! -f $fixfile ]
