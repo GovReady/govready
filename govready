@@ -604,6 +604,12 @@ _govoscap() {
     __log_govready "Running command: \"${fix_command}\""
     eval $fix_command || __log_govready "..."
 
+    # export variables from scan
+    # oscap oval eval --variables ssg-rhel6-oval.xml-0.variables-0.xml --id oval:ssg:def:1223 /usr/share/xml/scap/ssg/content/ssg-rhel6-oval.xml
+    local export_command="oscap xccdf export-oval-variables --profile ${profile} --cpe ${CPE} ${SSGCONTENTDIR}/ssg-rhel6-xccdf.xml > ${resultsdir}/${profile}-results-variables-$suffix.xml"
+    __log_govready "Running command: \"${export_command}\""
+    eval $export_command || __log_govready "..."
+
     # update govready softlinks
     ln -sf $profile-results-$suffix.xml $resultsdir/$profile-results.xml
     ln -sf $profile-results-$suffix.html $resultsdir/$profile-results.html
