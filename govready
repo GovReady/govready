@@ -668,14 +668,14 @@ _govoscap_rules_scan_info() {
     __log_govready "Checking scan results for rule ${ruleid} to scap/content"
 
     # If no scan result provided, return error and end processing
-    # xsltproc scanruleinfo.xsl result-file-name.xml
-    __log_govready "DUMMY Running xsltproc "
     local bash__command="xsltproc --stringparam ruleid ${ruleid} .govready/xml/ruleinfo.xsl ${SCANDIR}/results.xml"
     __log_govready "Running command: \"${bash__command}\""
     eval $bash__command || __log_govready "..."
 
     # build and execute oval eval for a rule id
-    local oscap__command="oscap oval eval --id oval:ssg:def:153 --variables scans/variables.xml ${SSGCONTENTDIR}/ssg-rhel6-oval.xml"
+    # get rule oval def
+    ruleid_ovaldef=$(xsltproc --stringparam ruleid ${ruleid} .govready/xml/getruleovaldef.xsl scans/results.xml)
+    local oscap__command="oscap oval eval --id ${ruleid_ovaldef} --variables scans/variables.xml ${SSGCONTENTDIR}/ssg-rhel6-oval.xml"
     __log_govready "Running command: \"${oscap__command}\""
     eval $oscap__command || __log_govready "..."
 
