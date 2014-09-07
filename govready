@@ -80,7 +80,7 @@ _usage() {
     printf "\tinstall_epel          Install EPEL repo\n"
     printf "\tinstall_openscap      Install openSCAP\n"
     printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
-    printf "\tinstall_xsltpoc       Install libxslt\n"
+    printf "\tinstall_xsltproc       Install libxslt\n"
     
     printf "\timport <file>         Import SCAP content into scap/content/\n"
 
@@ -430,7 +430,7 @@ Copyright: Greg Elin, 2014
 This file provides a relitvely simple xslt transformation on openscap results.xml file
 to show pass / fail numbers. 
 
-usage: $> libxslt scaninfo.xsl result-file-name.xml
+usage: $> xsltproc scaninfo.xsl result-file-name.xml
 
 -->
 
