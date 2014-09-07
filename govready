@@ -83,11 +83,14 @@ _usage() {
     printf "\tinstall_xsltproc       Install libxslt\n"
     
     printf "\timport <file>         Import SCAP content into scap/content/\n"
-
+    printf "\n"
 
     printf "\tprofiles              Available baselines and profiles\n" 
     printf "\tscan <profiles>       Scan system against specified profiles\n" 
     printf "\tfix                   Apply most recent fix script\n" 
+    printf "\n"
+
+    printf "\trule <ruleid>         Test a single rule from xccdf defined in GovReadyfile\n" 
 
     printf "\ttest                  test passing value\n"
     
@@ -119,6 +122,7 @@ _process_2_args() {
         "test") _test ;;
         "scan") _govoscap "${2}" ;;
         "import") _import "${2}" ;;
+        "rule") _govoscap_rules_scan_info "${2}" ;;
         *) _usage; exit ;;
     esac
 }
@@ -383,6 +387,7 @@ _govready_init(){
     mkdir -p .govready/scans
     mkdir -p .govready/xml
     _govready_init_scaninfo_file
+    _govready_init_scanruleinfo_file
     mkdir -p scap/content
     mkdir -p scans
     touch .govready/config
@@ -461,6 +466,73 @@ The "<xsl:value-of select='cdf:profile/@idref'/>" profile identifies <xsl:value-
 EOF
 
     echo "$SIF" > .govready/xml/scaninfo.xsl
+
+}
+
+#@action
+_govready_init_scanruleinfo_file() {
+
+    __log_info "Creating scanruleinfo.xsl file"
+
+    # Important to include `!` to avoid sending a halt program signal
+    ! read -d '' SIF <<"EOF"
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.1"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:cdf="http://checklists.nist.gov/xccdf/1.1"
+    xmlns:exsl="http://exslt.org/common"
+    xmlns:db="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:s="http://open-scap.org/"
+    exclude-result-prefixes="xsl cdf db s exsl"
+    xmlns:ovalres="http://oval.mitre.org/XMLSchema/oval-results-5"
+    xmlns:sceres="http://open-scap.org/page/SCE_result_file"
+    >
+
+<!--
+****************************************************************************************
+
+Copyright: Greg Elin, 2014
+
+This file provides a relitvely simple xslt transformation on openscap results.xml file
+to show information regarding a single rule.
+
+usage: $> xsltproc --stringparam paramname paramvalue ruleinfo.xsl result-file-name.xml
+
+-->
+
+<xsl:param name="ruleid">notdefined</xsl:param>
+<xsl:strip-space elements="*"/>
+<xsl:output method="text" encoding="utf-8" />
+
+<xsl:template match="/">
+    <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match="cdf:rule-result">
+<xsl:if test="@idref=$ruleid">
+Result info for <xsl:value-of select='@idref'/>
+result: <xsl:value-of select='cdf:result'/>
+cce: <xsl:value-of select='cdf:ident[@system="http://cce.mitre.org"]'/>
+check-content-ref/@name: <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/>
+check-content-ref/@href: <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
+
+oval test: oscap oval eval --id <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/> /usr/share/xml/scap/ssg/content/<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
+
+<xsl:text>
+</xsl:text>
+</xsl:template>
+
+<!-- include to stop leakage from builtin tempaltes -->
+<xsl:template match='node()' mode='engine-results'/>
+<xsl:template match="text()"/>
+
+</xsl:stylesheet>
+
+EOF
+
+    echo "$SIF" > .govready/xml/ruleinfo.xsl
 
 }
 
@@ -573,6 +645,27 @@ _govoscap_fix() {
         __log_govready "executing most recent fix file: ${fixfile}"
         bash $fixfile
     fi
+}
+
+_govoscap_rules_scan_info() {
+    # Provide feedback on a current scan
+    # Expects a scan result to be provided
+    ruleid=${1}
+    __log_govready "Checking scan results for rule ${ruleid} to scap/content"
+
+    # If no scan result provided, return error and end processing
+    # xsltproc scanruleinfo.xsl result-file-name.xml
+    __log_govready "DUMMY Running xsltproc "
+    local bash__command="xsltproc --stringparam ruleid ${ruleid} scanruleinfo.xsl $resultsdir/results.xml"
+    __log_govready "Running command: \"${bash__command}\""
+    eval $bash__command || __log_govready "..."
+
+    # build and execute oval eval for a rule id
+    __log_govready "DUMMY Returning rule information"
+    local oscap__command="oscap oval eval --id oval:ssg:def:153 ${SSGCONTENTDIR}/ssg-rhel6-oval.xml"
+    __log_govready "Running command: \"${oscap__command}\""
+    eval $oscap__command || __log_govready "..."
+
 }
 
 #@action
