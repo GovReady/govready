@@ -606,17 +606,23 @@ _govoscap() {
 
     # export variables from scan
     # oscap oval eval --variables ssg-rhel6-oval.xml-0.variables-0.xml --id oval:ssg:def:1223 /usr/share/xml/scap/ssg/content/ssg-rhel6-oval.xml
-    local export_command="oscap xccdf export-oval-variables --profile ${profile} --cpe ${CPE} ${SSGCONTENTDIR}/ssg-rhel6-xccdf.xml > ${resultsdir}/${profile}-results-variables-$suffix.xml"
+    local export_command="oscap xccdf export-oval-variables --profile ${profile} --cpe ${CPE} ${SSGCONTENTDIR}/ssg-rhel6-xccdf.xml"
     __log_govready "Running command: \"${export_command}\""
     eval $export_command || __log_govready "..."
+    # mv exported variables file
+    local bash_command="mv ssg-rhel6-oval.xml-0.variables-0.xml $resultsdir/${profile}-variables-$suffix.xml"
+    __log_govready "Running command: \"${bash_command}\""
+    eval $bash_command || __log_govready "..."
 
     # update govready softlinks
     ln -sf $profile-results-$suffix.xml $resultsdir/$profile-results.xml
     ln -sf $profile-results-$suffix.html $resultsdir/$profile-results.html
     ln -sf $profile-fix-$suffix.sh $resultsdir/$profile-fix.sh
+    ln -sf $profile-variables-$suffix.xml $resultsdir/$profile-variables.xml
     ln -sf $profile-results-$suffix.xml $resultsdir/results.xml
     ln -sf $profile-results-$suffix.html $resultsdir/results.html
     ln -sf $profile-fix-$suffix.sh $resultsdir/fix.sh
+    ln -sf $profile-variables-$suffix.xml $resultsdir/variables.xml
 
     # build and execute govready commndline quick report
     local gov_command="xsltproc .govready/xml/scaninfo.xsl $resultsdir/$profile-results-$suffix.xml"
