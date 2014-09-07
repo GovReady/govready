@@ -515,7 +515,7 @@ usage: $> xsltproc - -stringparam paramname paramvalue ruleinfo.xsl result-file-
 Rule "<xsl:value-of select='@idref'/>" (AKA <xsl:value-of select='cdf:ident[@system="http://cce.mitre.org"]'/>) had result "<xsl:value-of select='cdf:result'/>" in most recent scan.
 The oval definition is "<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/>" in file "<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>" 
 
-Evaluate rule's oval test: govready rule $ruleid
+Evaluate rule's oval test: govready rule <xsl:value-of select='@idref'/>
 OpenSCAP oval eval command: oscap oval eval --id <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/> --variables scans/variables.xml /usr/share/xml/scap/ssg/content/<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
 
 <xsl:text>
