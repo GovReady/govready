@@ -101,7 +101,6 @@ uninstall_bins(){
         cd "${PREFIX}" 
         rm -f "${BASH_TARGET}"
         rm -f "${BASHCP_TARGET}"
-        cd .. && rmdir "${PREFIX}"
     else
         echo "Neither ${PREFIX}/${BASH_TARGET} or ${PREFIX}/${BASHCP_TARGET} found"
         if [[ -d "${PREFIX}" ]]; then
