@@ -409,7 +409,7 @@ CPE = /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml
 #@action
 _govready_init_scaninfo_file() {
 
-    __log_info "Creating scaninfo.xsl file"
+    __log_info "Creating .govready/xml/scaninfo.xsl file"
 
     # Important to include `!` to avoid sending a halt program signal
     ! read -d '' SIF <<"EOF"
@@ -472,7 +472,7 @@ EOF
 #@action
 _govready_init_scanruleinfo_file() {
 
-    __log_info "Creating scanruleinfo.xsl file"
+    __log_info "Creating .govready/xml/ruleinfo.xsl file"
 
     # Important to include `!` to avoid sending a halt program signal
     ! read -d '' SIF <<"EOF"
@@ -498,7 +498,7 @@ Copyright: Greg Elin, 2014
 This file provides a relitvely simple xslt transformation on openscap results.xml file
 to show information regarding a single rule.
 
-usage: $> xsltproc --stringparam paramname paramvalue ruleinfo.xsl result-file-name.xml
+usage: $> xsltproc - -stringparam paramname paramvalue ruleinfo.xsl result-file-name.xml
 
 -->
 
@@ -518,10 +518,11 @@ cce: <xsl:value-of select='cdf:ident[@system="http://cce.mitre.org"]'/>
 check-content-ref/@name: <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/>
 check-content-ref/@href: <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
 
-oval test: oscap oval eval --id <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/> /usr/share/xml/scap/ssg/content/<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
+oval test (EXPERIMENTAL!): oscap oval eval --id <xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@name)'/> /usr/share/xml/scap/ssg/content/<xsl:value-of select='(cdf:check[@system="http://oval.mitre.org/XMLSchema/oval-definitions-5"]/cdf:check-content-ref/@href)'/>
 
 <xsl:text>
 </xsl:text>
+</xsl:if>
 </xsl:template>
 
 <!-- include to stop leakage from builtin tempaltes -->
@@ -649,6 +650,7 @@ _govoscap_fix() {
 
 _govoscap_rules_scan_info() {
     # Provide feedback on a current scan
+    _parse_config
     # Expects a scan result to be provided
     ruleid=${1}
     __log_govready "Checking scan results for rule ${ruleid} to scap/content"
@@ -656,12 +658,11 @@ _govoscap_rules_scan_info() {
     # If no scan result provided, return error and end processing
     # xsltproc scanruleinfo.xsl result-file-name.xml
     __log_govready "DUMMY Running xsltproc "
-    local bash__command="xsltproc --stringparam ruleid ${ruleid} scanruleinfo.xsl $resultsdir/results.xml"
+    local bash__command="xsltproc --stringparam ruleid ${ruleid} .govready/xml/ruleinfo.xsl ${SCANDIR}/results.xml"
     __log_govready "Running command: \"${bash__command}\""
     eval $bash__command || __log_govready "..."
 
     # build and execute oval eval for a rule id
-    __log_govready "DUMMY Returning rule information"
     local oscap__command="oscap oval eval --id oval:ssg:def:153 ${SSGCONTENTDIR}/ssg-rhel6-oval.xml"
     __log_govready "Running command: \"${oscap__command}\""
     eval $oscap__command || __log_govready "..."
