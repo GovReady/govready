@@ -396,13 +396,29 @@ _govready_init(){
 
     __log_info "Creating default GovReadyfile"
     GRF="
-# GovReadyfile
-# This file must exist for govready to run
+# Welcome to the GovReadyfile
+#
+# Almost every govready command parses and uses the parameters stored in this file.
+# Having parameters and values stored in this file simplifies what must be typed at
+# the command line and creates shareable artifact supporting Infrastructure as Code.
 
+# GovReady API/syntax version. You should not change this unless you are very certain
 API = 0.1.0
+
+# Directory where all scan and eval results will be written
 SCANDIR = scans
+
+# Default profile to be used with 'govready scan' command
 PROFILE = test
+
+# CPE file to be used with scans. Change this line to use a dictionary for a specific platform.
+# Currently, the dictionaly must be on the file system.
+# It is recommended new CPE dictionaries be added to the '.govready/xml' directory
 CPE = /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml
+
+# XCCDF file to be used with scans. Change this line to use a different XCCDF.
+XCCDF = ssg-rhel6-xccdf.xml
+
 "
     echo "$GRF" > GovReadyfile
 }
