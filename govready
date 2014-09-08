@@ -407,7 +407,7 @@ PROFILE = test
 CPE = /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml
 
 # XCCDF file to be used with scans. Change this line to use a different XCCDF.
-XCCDF = ssg-rhel6-xccdf.xml
+XCCDF = /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
 
 "
     echo "$GRF" > GovReadyfile
@@ -646,10 +646,12 @@ _test() {
 
 #@action
 _govoscap_info() {
+    _parse_config
     # list available profiles
     __log_govready "Profiles are listed in output of information in xccdf file" 
-    __log_govready "Running command: \"oscap info $SSGCONTENTDIR/ssg-rhel6-xccdf.xml\"\n"
-    oscap info $SSGCONTENTDIR/ssg-rhel6-xccdf.xml
+    local oscap_command="oscap info ${XCCDF}"
+    __log_govready "Running command: ${oscap_command}"
+    eval $oscap_command || __log_govready "..."
 }
 
 #@action
@@ -670,9 +672,10 @@ _govoscap() {
     # set params
     local suffix="${SUFFIX}"
     local resultsdir="${SCANDIR}"
+    local xccdffile="${XCCDF}"
 
     # build and execute openscap eval
-    local scan_command="oscap xccdf eval --oval-results --profile ${profile} --results ${resultsdir}/${profile}-results-$suffix.xml --report ${resultsdir}/${profile}-results-${suffix}.html --cpe ${CPE} ${SSGCONTENTDIR}/ssg-rhel6-xccdf.xml"
+    local scan_command="oscap xccdf eval --oval-results --profile ${profile} --results ${resultsdir}/${profile}-results-$suffix.xml --report ${resultsdir}/${profile}-results-${suffix}.html --cpe ${CPE} ${xccdffile}"
     __log_govready "Scanning system for compliance to profile ${profile}"
     __log_govready "Running command: ${scan_command}"
     eval $scan_command || __log_govready "..."
@@ -688,7 +691,7 @@ _govoscap() {
 
     # export variables from scan
     # oscap oval eval --variables ssg-rhel6-oval.xml-0.variables-0.xml --id oval:ssg:def:1223 /usr/share/xml/scap/ssg/content/ssg-rhel6-oval.xml
-    local export_command="oscap xccdf export-oval-variables --profile ${profile} --cpe ${CPE} ${SSGCONTENTDIR}/ssg-rhel6-xccdf.xml"
+    local export_command="oscap xccdf export-oval-variables --profile ${profile} --cpe ${CPE} ${xccdffile}"
     __log_govready "Running command: \"${export_command}\""
     eval $export_command || __log_govready "..."
     # mv exported variables file
