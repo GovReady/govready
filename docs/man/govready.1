@@ -11,10 +11,65 @@
 .\" -----------------------------------------------------------------
 .TH "GOVREADY" "1" "7 September 2014" "0.1" "govready man page"
 .SH "NAME"
-govready - FISMA IT Compliance accreditation helper toolkit.
+govready - Commandline toolkit for SCAP configuration scanning and collaborative FISMA IT Compliance
 .SH "SYNOPSIS"
 .BI govready " <command> [args]"
 .SH "DESCRIPTION"
 .PP
-\fBgovready\fR is an open source and easy in use tool for scanning operating systems and software for compliance to hardened baseline configurations expressed in SCAP. \fBgovready\fR is a wrapper around OpenSCAP NIST certified SCAP content scanner and provides additional functionality to make OpenSCAP easier to use and makes securing a system a more iterative and collaborative experience. \fBgovready\fR is light weight and written in bash in order to be transparent to users.
+\fBgovready\fR is a super easy to use commandline toolkit for running security scans on open source servers and software. Technically, \fBgovready\fR is a bash wrapper around OpenSCAP, a NIST certified SCAP toolkit.  \fBgovready\fR's workflow and user experience is similar to Git.
 .PP
+\fBgovready\fR will automatically install the required Linux libraries to run. Running 'govready init' will initialize the current directory to manage a sequence of security scans. The generated GovReadyfile stores various parameters for govready commands. \fBgovready\fR tries to make it easy to acquire and use SCAP-expressed machine-readable content, but you will need to tinker when using customized content. 
+.SH "COMMANDS"
+.br
+.TP 4
+.I GovReadyfile
+Contains parameters for commands such as default XCCDF file, CPE files, default profile, target folder to store scan results.
+.TP
+.B init
+.br
+Initializes a directory with a 'GovReadyfile' hidden '.govready' and other directories to manage a sequence of security scans.
+.TP
+.B version               
+.br 
+Print the version and exit\n"
+.TP
+.B install_epel          
+.br
+Install EPEL repo\n"
+.TP
+.B install_openscap      
+.br
+Install openSCAP\n"
+.TP
+.B install_ssg           
+.br
+Install openSCAP & scap-security-guide
+.TP
+.B install_xsltproc      
+.br
+Install libxslt
+.TP
+.B import <file>         
+.br
+Import SCAP content into scap/content/
+.TP
+.B profiles              
+.br
+Available baselines and profiles 
+.TP
+.B scan <profiles>       
+.br
+Scan system against specified profiles 
+.TP
+.B fix                   
+.br
+Apply most recent fix script 
+.B rule <ruleid>         
+Test a single rule from xccdf defined in GovReadyfile 
+.br
+.TP
+.B help                  
+.br
+Print this help\n"
+.br
+For help on any individual command run 'govready <command> -h'
