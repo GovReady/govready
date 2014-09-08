@@ -26,6 +26,7 @@ log_info(){
 # default install location for bins and man
 : ${MANDIR:=/usr/local/man/man1}
 : ${PREFIX:=/usr/local/bin}
+: ${PREFIXMAN:=/usr/share/man/man1}
 
 # get info about env. for default settings
 BASH_DEFAULT=$(command -v bash || (log_error "bash command not available." && exit 1))
@@ -48,6 +49,7 @@ BUILD_DIR=$(mktemp -d -t 'govready_build.XXXXXXXXXX')
 # what scripts install/uninstall
 BASH_TARGET="govready"
 BASHCP_TARGET="govreadycp"
+MAN_TARGET="govready.1"
 
 # utilities
 
@@ -73,8 +75,9 @@ uninstall_dirs(){
 }
 
 install_bins(){
+
+    # Install govready
     TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/${BRANCH}/govready"
-    TEMPCP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govreadycp"
     # Make sure permament Linux Hierarchy File System (HFS) dir exists with correct permissions
     log_info "Make sure directory ${PREFIX} exists"
     ${INSTALL} -m 0755 -d "${PREFIX}"
@@ -84,13 +87,27 @@ install_bins(){
         (log_error "download govready bin failed." && return 1)
     # Install (move) files into permament Linux HFS dir
     ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASH_TARGET}"
+
+    # Install govreadycp
+    TEMPCP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govreadycp"
     # Download govreadycp to temporary build dir
     log_info "Downloading and installing ${TEMPCP_SRC}"
     curl -Lksf "${TEMPCP_SRC}" -o "${BUILD_DIR}/${BASHCP_TARGET}.tmp" ||\
         (log_error "download govreadycp bin failed." && return 1)
     # Install (move) files into permament Linux HFS dir
     ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASHCP_TARGET}.tmp" "${PREFIX}/${BASHCP_TARGET}"
-    #Remove temp files from download
+
+    # Install man pages
+    TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/${BRANCH}/docs/man/govready.1"
+    log_info "Downloading and installing ${TEMP_SRC}"
+    # Download govready.1 to temporary build dir
+    curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${MAN_TARGET}.tmp" ||\
+        (log_error "download govready man page failed." && return 1)
+    # Install (move) files into permament Linux HFS dir
+    ${INSTALL} -g 0 -o 0 -m 0644 "${BUILD_DIR}/${MAN_TARGET}.tmp" "${PREFIXMAN}/${MAN_TARGET}"
+    gzip "${PREFIXMAN}/${MAN_TARGET}"
+
+    # Remove temp files from download
     rm -rf "${BUILD_DIR}"
 }
 
@@ -101,6 +118,11 @@ uninstall_bins(){
         cd "${PREFIX}" 
         rm -f "${BASH_TARGET}"
         rm -f "${BASHCP_TARGET}"
+
+        # Uninstall man page
+        cd "${PREFIXMAN}"
+        rm -f "${MAN_TARGET}"
+
     else
         echo "Neither ${PREFIX}/${BASH_TARGET} or ${PREFIX}/${BASHCP_TARGET} found"
         if [[ -d "${PREFIX}" ]]; then
