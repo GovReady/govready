@@ -383,16 +383,6 @@ _install_xsltproc() {
 #@action
 _govready_init(){
     __log_info "Initializing GovReady directory"
-    __log_info "Creating .govready subdirectories and files"
-    mkdir -p .govready/scans
-    mkdir -p .govready/xml
-    _govready_init_scaninfo_file
-    _govready_init_scanruleinfo_file
-    _govready_init_getruleovaldef_file
-    mkdir -p scap/content
-    mkdir -p scans
-    touch .govready/config
-    touch .govready/log
 
     __log_info "Creating default GovReadyfile"
     GRF="
@@ -413,7 +403,7 @@ PROFILE = test
 
 # CPE file to be used with scans. Change this line to use a dictionary for a specific platform.
 # Currently, the dictionaly must be on the file system.
-# It is recommended new CPE dictionaries be added to the '.govready/xml' directory
+# It is recommended new CPE dictionaries be added to the 'scap/content' directory
 CPE = /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml
 
 # XCCDF file to be used with scans. Change this line to use a different XCCDF.
@@ -421,6 +411,24 @@ XCCDF = ssg-rhel6-xccdf.xml
 
 "
     echo "$GRF" > GovReadyfile
+
+    # Parse the GovReadyfile just created and use values to put things in the proper place
+    _parse_config
+    mkdir -p "${SCANDIR}"
+
+    # Create .govready files
+    __log_info "Creating .govready subdirectories and files"
+    mkdir -p .govready/scans
+    mkdir -p .govready/xml
+    _govready_init_scaninfo_file
+    _govready_init_scanruleinfo_file
+    _govready_init_getruleovaldef_file
+    touch .govready/config
+    touch .govready/log
+
+    # Create directory for new scap content
+    # To Do: Make this a GovReadyfile parameter
+    mkdir -p scap/content
 }
 
 #@action
