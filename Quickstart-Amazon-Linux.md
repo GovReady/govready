@@ -43,10 +43,11 @@ govready import https://raw.githubusercontent.com/GovReady/govready/master/templ
 # Update GovReadyfile using sed command (or update the CPE line manually using a text editor)
 sed -i 's:^CPE.*:CPE = scap/content/ssg-amzn2014.03.2hvm-cpe-dictionary.xml:' GovReadyfile
 
+# Update ssg-rhel6-xccdf.xml to include CPE definition for Amazon Linux
+# Note: This sed statement is fragile if ssg-rhel6-xccdf.xml format changes.
+sed  -i "/cpe:\/o:redhat:enterprise_linux:6::client/a \  <platform idref=\"cpe:\/o:amazon:linux:2014:3:hvm\"/>" /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
+
 # Run a scan
 govready scan
-
-# FAILURE - Here is where we get a segmentation fault! This is a problem.
-
 
 ```
