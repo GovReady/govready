@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- http://bytes.com/topic/net/answers/666587-xslt-compare-two-documents-output-differences -->
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/
+Transform">
+<xsl:output method="xml" indent="yes" />
+<xsl:param name="fileCurrentPath" />
+<xsl:param name="filePreviousPath" />
+
+<xsl:variable name="fileCurrent" select="document($fileCurrentPath, /)" />
+<xsl:variable name="filePrevious" select="document($filePreviousPath, /)" />
+
+<xsl:template match="/">
+	<main>
+		<xsl:apply-templates select="$fileCurrent//datarecord" mode="addedchanged"/>
+	</main>
+</xsl:template>
+
+<xsl:template match="//datarecord" mode="addedchanged" >
+	<xsl:variable name="varSpecies" select="species"/>
+	<xsl:variable name="varSubspecies" select="subspecies"/>
+	<xsl:choose>
+		<xsl:when test="$filePrevious//datarecord[species=$varSpecies][subspecies=$varSubspecies]">
+			<xsl:if test="not(.=$filePrevious//datarecord[species=$varSpecies][subspecies=$varSubspecies])">
+				<xsl:copy-of select="."/>
+			</xsl:if>
+		</xsl:when>
+		<xsl:otherwise>
+			<xsl:copy-of select="."/>
+		</xsl:otherwise>
+	</xsl:choose>
+</xsl:template>
+
+</xsl:stylesheet>
