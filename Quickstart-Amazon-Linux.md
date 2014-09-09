@@ -1,7 +1,5 @@
 ### Amazon Linux (2014.03 HVM ami-76817c1e) quickstart (64 bit)
-Note: **This is experimental and is not currently working!!**
-
-Help us fix this issue! https://github.com/GovReady/govready/issues/45
+Note: **This is experimental and is not currently working!!**y
 
 ```
 # Download OpenSCAP RPMs for Amazon Linux. (Thanks to Owen for building the RPMs)
@@ -29,7 +27,7 @@ sudo yum --nogpgcheck localinstall -y openscap-selinux-1.0.3-2.amzn1.noarch.rpm
 sudo yum --nogpgcheck localinstall -y openscap-utils-1.0.3-2.amzn1.x86_64.rpm
 
 # Install SCAP-Security-Guide
-sudo yum install --enablerepo=epel scap-security-guide
+sudo yum install --enablerepo=epel scap-security-guide -y
 
 # Set a password for root
 sudo passwd root

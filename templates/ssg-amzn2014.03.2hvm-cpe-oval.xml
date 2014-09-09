@@ -12,7 +12,7 @@
         <affected family="unix">
           <platform>Amazon Linux 2014.03.2 HVM</platform>
         </affected>
-        <reference ref_id="cpe:/o:redhat:enterprise_linux:6" source="CPE"/>
+        <reference ref_id="cpe:/o:amazon:linux:2014:3:hvm" source="CPE"/>
         <description>The operating system installed on the system is Amazon Linux 2014.03.2 HVM</description>
       </metadata>
       <criteria>
@@ -45,7 +45,7 @@
       <ind:family>unix</ind:family>
     </ind:family_state>
     <linux:rpminfo_state id="oval:ssg:ste:109" version="1">
-      <linux:version operation="pattern match">2014\.3</linux:version>
+      <linux:version operation="pattern match">^2014.*3</linux:version>
     </linux:rpminfo_state>
   </states>
 </oval_definitions>
