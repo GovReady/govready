@@ -21,7 +21,7 @@
 -a always,exit -F arch=b64 -S fchown -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b32 -S fchownat -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b64 -S fchownat -F auid>=500 -F auid!=4294967295 -k perm_mod
--a always,exit -F arch=b32 -S fremovexattr -F auid>=500 -F auid!=4294967295 -k perm_mod
+# -a always,exit -F arch=b32 -S fremovexattr -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b64 -S fremovexattr -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b32 -S lchown -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b32 -S fsetxattr -F auid>=500 -F auid!=4294967295 -k perm_mod
@@ -42,8 +42,7 @@
 # audit_time_rules
 -a always,exit -F arch=b64 -S settimeofday -k audit_time_rules
 # audit_time_rules
--a always,exit -F arch=b64 -S adjtimex -S settimeofday -S clock_settime
--k audit_time_rules
+-a always,exit -F arch=b64 -S adjtimex -S settimeofday -S clock_settime -k audit_time_rules
 # audit_time_rules
 -a always,exit -F arch=b64 -S clock_settime -k audit_time_rules
 
