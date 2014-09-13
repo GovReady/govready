@@ -16,7 +16,11 @@ _NORMAL="\e[0m"
 
 newresults=$1
 oldresults=$2
-result=$3
+if [ -z $3 ]; then
+  result="notdefined"
+else
+  result=$3
+fi
 
 # Set location of xsl files
 FILTERRESULTSFILE=".govready/xml/filterresults.xsl"

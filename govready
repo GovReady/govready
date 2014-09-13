@@ -97,10 +97,10 @@ _usage() {
 
     printf "\trule <ruleid>         Test a single rule from xccdf defined in GovReadyfile\n"
     # printf "\t list [<file>] [pass|fail|notselected|unknown|notapplicable|error]\n"
-    #printf "                        List the rules currently returning particular result\n" 
+    #printf "\t                     List the rules currently returning particular result\n" 
     # printf "\n"
-    printf "\compare <file> <file> [pass|fail|notselected|unknown|notapplicable|error]\n"
-    printf "                        Compare results for what test results changed"   
+    printf "\tcompare <file> <file> [pass|fail|notselected|unknown|notapplicable|error]\n"
+    printf "\t                      Compare results for what test results changed"   
 
     printf "\ttest                  test passing value\n"
 
@@ -128,7 +128,7 @@ _process_3_args() {
         exit 0
     fi
     case "${1}" in
-        "compare") _compare "${2}" "${3}" "${4}";;
+        "compare") _compare "${2}" "${3}" "${4:-}";;
         *) _usage; exit ;;
     esac
 }
@@ -795,7 +795,11 @@ _govoscap_rules_scan_info() {
 _compare() {
     newresults=$1
     oldresults=$2
-    result=$3
+    if [ -z $3 ]; then
+      result="notdefined"
+    else
+      result=$3
+    fi
 
     # Set location of xsl files
     # FILTERRESULTSFILE=".govready/xml/filterresults.xsl"
@@ -874,17 +878,25 @@ _on_exit(){
 #@special
 _main() {
     local __args_num=$#
-    # virtual machine name
-    _Vm=""
+    echo "__args_num: $__args_num"
+    if [ $__args_num = 4 ]; then
+      echo "Verifying params: \$1: $1, \$2: $2, \$3: $3, \$4: $4 "
+    else
+      echo "Verifying params: \$1: $1, \$2: $2, \$3: $3"
+    fi
     __init_global_state_variables
     if [[ ${__args_num} -eq 1 ]]; then
         # check whether we have everything to start with govready
         __dependencies_check
         _process_1_args "${1}"
-    elif [[ ${__args_num} -eq 2 ]] || [[ ${__args_num} -eq 3 ]]; then
+    elif [[ ${__args_num} -eq 2 ]]; then
         # check whether we have everything to start with govready
         __dependencies_check
-        _process_2_args "${1}" "${2}" "${3:-}"
+        _process_2_args "${1}" "${2}"
+    elif [[ ${__args_num} -eq 3 ]] || [[ ${__args_num} -eq 4 ]]; then
+        # check whether we have everything to start with govready
+        __dependencies_check
+        _process_3_args "${1}" "${2}" "${3}" "${4:-}"
     else
         # wrong number of arguments
         _usage
