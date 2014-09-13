@@ -423,6 +423,8 @@ XCCDF = /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
     _govready_init_scaninfo_file
     _govready_init_scanruleinfo_file
     _govready_init_getruleovaldef_file
+    _govready_init_ruleidresult_file
+    _govready_init_filterresults_file
     touch .govready/config
     touch .govready/log
 
@@ -825,3 +827,135 @@ _main() {
 trap _clean_up SIGHUP SIGINT SIGTERM ERR
 trap _on_exit EXIT
 _main "${@}"
+
+
+## template files ##
+#@action
+_govready_init_ruleidresult_file() {
+
+    __log_info "Creating .govready/xml/ruleidresult.xsl file"
+
+    # Important to include `!` to avoid sending a halt program signal
+    ! read -d '' SIF <<"EOF"
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.1"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:cdf="http://checklists.nist.gov/xccdf/1.1"
+    xmlns:exsl="http://exslt.org/common"
+    xmlns:db="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:s="http://open-scap.org/"
+    exclude-result-prefixes="xsl cdf db s exsl"
+    xmlns:ovalres="http://oval.mitre.org/XMLSchema/oval-results-5"
+    xmlns:sceres="http://open-scap.org/page/SCE_result_file"
+    >
+
+<!--
+****************************************************************************************
+
+Copyright: Greg Elin, 2014
+
+This file provides a relitvely simple xslt transformation on openscap results.xml file
+to show information regarding a single rule.
+
+usage: $> xsltproc - -stringparam paramname paramvalue ruleidresult.xsl result-file-name.xml
+
+-->
+
+<xsl:param name="ruleid">notdefined</xsl:param>
+<xsl:param name="compare_result">notdefined</xsl:param>
+<xsl:strip-space elements="*"/>
+<xsl:output method="text" encoding="utf-8" />
+
+<xsl:template match="/">
+    <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match="cdf:rule-result">
+<xsl:if test="@idref=$ruleid">
+    <xsl:value-of select='cdf:result'/>
+<xsl:text>
+</xsl:text>
+</xsl:if>
+</xsl:template>
+
+<!-- include to stop leakage from builtin tempaltes -->
+<xsl:template match='node()' mode='engine-results'/>
+<xsl:template match="text()"/>
+
+</xsl:stylesheet>
+
+EOF
+
+    echo "$SIF" > .govready/xml/ruleidresult.xsl
+
+}
+
+#@action
+_govready_init_filterresults_file() {
+
+    __log_info "Creating .govready/xml/filterresults.xsl file"
+
+    # Important to include `!` to avoid sending a halt program signal
+    ! read -d '' SIF <<"EOF"
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:cdf="http://checklists.nist.gov/xccdf/1.1"
+    xmlns:exsl="http://exslt.org/common"
+    xmlns:db="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:s="http://open-scap.org/"
+    exclude-result-prefixes="xsl cdf db s exsl"
+    xmlns:ovalres="http://oval.mitre.org/XMLSchema/oval-results-5"
+    xmlns:sceres="http://open-scap.org/page/SCE_result_file"
+    >
+
+<!--
+****************************************************************************************
+
+Copyright: Greg Elin, 2014
+
+This style sheet lists all failed rules
+
+usage: $> xsltproc - -stringparam paramname paramvalue filterresults.xsl result-file-name.xml
+examples
+    Which rules pass in most recent scan?
+       xsltproc - -stringparam result pass filterresults.xsl scans/results.xml
+
+    Which rules fail in most recent scan?
+       xsltproc - -stringparam result fail filterresults.xsl scans/results.xml
+
+
+-->
+
+<xsl:param name="result">notdefined</xsl:param>
+<xsl:strip-space elements="*"/>
+<xsl:output method="text" encoding="UTF-8" />
+
+<xsl:template match="/">
+
+<xsl:for-each select='cdf:Benchmark/cdf:TestResult/cdf:rule-result[cdf:result = $result]'>
+<xsl:value-of select="@idref"/>
+<xsl:text>
+</xsl:text>
+</xsl:for-each>
+
+</xsl:template>
+
+<!-- include to stop leakage from builtin tempaltes -->
+<xsl:template match='node()' mode='engine-results'/>
+<xsl:template match="text()"/>
+
+</xsl:stylesheet>
+
+EOF
+
+    echo "$SIF" > .govready/xml/filterresults.xsl
+
+}
+
+
+
