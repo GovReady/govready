@@ -53,6 +53,11 @@ SSGCONTENTDIR="/usr/share/xml/scap/ssg/content"
 # Default file suffix
 SUFFIX="$(date +%m%d-%H%M)"
 
+# Set location of xsl files
+FILTERRESULTSFILE=".govready/xml/filterresults.xsl"
+RULEIDRESULTFILE=".govready/xml/ruleidresult.xsl"
+
+
 
 # Global variables - do not use it in definition file (will be overwrite during program runtime)
 # name of global "private" variables should start with underscore
@@ -80,20 +85,25 @@ _usage() {
     printf "\tinstall_epel          Install EPEL repo\n"
     printf "\tinstall_openscap      Install openSCAP\n"
     printf "\tinstall_ssg           Install openSCAP & scap-security-guide\n"
-    printf "\tinstall_xsltproc       Install libxslt\n"
+    printf "\tinstall_xsltproc      Install libxslt\n"
     
     printf "\timport <file>         Import SCAP content into scap/content/\n"
     printf "\n"
 
-    printf "\tprofiles              Available baselines and profiles\n" 
-    printf "\tscan <profiles>       Scan system against specified profiles\n" 
-    printf "\tfix                   Apply most recent fix script\n" 
+    printf "\tprofiles              Available baselines and profiles\n"
+    printf "\tscan <profiles>       Scan system against specified profiles\n"
+    printf "\tfix                   Apply most recent fix script\n"
     printf "\n"
 
-    printf "\trule <ruleid>         Test a single rule from xccdf defined in GovReadyfile\n" 
+    printf "\trule <ruleid>         Test a single rule from xccdf defined in GovReadyfile\n"
+    # printf "\t list [<file>] [pass|fail|notselected|unknown|notapplicable|error]\n"
+    #printf "                        List the rules currently returning particular result\n" 
+    # printf "\n"
+    printf "\compare <file> <file> [pass|fail|notselected|unknown|notapplicable|error]\n"
+    printf "                        Compare results for what test results changed"   
 
     printf "\ttest                  test passing value\n"
-    
+
     printf "\thelp                  Print this help\n"
     printf "\n"
     printf "For help on any individual command run 'govready <command> -h'\n"
@@ -110,6 +120,19 @@ _context_usage(){
     esac
 }
 
+#@special
+_process_3_args() {
+    # 2 args are required, 3 may be optional
+    if [[ "${3}" == "-h" ]] || [[ "${4:-}" == "-h" ]]; then
+        _context_usage "${1}"
+        exit 0
+    fi
+    case "${1}" in
+        "compare") _compare "${2}" "${3}" "${4}";;
+        *) _usage; exit ;;
+    esac
+}
+ 
 #@special
 _process_2_args() {
     # 2 args are required, 3 may be optional
@@ -769,6 +792,53 @@ _govoscap_rules_scan_info() {
 }
 
 #@action
+_compare() {
+    newresults=$1
+    oldresults=$2
+    result=$3
+
+    # Set location of xsl files
+    # FILTERRESULTSFILE=".govready/xml/filterresults.xsl"
+    # RULEIDRESULTFILE=".govready/xml/ruleidresult.xsl"
+
+    cmd="xsltproc --stringparam result $result $FILTERRESULTSFILE $newresults"
+    echo "command: $cmd"
+    rules=$(eval $cmd)
+
+    printf "\nComparing $result results...\nA: $newresults  vs  B: $oldresults\n\n"
+
+    for ruleid in $rules; do
+        # get result for a ruleid from new results
+        cmd_newresults='xsltproc --stringparam ruleid "${ruleid}" $RULEIDRESULTFILE $newresults'
+        newtestresult=$(eval $cmd_newresults)
+
+        # get result for a ruleid from old results
+        cmd_oldresults='xsltproc --stringparam ruleid "${ruleid}" $RULEIDRESULTFILE $oldresults'
+        oldtestresult=$(eval $cmd_oldresults)
+
+        # print out comparison
+        if [ $newtestresult = "pass" ]; then
+            printf "A: ${_GREEN}$newtestresult${_NORMAL}  "
+        else
+            printf "A: ${_RED}$newtestresult${_NORMAL}  "
+        fi
+
+        if [ $oldtestresult = "pass" ]; then
+            printf "B: ${_GREEN}$oldtestresult${_NORMAL}  "
+        else
+            printf "B: ${_RED}$oldtestresult${_NORMAL}  "
+        fi
+
+        printf "rule = $ruleid\n"
+
+
+        #if [ $oldtestresult != $newtestresult ]; then
+        #   printf "A: ${newtestresult} where B: ${oldtestresult} for rule: $ruleid"
+        #fi
+    done
+}
+
+#@action
 _import() {
     __log_govready "Importing ${1} to scap/content"
     filename=$(basename "${1}")
@@ -922,6 +992,8 @@ examples
     Which rules fail in most recent scan?
        xsltproc - -stringparam result fail filterresults.xsl scans/results.xml
 
+    Compare all results that are other than "notselected" 
+       xsltproc filterresults.xsl scans/results.xml
 
 -->
 
@@ -931,19 +1003,24 @@ examples
 
 <xsl:template match="/">
 
-<xsl:for-each select='cdf:Benchmark/cdf:TestResult/cdf:rule-result[cdf:result = $result]'>
-<xsl:value-of select="@idref"/>
-<xsl:text>
+<xsl:choose>
+  <xsl:when test="$result = 'notdefined'">
+    <xsl:for-each select='cdf:Benchmark/cdf:TestResult/cdf:rule-result[cdf:result != "notselected"]'>
+      <xsl:value-of select="@idref"/>
+    <xsl:text>
 </xsl:text>
-</xsl:for-each>
+   </xsl:for-each>
+  </xsl:when>
+  <xsl:otherwise>
+    <xsl:for-each select='cdf:Benchmark/cdf:TestResult/cdf:rule-result[cdf:result = $result]'>
+      <xsl:value-of select="@idref"/>
+    <xsl:text>
+</xsl:text>
+    </xsl:for-each>
+  </xsl:otherwise>
+</xsl:choose>
 
 </xsl:template>
-
-<!-- include to stop leakage from builtin tempaltes -->
-<xsl:template match='node()' mode='engine-results'/>
-<xsl:template match="text()"/>
-
-</xsl:stylesheet>
 
 EOF
 
