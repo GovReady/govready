@@ -878,12 +878,6 @@ _on_exit(){
 #@special
 _main() {
     local __args_num=$#
-    echo "__args_num: $__args_num"
-    if [ $__args_num = 4 ]; then
-      echo "Verifying params: \$1: $1, \$2: $2, \$3: $3, \$4: $4 "
-    else
-      echo "Verifying params: \$1: $1, \$2: $2, \$3: $3"
-    fi
     __init_global_state_variables
     if [[ ${__args_num} -eq 1 ]]; then
         # check whether we have everything to start with govready
