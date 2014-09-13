@@ -18,21 +18,23 @@ newresults=$1
 oldresults=$2
 result=$3
 
-cmd="xsltproc --stringparam result $result filterresults.xsl $newresults"
+# Set location of xsl files
+FILTERRESULTSFILE=".govready/xml/filterresults.xsl"
+RULEIDRESULTFILE=".govready/xml/ruleidresult.xsl"
+
+cmd="xsltproc --stringparam result $result $FILTERRESULTSFILE $newresults"
 echo "command: $cmd"
 rules=$(eval $cmd)
 
-#echo "failed rules from $oldresults"
-#echo $rules
-printf "\nComparing $result results from $newresults ('A:') to $oldresults ('B:')\n\n"
+printf "\nComparing $result results...\nA: $newresults  vs  B: $oldresults\n\n"
 
 for ruleid in $rules; do
 	# get result for a ruleid from new results
-	cmd_newresults='xsltproc --stringparam ruleid "${ruleid}" ruleidresult.xsl $newresults'
+	cmd_newresults='xsltproc --stringparam ruleid "${ruleid}" $RULEIDRESULTFILE $newresults'
 	newtestresult=$(eval $cmd_newresults)
 	
 	# get result for a ruleid from old results
-	cmd_oldresults='xsltproc --stringparam ruleid "${ruleid}" ruleidresult.xsl $oldresults'
+	cmd_oldresults='xsltproc --stringparam ruleid "${ruleid}" $RULEIDRESULTFILE $oldresults'
 	oldtestresult=$(eval $cmd_oldresults)
 	
 	# print out comparison
