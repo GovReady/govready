@@ -822,12 +822,6 @@ _main() {
     fi
 }
 
-## MAIN ##
-# signals and errors handler
-trap _clean_up SIGHUP SIGINT SIGTERM ERR
-trap _on_exit EXIT
-_main "${@}"
-
 
 ## template files ##
 #@action
@@ -957,5 +951,11 @@ EOF
 
 }
 
+
+## MAIN ##
+# signals and errors handler
+trap _clean_up SIGHUP SIGINT SIGTERM ERR
+trap _on_exit EXIT
+_main "${@}"
 
 
