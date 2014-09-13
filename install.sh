@@ -122,6 +122,7 @@ uninstall_bins(){
         # Uninstall man page
         cd "${PREFIXMAN}"
         rm -f "${MAN_TARGET}"
+        rm -f "${MAN_TARGET}.gz"
 
     else
         echo "Neither ${PREFIX}/${BASH_TARGET} or ${PREFIX}/${BASHCP_TARGET} found"
