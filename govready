@@ -45,7 +45,7 @@ __log_govready() {
 }
 
 # Global preferences
-VERSION="0.4.4"
+VERSION="0.4.6"
 
 # Default scap-security-guide content directory
 SSGCONTENTDIR="/usr/share/xml/scap/ssg/content"
@@ -99,9 +99,7 @@ _usage() {
     # printf "\t list [<file>] [pass|fail|notselected|unknown|notapplicable|error]\n"
     #printf "\t                     List the rules currently returning particular result\n" 
     # printf "\n"
-    printf "\tcompare <file> <file> [pass|fail|notselected|unknown|notapplicable|error]\n"
-    printf "\t                      Compare results for what test results changed"   
-
+    printf "\tcompare <file> <file> [result]   Compare results for what test results changed\n"
     printf "\ttest                  test passing value\n"
 
     printf "\thelp                  Print this help\n"
