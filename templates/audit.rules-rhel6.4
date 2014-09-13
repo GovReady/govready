@@ -21,9 +21,9 @@
 -a always,exit -F arch=b64 -S fchown -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b32 -S fchownat -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b64 -S fchownat -F auid>=500 -F auid!=4294967295 -k perm_mod
--a always,exit -F arch=b32 -S fremovexattr -F auid>=500 -F auid!=4294967295 -k perm_mod
+# -a always,exit -F arch=b32 -S fremovexattr -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b64 -S fremovexattr -F auid>=500 -F auid!=4294967295 -k perm_mod
--always,exit -F arch=b32 -S lchown -F auid>=500 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b32 -S lchown -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b32 -S fsetxattr -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b64 -S fsetxattr -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b32 -S lchown -F auid>=500 -F auid!=4294967295 -k perm_mod
@@ -42,8 +42,7 @@
 # audit_time_rules
 -a always,exit -F arch=b64 -S settimeofday -k audit_time_rules
 # audit_time_rules
--a always,exit -F arch=b64 -S adjtimex -S settimeofday -S clock_settime
--k audit_time_rules
+-a always,exit -F arch=b64 -S adjtimex -S settimeofday -S clock_settime -k audit_time_rules
 # audit_time_rules
 -a always,exit -F arch=b64 -S clock_settime -k audit_time_rules
 
@@ -57,7 +56,7 @@
 -w /etc/security/opasswd -p wa -k audit_account_changes
 
 # audit_network_modifications
--a always,exit -F arch=ARCH -S sethostname -S setdomainname -k audit_network_modifications
+-a always,exit -F arch=b64 -S sethostname -S setdomainname -k audit_network_modifications
 -w /etc/issue -p wa -k audit_network_modifications
 -w /etc/issue.net -p wa -k audit_network_modifications
 -w /etc/hosts -p wa -k audit_network_modifications
@@ -72,16 +71,16 @@
 -w /var/log/btmp -p wa -k session
 -w /var/log/wtmp -p wa -k session
 
--a always,exit -F arch=ARCH -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=500 -F auid!=4294967295 -k access
--a always,exit -F arch=ARCH -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=500 -F auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=500 -F auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=500 -F auid!=4294967295 -k access
 
--a always,exit -F arch=ARCH -S mount -F auid>=500 -F auid!=4294967295 -k export
+-a always,exit -F arch=b64 -S mount -F auid>=500 -F auid!=4294967295 -k export
 
--a always,exit -F arch=ARCH -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete
+-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete
 
 -w /etc/sudoers -p wa -k actions
 
 -w /sbin/insmod -p x -k modules
 -w /sbin/rmmod -p x -k modules
 -w /sbin/modprobe -p x -k modules
--a always,exit -F arch=ARCH -S init_module -S delete_module -k modules
+-a always,exit -F arch=b64 -S init_module -S delete_module -k modules
