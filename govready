@@ -1006,7 +1006,10 @@ examples
 <xsl:output method="text" encoding="UTF-8" />
 
 <xsl:template match="/">
+    <xsl:apply-templates/>
+</xsl:template>
 
+<xsl:template match="/">
 <xsl:choose>
   <xsl:when test="$result = 'notdefined'">
     <xsl:for-each select='cdf:Benchmark/cdf:TestResult/cdf:rule-result[cdf:result != "notselected"]'>
@@ -1025,6 +1028,12 @@ examples
 </xsl:choose>
 
 </xsl:template>
+<!-- include to stop leakage from builtin tempaltes -->
+<xsl:template match='node()' mode='engine-results'/>
+<xsl:template match="text()"/>
+
+</xsl:stylesheet>
+
 
 EOF
 
