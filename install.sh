@@ -105,7 +105,7 @@ install_bins(){
         (log_error "download govready man page failed." && return 1)
     # Install (move) files into permament Linux HFS dir
     ${INSTALL} -g 0 -o 0 -m 0644 "${BUILD_DIR}/${MAN_TARGET}.tmp" "${PREFIXMAN}/${MAN_TARGET}"
-    gzip "${PREFIXMAN}/${MAN_TARGET}"
+    gzip -f "${PREFIXMAN}/${MAN_TARGET}"
 
     # Remove temp files from download
     rm -rf "${BUILD_DIR}"
