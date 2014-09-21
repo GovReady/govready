@@ -98,10 +98,12 @@ _usage() {
     printf "\trule <ruleid>         Test a single rule from xccdf defined in GovReadyfile\n"
     # printf "\t list [<file>] [pass|fail|notselected|unknown|notapplicable|error]\n"
     #printf "\t                     List the rules currently returning particular result\n" 
-    # printf "\n"
-    printf "\tcompare <file> <file> [result]   Compare results for what test results changed\n"
-    printf "\ttest                  test passing value\n"
+    printf "\n"
+    printf "\tcompare                Compare most recent scan results with previous\n"
+    printf "\tcompare <result>       Compare most recent scan results with previous for given result value\n"
+    printf "\tcompare <file1> <file2> <result>   Specify files to be compared for result value\n"
 
+    printf "\n"
     printf "\thelp                  Print this help\n"
     printf "\n"
     printf "For help on any individual command run 'govready <command> -h'\n"
@@ -126,7 +128,7 @@ _process_3_args() {
         exit 0
     fi
     case "${1}" in
-        "compare") _compare "${2}" "${3}" "${4:-}";;
+        "compare") _compare "${2}" "${3}";;
         *) _usage; exit ;;
     esac
 }
@@ -142,6 +144,7 @@ _process_2_args() {
     case "${1}" in
         "test") _test ;;
         "scan") _govoscap "${2}" ;;
+        "compare") _compare "${2}";;
         "import") _import "${2}" ;;
         "rule") _govoscap_rules_scan_info "${2}" ;;
         *) _usage; exit ;;
@@ -162,6 +165,7 @@ _process_1_args() {
         "install_xsltproc") _install_xsltproc ;;
         "profiles") _govoscap_info ;;
         "scan") _govoscap ;;
+        "compare") _compare;;
         "fix") _govoscap_fix ;;
         *) _usage; exit ;;
     esac
@@ -727,6 +731,12 @@ _govoscap() {
     ln -sf $profile-results-$suffix.html $resultsdir/$profile-results.html
     ln -sf $profile-fix-$suffix.sh $resultsdir/$profile-fix.sh
     ln -sf $profile-variables-$suffix.xml $resultsdir/$profile-variables.xml
+    # set results-previous softlinks if they exist
+    [ -f $resultsdir/results.xml ] && ln -sf $(readlink $resultsdir/results.xml) $resultsdir/results-previous.xml || __log_govready "..."
+    [ -f $resultsdir/results.html ] && ln -sf $(readlink $resultsdir/results.html) $resultsdir/results-previous.html || __log_govready "..."
+    [ -f $resultsdir/fix.sh ] && ln -sf $(readlink $resultsdir/fix.sh) $resultsdir/fix-previous.sh || __log_govready "..."
+    [ -f $resultsdir/variables.xml ] && ln -sf $(readlink $resultsdir/variables.xml) $resultsdir/variables-previous.xml || __log_govready "..."
+    # set results softlinks
     ln -sf $profile-results-$suffix.xml $resultsdir/results.xml
     ln -sf $profile-results-$suffix.html $resultsdir/results.html
     ln -sf $profile-fix-$suffix.sh $resultsdir/fix.sh
@@ -791,12 +801,40 @@ _govoscap_rules_scan_info() {
 
 #@action
 _compare() {
-    newresults=$1
-    oldresults=$2
-    if [ -z $3 ]; then
-      result="notdefined"
-    else
-      result=$3
+
+    _parse_config
+
+    local __args_num=$#
+    if [[ ${__args_num} -eq 0 ]]; then
+        # compare results.xml to results-previous.xml
+        newresults="${SCANDIR}/results.xml"
+        oldresults="${SCANDIR}/results-previous.xml"
+        result="pass"
+    elif [[ ${__args_num} -eq 1 ]]; then
+        # compare results.xml to results-previous.xml for passed result
+        newresults="${SCANDIR}/results.xml"
+        oldresults="${SCANDIR}/results-previous.xml"
+        result="pass"
+        if [[ $1 = "fail" || $1 = "pass" || $1 = "error" || $1 = "unknown" || $1 = "notapplicable" || $1 = "notselected" ]]; then
+            result=$1
+        else
+            __log_error "govready compare ${1} is incorrect. Did you mean 'govready compare pass' or 'govready file1 file2 pass?"
+            exit 1
+        fi
+    elif [[ ${__args_num} -eq 2 ]]; then
+        newresults=$1
+        oldresults=$2
+        #result="pass"
+        result="notdefined"
+    elif [[ ${__args_num} -eq 3 ]]; then
+        newresults=$1
+        oldresults=$2
+        if [[ $3 = "fail" || $3 = "pass" || $3 = "error" || $3 = "unknown" || $3 = "notapplicable" || $3 = "notselected" ]]; then
+            result=$3
+        else
+            __log_error "govready compare ${3} is incorrect. Did you mean 'govready compare pass' or 'govready file1 file2 pass?"
+            exit 1
+        fi
     fi
 
     # Set location of xsl files
