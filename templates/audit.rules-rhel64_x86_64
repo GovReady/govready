@@ -49,6 +49,31 @@
 -w /etc/hosts -p wa -k audit_network_modifications
 -w /etc/sysconfig/network -p wa -k audit_network_modifications
 
+##- Discretionary access control permission modification (unsuccessful and successful use of chown/chmod)
+-a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=500 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b64 -S chown -S fchown -S fchownat -S lchown -F auid>=500 -F auid!=4294967295 -k perm_mod
+-a always,exit -F arch=b64 -S setxattr -S lsetxattr -S fsetxattr -S removexattr -S lremovexattr -S fremovexattr -F auid>=500 -F auid!=4294967295 -k perm_mod
+
+##- Unauthorized access attempts to files (unsuccessful) 
+-a always,exit -F arch=b64 -S creat -S open -S openat -S open_by_handle_at -S truncate -F exit=-EACCES -F auid>=500 -F auid!=4294967295 -k access
+-a always,exit -F arch=b64 -S creat -S open -S openat -S open_by_handle_at -S truncate -F exit=-EPERM -F auid>=500 -F auid!=4294967295 -k access
+
+##- Use of privileged commands (unsuccessful and successful)
+## use find /bin -type f -perm -04000 2>/dev/null and put all those files in a rule like this
+-a always,exit -F path=/bin/ping -F perm=x -F auid>=500 -F auid!=4294967295 -k privileged
+
+##- Use of print command (unsuccessful and successful) 
+
+##- Export to media (successful)
+## You have to mount media before using it. You must disable all automounting
+## so that its done manually in order to get the correct user requesting the export
+-a always,exit -F arch=b64 -S mount -F auid>=500 -F auid!=4294967295 -k export
+
+##- System startup and shutdown (unsuccessful and successful)
+
+##- Files and programs deleted by the user (successful and unsuccessful)
+-a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete
+
 -w /etc/selinux/ -p wa -k MAC-policy
 
 -w /var/log/faillog -p wa -k logins
@@ -60,9 +85,7 @@
 
 -a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EACCES -F auid>=500 -F auid!=4294967295 -k access
 -a always,exit -F arch=b64 -S creat -S open -S openat -S truncate -S ftruncate -F exit=-EPERM -F auid>=500 -F auid!=4294967295 -k access
-
 -a always,exit -F arch=b64 -S mount -F auid>=500 -F auid!=4294967295 -k export
-
 -a always,exit -F arch=b64 -S unlink -S unlinkat -S rename -S renameat -F auid>=500 -F auid!=4294967295 -k delete
 
 -w /etc/sudoers -p wa -k actions

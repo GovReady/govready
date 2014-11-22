@@ -100,8 +100,7 @@
 #-w /var/log/btmp -p wa -k session
 #-w /var/log/wtmp -p wa -k session
 
-##- Discretionary access control permission modification (unsuccessful
-## and successful use of chown/chmod)
+##- Discretionary access control permission modification (unsuccessful and successful use of chown/chmod)
 -a always,exit -F arch=b32 -S chmod -S fchmod -S fchmodat -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b64 -S chmod -S fchmod -S fchmodat -F auid>=500 -F auid!=4294967295 -k perm_mod
 -a always,exit -F arch=b32 -S chown -S fchown -S fchownat -S lchown -F auid>=500 -F auid!=4294967295 -k perm_mod
