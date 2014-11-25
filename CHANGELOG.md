@@ -1,5 +1,5 @@
-## 0.4.8 - 11/25/2014
-- Added CHANGELOG to repo.
+## 0.5.0 - 11/25/2014
+- Added CHANGELOG to repo and [semantic versioning](http://semver.org)
 
 ## 0.4.7 - 09/20/2014
 - `govready compare` defaults to comparing two most recent scans along rules passing in most recent scan
