@@ -14,13 +14,18 @@
 # 
 set -e -E -u -o pipefail; shopt -s failglob; set -o posix; set +o histexpand
 
+GREEN="\e[1;32m"
 RED="\e[1;31m"
 NORMAL="\e[0m"
 log_error(){
     printf "${RED}[ERROR] ${*}${NORMAL}\n" >&2
 }
 log_info(){
-    printf "[INFO] ${*}\n"
+    printf "${NORMAL}[INFO] ${*}\n"
+}
+
+log_info_success(){
+    printf "${GREEN}[SUCCESS] ${*}\n"
 }
 
 # default install location for bins and man
@@ -135,7 +140,7 @@ uninstall_bins(){
 }
 
 fail_guard(){
-    log_error "Install/Uninstall failed."
+    log_error $1
     # clean BUILD_DIR if exist
     if [[ -d ${BUILD_DIR} ]]; then
         rm -rf ${BUILD_DIR}
@@ -143,20 +148,24 @@ fail_guard(){
     exit 1
 }
 
-trap fail_guard SIGHUP SIGINT SIGTERM ERR
+trap 'fail_guard "$msg"' SIGHUP SIGINT SIGTERM ERR
 if [[ ${UNINSTALL} -eq 1 ]]; then
+    msg="GovReady uninstall falled."
     uninstall_bins
-    log_info "GovReady uninstall succeeded."
+    log_info_success "GovReady uninstall succeeded."
 else
+    msg="GovReady install falled."
     log_info "Pinging GovReady"
     _ping_govready
     install_bins
     install_dirs
-    log_info "GovReady install succeeded."
-    echo "govready version"
+    log_info_success "GovReady install succeeded."
+    log_info_success "govready version"
     ${PREFIX}/govready version
+    msg="GovReady install succeeded. OpenSCAP install falled."
     log_info "GovReady requires OpenSCAP. Installing. CTL-c to halt."
     ${PREFIX}/govready install_openscap
+    msg="GovReady install succeeded. OpenSCAP install succeeded. SSG install falled."
     log_info "GovReady needs SCAP content. Installing SCAP-Security-Guide. CTL-c to halt."
     ${PREFIX}/govready install_ssg
 fi
