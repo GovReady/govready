@@ -153,6 +153,7 @@ if [[ ${UNINSTALL} -eq 1 ]]; then
     msg="GovReady uninstall falled."
     uninstall_bins
     log_info_success "GovReady uninstall succeeded."
+    printf "${NORMAL}"
 else
     msg="GovReady install falled."
     log_info "Pinging GovReady"
