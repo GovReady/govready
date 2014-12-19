@@ -23,41 +23,8 @@ shopt -s failglob;
 # http://www.gnu.org/software/bash/manual/html_node/Bash-POSIX-Mode.html
 set -o posix
 
-# For nice printing
-_GREEN="\e[1;32m"
-_RED="\e[1;31m"
-_YELLOW="\e[1;33m"
-_NORMAL="\e[0m"
-__log_info() {
-    printf "[INFO] ${*}\n"
-}
-__log_ginfo() {
-    printf "${_GREEN}[INFO] ${*}${_NORMAL}\n"
-}
-__log_warning() {
-    printf "${_YELLOW}[WARNING] ${*}${_NORMAL}\n"
-}
-__log_error() {
-    printf "${_RED}[ERROR] ${*}${_NORMAL}\n" >&2
-}
-__log_govready() {
-    printf "${_GREEN}[GovReady] ${*}${_NORMAL}\n"
-}
-
-# Global preferences
-VERSION="0.5.0"
-
-# Default scap-security-guide content directory
-SSGCONTENTDIR="/usr/share/xml/scap/ssg/content"
-
-# Default file suffix
-SUFFIX="$(date +%m%d-%H%M)"
-
-# Set location of xsl files
-FILTERRESULTSFILE=".govready/xml/filterresults.xsl"
-RULEIDRESULTFILE=".govready/xml/ruleidresult.xsl"
-
-
+. scripts/lib/common
+. lib/env # top level environment variables
 
 # Global variables - do not use it in definition file (will be overwrite during program runtime)
 # name of global "private" variables should start with underscore
@@ -78,7 +45,7 @@ __init_global_state_variables(){
 _usage() {
     printf "Description: the GovReady Toolkit\n"
     printf "\n"
-    printf "Usage: govready <command> [<args>] \n"
+    printf "Usage: ${0} <command> [<args>] \n"
     printf "\tversion               Print the version and exit\n"
     printf "\tinit                  Initialize a GovReady directory to track scans\n"
 
@@ -106,7 +73,7 @@ _usage() {
     printf "\n"
     printf "\thelp                  Print this help\n"
     printf "\n"
-    printf "For help on any individual command run 'govready <command> -h'\n"
+    printf "For help on any individual command run '${0} <command> -h'\n"
     printf "\n"
 }
 
@@ -114,7 +81,7 @@ _usage() {
 _context_usage(){
     case "${1}" in
         "test")
-            printf "Usage: govready test <VALUE> \n"
+            printf "Usage: ${0} test <VALUE> \n"
             printf "Test passing of value\n" ;;
         *) _usage; exit ;;
     esac
@@ -484,7 +451,7 @@ _govready_init_scaninfo_file() {
 
 Copyright: Greg Elin, 2014
 
-This file provides a relitvely simple xslt transformation on openscap results.xml file
+This file provides a relatively simple xslt transformation on openscap results.xml file
 to show pass / fail numbers. 
 
 usage: $> xsltproc scaninfo.xsl result-file-name.xml

@@ -3,39 +3,8 @@
  
 # Define variables
 LSB=/usr/bin/lsb_release
- 
-# Display pause prompt
-# $1-> Message (optional)
-function pause(){
-	local message="$@"
-	[ -z $message ] && message="Press [Enter] key to continue..."
-	read -p "$message" readEnterKey
-}
- 
-# Display a menu on screen
-function show_menu(){
-    date
-    echo "---------------------------"
-    echo "GovReady System Info Panel"
-    echo "---------------------------"
-	echo "1. Operating system info"
-	echo "2. Hostname and dns info"
-	echo "3. Network info"
-	echo "4. Who is online"
-	echo "5. Last logged in users"
-	echo "6. Free and used memory info"
-	echo "7. GovReady Scan"
-	echo "8. Exit"
-}
- 
-# Display header message
-# $1 - message
-function write_header(){
-	local h="$@"
-	echo "---------------------------------------------------------------"
-	echo "     ${h}"
-	echo "---------------------------------------------------------------"
-}
+
+. scripts/lib/common
  
 # Get info about your operating system
 function os_info(){
