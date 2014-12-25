@@ -23,7 +23,7 @@ set -e -E -u -o pipefail; shopt -s failglob; set -o posix; set +o histexpand
 : ${PREFIXMAN:=/usr/share/man/man1}
 
 # get info about env. for default settings
-BASH_DEFAULT=$(command -v bash || (__log_error "bash command not available." && exit 1))
+BASH_DEFAULT=$(command -v bash || (log_error "bash command not available." && exit 1))
 
 # prepare shebang - from env. or default
 : ${BASH_SHEBANG:=${BASH_DEFAULT}}
@@ -73,30 +73,30 @@ install_bins(){
     # Install govready
     TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/${BRANCH}/govready"
     # Make sure permament Linux Hierarchy File System (HFS) dir exists with correct permissions
-    __log_info "Make sure directory ${PREFIX} exists"
+    log_info "Make sure directory ${PREFIX} exists"
     ${INSTALL} -m 0755 -d "${PREFIX}"
     # Download govready to temporary build dir
-    __log_info "Downloading and installing ${TEMP_SRC}"
+    log_info "Downloading and installing ${TEMP_SRC}"
     curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${BASH_TARGET}.tmp" ||\
-        (__log_error "download govready bin failed." && return 1)
+        (log_error "download govready bin failed." && return 1)
     # Install (move) files into permament Linux HFS dir
     ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASH_TARGET}.tmp" "${PREFIX}/${BASH_TARGET}"
 
     # Install govreadycp
     TEMPCP_SRC="https://raw.githubusercontent.com/GovReady/govready/master/govreadycp"
     # Download govreadycp to temporary build dir
-    __log_info "Downloading and installing ${TEMPCP_SRC}"
+    log_info "Downloading and installing ${TEMPCP_SRC}"
     curl -Lksf "${TEMPCP_SRC}" -o "${BUILD_DIR}/${BASHCP_TARGET}.tmp" ||\
-        (__log_error "download govreadycp bin failed." && return 1)
+        (log_error "download govreadycp bin failed." && return 1)
     # Install (move) files into permament Linux HFS dir
     ${INSTALL} -m 0755 -p "${BUILD_DIR}/${BASHCP_TARGET}.tmp" "${PREFIX}/${BASHCP_TARGET}"
 
     # Install man pages
     TEMP_SRC="https://raw.githubusercontent.com/GovReady/govready/${BRANCH}/docs/man/govready.1"
-    __log_info "Downloading and installing ${TEMP_SRC}"
+    log_info "Downloading and installing ${TEMP_SRC}"
     # Download govready.1 to temporary build dir
     curl -Lksf "${TEMP_SRC}" -o "${BUILD_DIR}/${MAN_TARGET}.tmp" ||\
-        (__log_error "download govready man page failed." && return 1)
+        (log_error "download govready man page failed." && return 1)
     # Install (move) files into permament Linux HFS dir
     ${INSTALL} -g 0 -o 0 -m 0644 "${BUILD_DIR}/${MAN_TARGET}.tmp" "${PREFIXMAN}/${MAN_TARGET}"
     gzip -f "${PREFIXMAN}/${MAN_TARGET}"
@@ -129,7 +129,7 @@ uninstall_bins(){
 }
 
 fail_guard(){
-    __log_error "Install/Uninstall failed."
+    log_error $1
     # clean BUILD_DIR if exist
     if [[ -d ${BUILD_DIR} ]]; then
         rm -rf ${BUILD_DIR}
@@ -137,20 +137,25 @@ fail_guard(){
     exit 1
 }
 
-trap fail_guard SIGHUP SIGINT SIGTERM ERR
+trap 'fail_guard "$msg"' SIGHUP SIGINT SIGTERM ERR
 if [[ ${UNINSTALL} -eq 1 ]]; then
+    msg="GovReady uninstall falled."
     uninstall_bins
-    __log_info "GovReady uninstall succeeded."
+    log_info_success "GovReady uninstall succeeded."
+    printf "${NORMAL}"
 else
-    __log_info "Pinging GovReady"
+    msg="GovReady install falled."
+    log_info "Pinging GovReady"
     _ping_govready
     install_bins
     install_dirs
-    __log_info "GovReady install succeeded."
-    echo "govready version"
+    log_info_success "GovReady install succeeded."
+    log_info_success "govready version"
     ${PREFIX}/govready version
-    __log_info "GovReady requires OpenSCAP. Installing. CTL-c to halt."
+    msg="GovReady install succeeded. OpenSCAP install falled."
+    log_info "GovReady requires OpenSCAP. Installing. CTL-c to halt."
     ${PREFIX}/govready install_openscap
-    __log_info "GovReady needs SCAP content. Installing SCAP-Security-Guide. CTL-c to halt."
+    msg="GovReady install succeeded. OpenSCAP install succeeded. SSG install falled."
+    log_info "GovReady needs SCAP content. Installing SCAP-Security-Guide. CTL-c to halt."
     ${PREFIX}/govready install_ssg
 fi
