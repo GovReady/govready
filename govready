@@ -274,7 +274,7 @@ _install_epel(){
     if [ ! -f /etc/yum.repos.d/epel.repo ]
     then
         __log_warning "installing epel repo "
-        wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+        curl -O http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
         rpm -Uvh epel-release-6*.rpm
     else 
         __log_ginfo "epel already installed"
@@ -849,7 +849,7 @@ _compare() {
 _import() {
     __log_govready "Importing ${1} to scap/content"
     filename=$(basename "${1}")
-    wget --no-check-certificate "${1}" --output-document "scap/content/${filename}"
+    curl -o "scap/content/${filename}" -k "${1}"
 }
 
 # (signals and error handler) - cleaning after ctr-c, etc.
@@ -1052,5 +1052,4 @@ EOF
 trap _clean_up SIGHUP SIGINT SIGTERM ERR
 trap _on_exit EXIT
 _main "${@}"
-
 

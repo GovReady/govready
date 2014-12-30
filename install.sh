@@ -128,15 +128,6 @@ uninstall_bins(){
     fi
 }
 
-fail_guard(){
-    log_error $1
-    # clean BUILD_DIR if exist
-    if [[ -d ${BUILD_DIR} ]]; then
-        rm -rf ${BUILD_DIR}
-    fi
-    exit 1
-}
-
 trap 'fail_guard "$msg"' SIGHUP SIGINT SIGTERM ERR
 if [[ ${UNINSTALL} -eq 1 ]]; then
     msg="GovReady uninstall falled."

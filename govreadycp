@@ -80,16 +80,16 @@ function oscap_install(){
 	write_header " OPENSCAP installing "
  	yum install -y openscap-utils
 
-    echo "*********************************"
-	echo "*** Getting Guidelines ***"
-    echo "*********************************"
-	wget http://www.redhat.com/security/data/metrics/com.redhat.rhsa-all.xccdf.xml
-	wget http://www.redhat.com/security/data/oval/com.redhat.rhsa-all.xml
-    echo "*********************************"
-	echo "*** Performing Scan ***"
-    echo "*********************************"
-	oscap xccdf eval --results results.xml --report report.html com.redhat.rhsa-all.xccdf.xml
-	pause
+  echo "*********************************"
+  echo "*** Getting Guidelines ***"
+  echo "*********************************"
+  curl -O http://www.redhat.com/security/data/metrics/com.redhat.rhsa-all.xccdf.xml
+  curl -O http://www.redhat.com/security/data/oval/com.redhat.rhsa-all.xml
+  echo "*********************************"
+  echo "*** Performing Scan ***"
+  echo "*********************************"
+  oscap xccdf eval --results results.xml --report report.html com.redhat.rhsa-all.xccdf.xml
+  pause
 }
 
 # Get input via the keyboard and make a decision using case..esac 
