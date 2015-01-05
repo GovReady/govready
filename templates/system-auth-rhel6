@@ -4,8 +4,8 @@
 auth        required      pam_env.so
 auth        sufficient    pam_fprintd.so
 auth        sufficient    pam_unix.so  try_first_pass
-auth [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900
-auth required pam_faillock.so authsucc deny=3 unlock_time=604800 fail_interval=900
+auth        [default=die] pam_faillock.so authfail deny=3 unlock_time=604800 fail_interval=900
+auth        required      pam_faillock.so authsucc deny=3 unlock_time=604800 fail_interval=900
 auth        requisite     pam_succeed_if.so uid >= 500 quiet
 auth        required      pam_deny.so
 
@@ -15,7 +15,7 @@ account     sufficient    pam_succeed_if.so uid < 500 quiet
 account     required      pam_permit.so
 
 password    requisite     pam_cracklib.so try_first_pass retry=3 dcredit=-1 ucredit=-1 ocredit=-1 lcredit=-1 difok=4 type=
-password    sufficient    pam_unix.so md5 shadow  try_first_pass use_authtok
+password    sufficient    pam_unix.so sha15 shadow try_first_pass use_authtok remember=24
 password    required      pam_deny.so
 
 session     optional      pam_keyinit.so revoke
