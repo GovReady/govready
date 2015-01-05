@@ -43,6 +43,12 @@ Below are several quickstarts. Use the quickstart for your preferred OS.
 ### RedHat 6, 7 quickstart (64 bit)
 
 ```
+# Update nss to pre-emptively avoid problems with EPEL certificates (https://github.com/GovReady/govready/issues/64)
+# Alternate if epel installed: sudo yum --disablerepo="epel" update nss -y
+sudo yum clean all
+sudo yum update nss -y
+
+
 # Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
 curl -Lk io.govready.org/install | sudo bash
 
