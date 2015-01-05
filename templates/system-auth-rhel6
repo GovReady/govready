@@ -14,7 +14,7 @@ account     sufficient    pam_localuser.so
 account     sufficient    pam_succeed_if.so uid < 500 quiet
 account     required      pam_permit.so
 
-password    requisite     pam_cracklib.so try_first_pass retry=3 dcredit=-1 ucredit=-1 ocredit=-1 lcredit=-1 difok=4 type=
+password    requisite     pam_cracklib.so try_first_pass retry=3 dcredit=-1 ucredit=-2 ocredit=-2 lcredit=-2 difok=4 type=
 password    sufficient    pam_unix.so sha15 shadow try_first_pass use_authtok remember=24
 password    required      pam_deny.so
 
