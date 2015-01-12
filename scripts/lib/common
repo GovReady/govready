@@ -1,0 +1,81 @@
+#!/bin/bash
+
+set -u -e -E -o pipefail -o posix
+shopt -s failglob
+
+# For nice printing
+_GREEN="\e[1;32m"
+_RED="\e[1;31m"
+_YELLOW="\e[1;33m"
+_NORMAL="\e[0m"
+
+log_info() {
+  __log_info ${@}
+}
+log_ginfo() {
+  __log_ginfo ${@}
+}
+log_warning() {
+  __log_warning ${@}
+}
+log_error() {
+  __log_error ${@}
+}
+log_govready() {
+  __log_govready ${@}
+}
+
+__log_info() {
+    printf "[INFO] ${*}\n"
+}
+__log_ginfo() {
+    printf "${_GREEN}[INFO] ${*}${_NORMAL}\n"
+}
+__log_warning() {
+    printf "${_YELLOW}[WARNING] ${*}${_NORMAL}\n"
+}
+__log_error() {
+    printf "${_RED}[ERROR] ${*}${_NORMAL}\n" >&2
+}
+__log_govready() {
+    printf "${_GREEN}[GovReady] ${*}${_NORMAL}\n"
+}
+
+function fail_guard(){
+  log_error $1
+  # clean BUILD_DIR if exist
+  if [[ -d ${BUILD_DIR} ]]; then
+    rm -rf ${BUILD_DIR}
+  fi
+  exit 1
+}
+
+# Display pause prompt
+# $1-> Message (optional)
+function pause(){
+	local message="$@"
+	[ -z $message ] && message="Press [Enter] key to continue..."
+	read -p "$message" readEnterKey
+}
+ 
+# Display a menu on screen
+function show_menu(){
+  date
+  echo "---------------------------"
+  echo "GovReady System Info Panel"
+  echo "---------------------------"
+	echo "1) List Vagrantfiles"
+	echo "2) Update Vagrantfiles list"
+	echo "3) List VBKick definition files"
+	echo "8) quit"
+}
+ 
+# Display header message
+# $1 - message
+function write_header(){
+	local h="$@"
+	echo "---------------------------------------------------------------"
+	echo "     ${h}"
+	echo "---------------------------------------------------------------"
+}
+ 

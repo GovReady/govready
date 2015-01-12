@@ -14,19 +14,8 @@
 # 
 set -e -E -u -o pipefail; shopt -s failglob; set -o posix; set +o histexpand
 
-GREEN="\e[1;32m"
-RED="\e[1;31m"
-NORMAL="\e[0m"
-log_error(){
-    printf "${RED}[ERROR] ${*}${NORMAL}\n" >&2
-}
-log_info(){
-    printf "${NORMAL}[INFO] ${*}\n"
-}
-
-log_info_success(){
-    printf "${GREEN}[SUCCESS] ${*}\n"
-}
+. scripts/lib/env
+. scripts/lib/common
 
 # default install location for bins and man
 : ${MANDIR:=/usr/local/man/man1}
@@ -137,15 +126,6 @@ uninstall_bins(){
             echo "${PREFIX} not found"
         fi
     fi
-}
-
-fail_guard(){
-    log_error $1
-    # clean BUILD_DIR if exist
-    if [[ -d ${BUILD_DIR} ]]; then
-        rm -rf ${BUILD_DIR}
-    fi
-    exit 1
 }
 
 trap 'fail_guard "$msg"' SIGHUP SIGINT SIGTERM ERR

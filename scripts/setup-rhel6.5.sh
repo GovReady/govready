@@ -10,21 +10,16 @@
 #
 set -e -E -u -o pipefail; shopt -s failglob; set -o posix; set +o histexpand
 
-RED="\e[1;31m"
-NORMAL="\e[0m"
-log_error(){
-    printf "${RED}[ERROR] ${*}${NORMAL}\n" >&2
-}
-log_info(){
-    printf "[INFO] ${*}\n"
-}
+. lib/common
+. lib/env
+. lib/urls
 
 #install epel repos
 install_epel(){
 	if [ ! -f /etc/yum.repos.d/epel.repo ]
 	then
 		echo "installing epel repo "
-		wget http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
+		curl -O "${EPEL_RPM_URL}"
 		sudo rpm -Uvh epel-release-6*.rpm
 	else 
 		echo "epel already installed"
@@ -32,11 +27,10 @@ install_epel(){
 }
 
 install_remi(){
-	
 	if [ ! -f /etc/yum.repos.d/remi.repo ]
 	then
 		echo "installing remi repo "
-		wget http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+		curl -O "${REMI_RPM_URL}"
 		sudo rpm -Uvh remi-release-6*.rpm
 	else 
 		echo "remi already installed"

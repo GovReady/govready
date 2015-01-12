@@ -8,11 +8,7 @@
 #   compare new scan of failing to see what might have previously passed:
 #      bash ./compare.sh scans/server-results-0910-1927.xml scans/results.xml fail
 
-# For nice printing
-_GREEN="\e[1;32m"
-_RED="\e[1;31m"
-_YELLOW="\e[1;33m"
-_NORMAL="\e[0m"
+. lib/env
 
 newresults=$1
 oldresults=$2

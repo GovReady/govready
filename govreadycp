@@ -3,39 +3,8 @@
  
 # Define variables
 LSB=/usr/bin/lsb_release
- 
-# Display pause prompt
-# $1-> Message (optional)
-function pause(){
-	local message="$@"
-	[ -z $message ] && message="Press [Enter] key to continue..."
-	read -p "$message" readEnterKey
-}
- 
-# Display a menu on screen
-function show_menu(){
-    date
-    echo "---------------------------"
-    echo "GovReady System Info Panel"
-    echo "---------------------------"
-	echo "1. Operating system info"
-	echo "2. Hostname and dns info"
-	echo "3. Network info"
-	echo "4. Who is online"
-	echo "5. Last logged in users"
-	echo "6. Free and used memory info"
-	echo "7. GovReady Scan"
-	echo "8. Exit"
-}
- 
-# Display header message
-# $1 - message
-function write_header(){
-	local h="$@"
-	echo "---------------------------------------------------------------"
-	echo "     ${h}"
-	echo "---------------------------------------------------------------"
-}
+
+. scripts/lib/common
  
 # Get info about your operating system
 function os_info(){
@@ -111,16 +80,16 @@ function oscap_install(){
 	write_header " OPENSCAP installing "
  	yum install -y openscap-utils
 
-    echo "*********************************"
-	echo "*** Getting Guidelines ***"
-    echo "*********************************"
-	wget http://www.redhat.com/security/data/metrics/com.redhat.rhsa-all.xccdf.xml
-	wget http://www.redhat.com/security/data/oval/com.redhat.rhsa-all.xml
-    echo "*********************************"
-	echo "*** Performing Scan ***"
-    echo "*********************************"
-	oscap xccdf eval --results results.xml --report report.html com.redhat.rhsa-all.xccdf.xml
-	pause
+  echo "*********************************"
+  echo "*** Getting Guidelines ***"
+  echo "*********************************"
+  curl -O http://www.redhat.com/security/data/metrics/com.redhat.rhsa-all.xccdf.xml
+  curl -O http://www.redhat.com/security/data/oval/com.redhat.rhsa-all.xml
+  echo "*********************************"
+  echo "*** Performing Scan ***"
+  echo "*********************************"
+  oscap xccdf eval --results results.xml --report report.html com.redhat.rhsa-all.xccdf.xml
+  pause
 }
 
 # Get input via the keyboard and make a decision using case..esac 
