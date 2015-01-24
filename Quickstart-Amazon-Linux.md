@@ -14,6 +14,10 @@ wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcd
 wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-selinux-1.0.3-2.amzn1.noarch.rpm
 wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-utils-1.0.3-2.amzn1.x86_64.rpm
 
+# Retrieve CentOS SCAP-Security-Guide RPM
+
+wget http://mirror.centos.org/centos/6/os/x86_64/Packages/scap-security-guide-0.1.18-3.el6.noarch.rpm
+
 # Install the OpenSCAP RPMs using localinstall method
 sudo yum --nogpgcheck localinstall -y *.rpm
 
@@ -23,11 +27,12 @@ sudo yum install --enablerepo=epel scap-security-guide -y
 # Install Lynx
 sudo yum install lynx -y
 
+# Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
+curl -Lk io.govready.org/install | sudo bash
+
 # Set a password for root
 sudo passwd root
 
-# Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
-curl -Lk io.govready.org/install | sudo bash
 
 # Switch to root so scanner can run all tests properly
 su -
