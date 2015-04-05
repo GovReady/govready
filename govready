@@ -45,7 +45,7 @@ __log_govready() {
 }
 
 # Global preferences
-VERSION="0.6.0"
+VERSION="0.6.1"
 
 # Default scap-security-guide content directory
 SSGCONTENTDIR="/usr/share/xml/scap/ssg/content"
@@ -438,7 +438,7 @@ CPE = /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml
 # XCCDF file to be used with scans. Change this line to use a different XCCDF.
 XCCDF = /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
 
-# Directory into which to save files using `govready import` command
+# Directory into which to save files using 'govready import' command
 IMPORTDIR = scap/content
 
 "
