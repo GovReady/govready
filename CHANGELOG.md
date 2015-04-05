@@ -1,3 +1,7 @@
+## 0.6.0 - 04/05/2015
+- Automatically unzip zip files during govready import
+- Specify import directory in GovReadyfile
+
 ## 0.5.0 - 11/25/2014
 - Added CHANGELOG to repo and [semantic versioning](http://semver.org)
 

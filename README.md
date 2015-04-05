@@ -26,7 +26,7 @@ Copyright 2013, 2014 Greg Elin and GovReady. All Rights Reserved.
 License: GPL 3.0
 
 # Project Status
-Govready is under heavy development and is pre-release. The current version is 0.4.x.
+Govready is under heavy development and is pre-release. The current version is 0.6.x.
 
 We recommend only using govready currently on non-production virtual machines. 
 
