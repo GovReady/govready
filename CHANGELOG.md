@@ -1,6 +1,8 @@
 ## 0.6.0 - 04/05/2015
 - Automatically unzip zip files during govready import
 - Specify import directory in GovReadyfile
+- Add `govready status` to easily check certain parameters
+- Add `govready profile <profile>` to adjust scan profile
 
 ## 0.5.0 - 11/25/2014
 - Added CHANGELOG to repo and [semantic versioning](http://semver.org)

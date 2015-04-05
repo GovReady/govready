@@ -79,6 +79,7 @@ _usage() {
     printf "Description: the GovReady Toolkit\n"
     printf "\n"
     printf "Usage: govready <command> [<args>] \n"
+    printf "\tstatus                Print basic status information and exit\n"
     printf "\tversion               Print the version and exit\n"
     printf "\tinit                  Initialize a GovReady directory to track scans\n"
 
@@ -91,6 +92,7 @@ _usage() {
     printf "\n"
 
     printf "\tprofiles              Available baselines and profiles\n"
+    printf "\tprofile <profile>     Update PROFILE value in GovReadyfile\n"
     printf "\tscan <profiles>       Scan system against specified profiles\n"
     printf "\tfix                   Apply most recent fix script\n"
     printf "\n"
@@ -147,6 +149,7 @@ _process_2_args() {
         "compare") _compare "${2}";;
         "import") _import "${2}" ;;
         "rule") _govoscap_rules_scan_info "${2}" ;;
+        "profile") _profile_set "${2}" ;;
         *) _usage; exit ;;
     esac
 }
@@ -156,6 +159,7 @@ _process_1_args() {
     # 1 arg is required
     case "${1}" in
         "list") _list_all_vms ;;
+        "status") _status ;;
         "version") _prog_version ;;
         "init") _govready_init ;;
         "test") _test ;;
@@ -896,6 +900,22 @@ _import() {
         unzip "scap/content/${filename}" -d "scap/content/" && rm "${importdir}/${filename}"
         echo "unzipped ${importdir}/${filename}"
     fi
+}
+
+#@action
+_profile_set() {
+    _parse_config
+    __log_govready "Updating scan profile to ${1}"
+    sed -ir s/"^PROFILE.*"/"PROFILE = ${1}"/g GovReadyfile
+}
+
+#@action
+_status() {
+    _parse_config
+    _prog_version
+    echo "Scan profile: ${PROFILE}"
+    echo "CPE file: ${CPE}"
+    echo "XCCDF file: ${XCCDF}"
 }
 
 # (signals and error handler) - cleaning after ctr-c, etc.

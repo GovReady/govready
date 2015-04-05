@@ -9,7 +9,7 @@
 .\" -----------------------------------------------------------------
 .\" * MAIN CONTENT STARTS HERE *
 .\" -----------------------------------------------------------------
-.TH "GOVREADY" "1" "20 September 2014" "0.2" "govready man page"
+.TH "GOVREADY" "1" "5 April 2015" "0.3" "govready man page"
 .SH "NAME"
 govready - Commandline toolkit for SCAP configuration scanning and collaborative FISMA IT Compliance
 .SH "SYNOPSIS"
@@ -33,9 +33,17 @@ Initializes a directory with a 'GovReadyfile' hidden '.govready' and other direc
 .br 
 Print the version and exit.
 .TP
-.B profiles              
+.B status
+.br
+Print the version and various status information like active scan profile and exit.
+.TP
+.B profiles
 .br
 Show available baselines and profiles.
+.TP
+.B profile [<profile>]              
+.br
+Set the scan profile to indicated profile
 .TP
 .B scan [<profile>]      
 .br
@@ -63,7 +71,7 @@ Test a single rule from xccdf defined in \fIGovReadyfile\fR.
 .TP
 .B import <file>         
 .br
-Import SCAP content from the web into scap/content/ directory using wget.
+Import SCAP content from the web into scap/content/ directory using wget. Automatically unzips .zip file.
 .TP
 .B install_epel          
 .br
@@ -127,6 +135,6 @@ If you feel you have found a bug in \govread\fR, please create an issue report a
 .SH AUTHOR
 Greg Elin
 .SH COPYRIGHT
-\govready\fR is copyrighted Greg Elin (2014) and GovReady and distributed under the GPL 3.0 License. See LICENSE file in https://github.com/GovReady/govready for details.
+\govready\fR is copyrighted GovReady PBC (2015, 2014) and GovReady and distributed under the GPL 3.0 License. See LICENSE file in https://github.com/GovReady/govready for details.
 .PP
 The site includes also usage examples and other docs which are not covered by this manual page.
