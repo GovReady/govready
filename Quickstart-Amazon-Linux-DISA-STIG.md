@@ -43,6 +43,7 @@ cd myfisma
 govready init
 
 # Import DISA IASE STIG file for RHEL6, which seems to work on AWS Linux
+# For more information see: http://iase.disa.mil/stigs/scap/Pages/index.aspx
 govready import http://iase.disa.mil/stigs/Documents/U_RedHat_6_V1R6_STIG_SCAP_1-1_Benchmark.zip 
 
 # Update GovReadyfile  to use stig XCCDF using sed (or update the CPE line manually using a text editor)
