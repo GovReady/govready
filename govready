@@ -434,6 +434,9 @@ CPE = /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml
 # XCCDF file to be used with scans. Change this line to use a different XCCDF.
 XCCDF = /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
 
+# Directory into which to save files using `govready import` command
+IMPORTDIR = scap/content
+
 "
     echo "$GRF" > GovReadyfile
 
@@ -880,9 +883,19 @@ _compare() {
 
 #@action
 _import() {
-    __log_govready "Importing ${1} to scap/content"
+    _parse_config
+    local importdir="${IMPORTDIR}"
+    
+    __log_govready "Importing ${1} to ${importdir}"
     filename=$(basename "${1}")
-    wget --no-check-certificate "${1}" --output-document "scap/content/${filename}"
+    wget --no-check-certificate "${1}" --output-document "${importdir}/${filename}"
+    echo "saved ${importdir}/${filename}"
+    # unzip if zip file
+    if [ ${filename: -4} == ".zip" ]; then
+        # unzip file
+        unzip "scap/content/${filename}" -d "scap/content/" && rm "${importdir}/${filename}"
+        echo "unzipped ${importdir}/${filename}"
+    fi
 }
 
 # (signals and error handler) - cleaning after ctr-c, etc.
