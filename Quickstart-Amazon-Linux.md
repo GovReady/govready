@@ -11,7 +11,6 @@ wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcd
 wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-engine-sce-devel-1.0.3-2.amzn1.x86_64.rpm
 wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-extra-probes-1.0.3-2.amzn1.x86_64.rpm
 wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-python-1.0.3-2.amzn1.x86_64.rpm
-wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-selinux-1.0.3-2.amzn1.noarch.rpm
 wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-utils-1.0.3-2.amzn1.x86_64.rpm
 
 # Retrieve CentOS SCAP-Security-Guide RPM
