@@ -138,6 +138,7 @@ _process_3_args() {
         exit 0
     fi
     case "${1}" in
+	"scan") shift; _govoscap "${@}" ;;
         "compare") _compare "${2}" "${3}";;
         *) _usage; exit ;;
     esac
@@ -739,12 +740,20 @@ _govoscap() {
     __oscap_command
     #__depend_check "libxslt" "xsltrpoc"  # Used to generate quick reports at commandline
 
+    EXTRAS=''
     # overwrite values from GovReadyfile with command line values
-    if [ "$#" -ne 1 ]; then
+    if [ "$#" -eq 0 ]; then
         __log_govready "Using profile ${PROFILE}.\n"
         profile="${PROFILE}"
     else
-        profile="${1}"
+	if [ "${1}" = "GovReadyfile" ]; then
+	    __log_govready "Using profile ${PROFILE}.\n"
+            profile="${PROFILE}"
+	    shift
+	    EXTRAS="${@}"
+	else
+            profile="${1}"
+	fi
     fi
 
     # set params
@@ -754,7 +763,7 @@ _govoscap() {
     if [ "$OSCAP_SSH" = true ]; then
         local resultsdir=${SCANDIR}/${profile}-${OSCAP_HOST}
         #local oval_or_arf="--results-arf ${resultsdir}/${DATE_TIME}-arf.xml"
-        local oval_or_arf=""
+        local oval_or_arf="--cpe ${CPE}"
     else
         local resultsdir=${SCANDIR}/${profile}
         local oval_or_arf="--oval-results --cpe ${CPE}"
@@ -763,7 +772,7 @@ _govoscap() {
     mkdir -p ${resultsdir}
 
     # build and execute openscap eval
-    local scan_command="${OSCAP_COMMAND} xccdf eval --profile ${profile} ${oval_or_arf} --results ${resultsdir}/${DATE_TIME}-results.xml --report ${resultsdir}/${DATE_TIME}-results.html ${xccdffile}"
+    local scan_command="${OSCAP_COMMAND} xccdf eval --profile ${profile} ${oval_or_arf} --results ${resultsdir}/${DATE_TIME}-results.xml --report ${resultsdir}/${DATE_TIME}-results.html ${xccdffile} ${EXTRAS}"
     __log_govready "Scanning system for compliance to profile ${profile}"
     __log_govready "Running command: ${scan_command}"
     eval $scan_command || __log_govready "..."
@@ -1014,10 +1023,10 @@ _main() {
         # check whether we have everything to start with govready
         __dependencies_check
         _process_2_args "${1}" "${2}"
-    elif [[ ${__args_num} -eq 3 ]] || [[ ${__args_num} -eq 4 ]]; then
+    elif [[ ${__args_num} -gt 2 ]] || [[ ${__args_num} -eq 4 ]]; then
         # check whether we have everything to start with govready
         __dependencies_check
-        _process_3_args "${1}" "${2}" "${3}" "${4:-}"
+        _process_3_args "${@}"
     else
         # wrong number of arguments
         _usage
