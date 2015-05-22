@@ -708,9 +708,13 @@ _parse_config(){
 __oscap_command() {
     if [ -n "${OSCAP_USER+x}" ] && [ -n "${OSCAP_HOST+x}" ] && [ -n "${OSCAP_PORT+x}" ]; then
         OSCAP_COMMAND="oscap-ssh ${OSCAP_USER}@${OSCAP_HOST} ${OSCAP_PORT}"
+	RESULTS_DIR=${SCANDIR}/${PROFILE}-${OSCAP_HOST}
+	SSH_HOST="${OSCAP_USER}@${OSCAP_HOST}"
+	SSH_PORT=${OSCAP_PORT}
         OSCAP_SSH=true
     else
         OSCAP_COMMAND="oscap"
+	RESULTS_DIR=${SCANDIR}/${PROFILE}
         OSCAP_SSH=false
     fi
 }
@@ -761,28 +765,26 @@ _govoscap() {
 
     # set up results directories
     if [ "$OSCAP_SSH" = true ]; then
-        local resultsdir=${SCANDIR}/${profile}-${OSCAP_HOST}
-        #local oval_or_arf="--results-arf ${resultsdir}/${DATE_TIME}-arf.xml"
+        #local oval_or_arf="--results-arf ${RESULTS_DIR}/${DATE_TIME}-arf.xml"
         local oval_or_arf="--cpe ${CPE}"
     else
-        local resultsdir=${SCANDIR}/${profile}
         local oval_or_arf="--oval-results --cpe ${CPE}"
     fi
-    echo "Placing scan results in ${resultsdir}..."
-    mkdir -p ${resultsdir}
+    echo "Placing scan results in ${RESULTS_DIR}..."
+    mkdir -p ${RESULTS_DIR}
 
     # build and execute openscap eval
-    local scan_command="${OSCAP_COMMAND} xccdf eval --profile ${profile} ${oval_or_arf} --results ${resultsdir}/${DATE_TIME}-results.xml --report ${resultsdir}/${DATE_TIME}-results.html ${xccdffile} ${EXTRAS}"
+    local scan_command="${OSCAP_COMMAND} xccdf eval --profile ${profile} ${oval_or_arf} --results ${RESULTS_DIR}/${DATE_TIME}-results.xml --report ${RESULTS_DIR}/${DATE_TIME}-results.html ${xccdffile} ${EXTRAS}"
     __log_govready "Scanning system for compliance to profile ${profile}"
     __log_govready "Running command: ${scan_command}"
     eval $scan_command || __log_govready "..."
     
     # make results readable
-    chmod go+r ${resultsdir}/${DATE_TIME}-results.html
-    chmod go+r ${resultsdir}/${DATE_TIME}-results.xml
+    chmod go+r ${RESULTS_DIR}/${DATE_TIME}-results.html
+    chmod go+r ${RESULTS_DIR}/${DATE_TIME}-results.xml
 
     # build and execute openscap fix file generation
-    local fix_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile ${resultsdir}/${DATE_TIME}-results.xml > ${resultsdir}/${DATE_TIME}-fix.sh"
+    local fix_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile ${RESULTS_DIR}/${DATE_TIME}-results.xml > ${RESULTS_DIR}/${DATE_TIME}-fix.sh"
     __log_govready "Running command: \"${fix_command}\""
     eval $fix_command || __log_govready "..."
 
@@ -792,29 +794,29 @@ _govoscap() {
     __log_govready "Running command: \"${export_command}\""
     eval $export_command || __log_govready "..."
     # mv exported variables file
-    local bash_command="mv ssg-rhel6-oval.xml-0.variables-0.xml ${resultsdir}/${DATE_TIME}-variables.xml"
+    local bash_command="mv ssg-rhel6-oval.xml-0.variables-0.xml ${RESULTS_DIR}/${DATE_TIME}-variables.xml"
     __log_govready "Running command: \"${bash_command}\""
     eval $bash_command || __log_govready "..."
 
     # set results-previous softlinks if they exist
-    [ -f $resultsdir/results.xml ] && ln -sf $(readlink $resultsdir/results.xml) $resultsdir/results-previous.xml || __log_govready "..."
-    [ -f $resultsdir/results.html ] && ln -sf $(readlink $resultsdir/results.html) $resultsdir/results-previous.html || __log_govready "..."
-    [ -f $resultsdir/fix.sh ] && ln -sf $(readlink $resultsdir/fix.sh) $resultsdir/fix-previous.sh || __log_govready "..."
-    [ -f $resultsdir/variables.xml ] && ln -sf $(readlink $resultsdir/variables.xml) $resultsdir/variables-previous.xml || __log_govready "..."
+    [ -f ${RESULTS_DIR}/results.xml ] && ln -sf $(readlink ${RESULTS_DIR}/results.xml) ${RESULTS_DIR}/results-previous.xml || __log_govready "..."
+    [ -f ${RESULTS_DIR}/results.html ] && ln -sf $(readlink ${RESULTS_DIR}/results.html) ${RESULTS_DIR}/results-previous.html || __log_govready "..."
+    [ -f ${RESULTS_DIR}/fix.sh ] && ln -sf $(readlink ${RESULTS_DIR}/fix.sh) ${RESULTS_DIR}/fix-previous.sh || __log_govready "..."
+    [ -f ${RESULTS_DIR}/variables.xml ] && ln -sf $(readlink ${RESULTS_DIR}/variables.xml) ${RESULTS_DIR}/variables-previous.xml || __log_govready "..."
     # set results softlinks
-    ln -sf ${DATE_TIME}-results.xml $resultsdir/results.xml
-    ln -sf ${DATE_TIME}-results.html $resultsdir/results.html
-    ln -sf ${DATE_TIME}-fix.sh $resultsdir/fix.sh
-    ln -sf ${DATE_TIME}-variables.xml $resultsdir/variables.xml
+    ln -sf ${DATE_TIME}-results.xml ${RESULTS_DIR}/results.xml
+    ln -sf ${DATE_TIME}-results.html ${RESULTS_DIR}/results.html
+    ln -sf ${DATE_TIME}-fix.sh ${RESULTS_DIR}/fix.sh
+    ln -sf ${DATE_TIME}-variables.xml ${RESULTS_DIR}/variables.xml
 
     # build and execute govready commandline quick report
-    local gov_command="xsltproc .govready/xml/scaninfo.xsl ${resultsdir}/results.xml"
+    local gov_command="xsltproc .govready/xml/scaninfo.xsl ${RESULTS_DIR}/results.xml"
     __log_govready "Printing quickie report..."
     __log_govready "Running command: \"${gov_command}\""
     eval $gov_command || __log_govready "..."
 
     # send govready hint to commandline
-    printf "View detailed HTML report: lynx ${resultsdir}/results.html\n"
+    printf "View detailed HTML report: lynx ${RESULTS_DIR}/results.html\n"
     printf "Run auto-generated fix file: govready fix \n\n"
 }
 
@@ -826,27 +828,55 @@ _govoscap_fix() {
     _parse_config
     __oscap_command
     #__depend_check "libxslt" "xsltrpoc"  # Used to generate quick reports at commandline
-
-    # set up results directories
-    if [ "$OSCAP_SSH" = true ]; then
-        local resultsdir=${SCANDIR}/${profile}-${OSCAP_HOST}
-    else
-        local resultsdir=${SCANDIR}/${profile}
-    fi
  
     # set params
-    local fixfile="${resultsdir}/$(readlink fix.sh)"
+    local fixfile="${RESULTS_DIR}/$(readlink ${RESULTS_DIR}/fix.sh)"
 
     # graceful error if fix file does not exist
     if [ ! -f $fixfile ]
     then
-        __log_warning "No fix file yet exists. "
+        __log_warning "No fix file yet exists in ${RESULTS_DIR}"
         printf "No fix file exists. Have you run a 'govready scan' yet?\n"
     else
         # execute most recent fix file
-        __log_govready "executing most recent fix file: ${fixfile}"
-        bash $fixfile
+        __log_govready "Executing most recent fix file: ${fixfile}"
+	if [ "$OSCAP_SSH" = true ]; then
+	    _govoscap_fix_remote "$fixfile"
+	else
+            bash $fixfile
+	fi
     fi
+}
+
+#@action
+_govoscap_fix_remote() {
+    local fixfile="${1}"
+    local fixbase=`basename ${fixfile}`
+    local fixoutput="${fixbase%.sh}.txt"
+    
+    echo "Connecting to '$SSH_HOST' on port '$SSH_PORT'..."
+    MASTER_SOCKET_DIR=$(mktemp -d)
+    MASTER_SOCKET="$MASTER_SOCKET_DIR/ssh_socket"
+    ssh -M -f -N -o ServerAliveInterval=60 -o ControlPath=$MASTER_SOCKET -p "$SSH_PORT" "$SSH_HOST" || die "Failed to connect!"
+    
+    echo "Connected!  Creating remote temporary directory..."
+    REMOTE_TEMP_DIR=$(ssh -o ControlPath=$MASTER_SOCKET -p "$SSH_PORT" "$SSH_HOST" mktemp -d) || die "Failed to create remote temporary directory!"
+
+    echo "Copying '$fixfile' to remote working directory '$REMOTE_TEMP_DIR/${fixbase}'..."
+    scp -o ControlPath=$MASTER_SOCKET -P "$SSH_PORT" "$fixfile" "$SSH_HOST:${REMOTE_TEMP_DIR}/${fixbase}" || die "Failed to copy fix file to remote temporary directory!"
+
+    echo "Executing '$fixbase' on $SSH_HOST and saving the output..."
+    ssh -o ControlPath=$MASTER_SOCKET -p "$SSH_PORT" "$SSH_HOST" "bash ${REMOTE_TEMP_DIR}/${fixbase} | tee ${REMOTE_TEMP_DIR}/${fixoutput}"
+
+    echo "Saving fixfile output to ${RESULTS_DIR}/${fixoutput}..."
+    scp -o ControlPath=$MASTER_SOCKET -P "$SSH_PORT" "$SSH_HOST:${REMOTE_TEMP_DIR}/${fixoutput}" "${RESULTS_DIR}/${fixoutput}" || die "Failed to copy the fixout file back to local machine!"
+
+    echo "Removing remote temporary directory..."
+    ssh -o ControlPath=$MASTER_SOCKET -p "$SSH_PORT" "$SSH_HOST" "rm -r $REMOTE_TEMP_DIR" || die "Failed to remove remote temporary directory!"
+    
+    echo "Disconnecting ssh and removing master ssh socket directory..."
+    ssh -o ControlPath=$MASTER_SOCKET -p "$SSH_PORT" "$SSH_HOST" -O exit || die "Failed to disconnect!"
+    rm -r "$MASTER_SOCKET_DIR" || die "Failed to remove local master SSH socket directory!"
 }
 
 _govoscap_rules_scan_info() {
