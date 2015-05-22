@@ -904,17 +904,18 @@ _govoscap_rules_scan_info() {
 _compare() {
 
     _parse_config
+    __oscap_command
 
     local __args_num=$#
     if [[ ${__args_num} -eq 0 ]]; then
         # compare results.xml to results-previous.xml
-        newresults="${SCANDIR}/results.xml"
-        oldresults="${SCANDIR}/results-previous.xml"
+        newresults="${RESULTS_DIR}/results.xml"
+        oldresults="${RESULTS_DIR}/results-previous.xml"
         result="pass"
     elif [[ ${__args_num} -eq 1 ]]; then
         # compare results.xml to results-previous.xml for passed result
-        newresults="${SCANDIR}/results.xml"
-        oldresults="${SCANDIR}/results-previous.xml"
+        newresults="${RESULTS_DIR}/results.xml"
+        oldresults="${RESULTS_DIR}/results-previous.xml"
         result="pass"
         if [[ $1 = "fail" || $1 = "pass" || $1 = "error" || $1 = "unknown" || $1 = "notapplicable" || $1 = "notselected" ]]; then
             result=$1
