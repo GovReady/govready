@@ -79,7 +79,6 @@ _usage() {
     printf "Description: the GovReady Toolkit (v${VERSION})\n"
     if $(__assert_configfile); then
         _parse_config
-        __oscap_command
         if [ "$OSCAP_SSH" = true ]; then
             printf "Remote scanning enabled in GovReadyfile: ${OSCAP_COMMAND}\n"
         fi
@@ -138,7 +137,7 @@ _process_3_args() {
         exit 0
     fi
     case "${1}" in
-	"scan") shift; _govoscap "${@}" ;;
+        "scan") shift; _govoscap "${@}" ;;
         "compare") _compare "${2}" "${3}";;
         *) _usage; exit ;;
     esac
@@ -193,7 +192,6 @@ _prog_version(){
 #@action
 _oscap_version(){
     _parse_config
-    __oscap_command
     ${OSCAP_COMMAND} --v
 }
 
@@ -462,11 +460,11 @@ PROFILE = test
 CPE = /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml
 
 # XCCDF file to be used with scans. Change this line to use a different XCCDF.
+# This can also point to a datastream file.
 XCCDF = /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
 
 # Directory into which to save files using 'govready import' command
 IMPORTDIR = scap/content
-
 "
     echo "$GRF" > GovReadyfile
 
@@ -697,24 +695,20 @@ _parse_config(){
     eval $(sed '/^[:space:]*#/d;/^[:space:]*$/d;s/=/ /;' < "$CONFIGFILE" | while read -r key val
     do
         # Only allow safe characters
-        val=$(echo "$val" | sed 's/[^-[:alnum:]\.\/]//g')
+        val=$(echo "$val" | sed 's/[^-[:alnum:]\._\/]//g')
         str="$key='$val'"
         echo "$str"
     done)
-}
-
-# This relies on values provided by _parse_config so must come after it
-#@special
-__oscap_command() {
+    # Check to see if we are to scan a remote machine using oscap-ssh.
     if [ -n "${OSCAP_USER+x}" ] && [ -n "${OSCAP_HOST+x}" ] && [ -n "${OSCAP_PORT+x}" ]; then
         OSCAP_COMMAND="oscap-ssh ${OSCAP_USER}@${OSCAP_HOST} ${OSCAP_PORT}"
-	RESULTS_DIR=${SCANDIR}/${PROFILE}-${OSCAP_HOST}
-	SSH_HOST="${OSCAP_USER}@${OSCAP_HOST}"
-	SSH_PORT=${OSCAP_PORT}
+        RESULTS_DIR=${SCANDIR}/${PROFILE}-${OSCAP_HOST}
+        SSH_HOST="${OSCAP_USER}@${OSCAP_HOST}"
+        SSH_PORT=${OSCAP_PORT}
         OSCAP_SSH=true
     else
         OSCAP_COMMAND="oscap"
-	RESULTS_DIR=${SCANDIR}/${PROFILE}
+        RESULTS_DIR=${SCANDIR}/${PROFILE}
         OSCAP_SSH=false
     fi
 }
@@ -728,7 +722,6 @@ _test() {
 #@action
 _govoscap_info() {
     _parse_config
-    __oscap_command
     # list available profiles
     __log_govready "Profiles are listed in output of information in xccdf file" 
     local oscap_command="${OSCAP_COMMAND} info ${XCCDF}"
@@ -741,62 +734,62 @@ _govoscap() {
     # usage: _govoscap("stig-rhel6-server-upstream")
     
     _parse_config
-    __oscap_command
     #__depend_check "libxslt" "xsltrpoc"  # Used to generate quick reports at commandline
 
-    EXTRAS=''
     # overwrite values from GovReadyfile with command line values
     if [ "$#" -eq 0 ]; then
         __log_govready "Using profile ${PROFILE}.\n"
         profile="${PROFILE}"
     else
-	if [ "${1}" = "GovReadyfile" ]; then
-	    __log_govready "Using profile ${PROFILE}.\n"
-            profile="${PROFILE}"
-	    shift
-	    EXTRAS="${@}"
-	else
-            profile="${1}"
-	fi
+        profile="${1}"
     fi
 
     # set params
     local xccdffile="${XCCDF}"
 
     # set up results directories
+    local resultfile="${RESULTS_DIR}/${DATE_TIME}-results.xml"
+    local reportfile="${RESULTS_DIR}/${DATE_TIME}-results.html"
     if [ "$OSCAP_SSH" = true ]; then
-        #local oval_or_arf="--results-arf ${RESULTS_DIR}/${DATE_TIME}-arf.xml"
-        local oval_or_arf="--cpe ${CPE}"
+        local arffile="${RESULTS_DIR}/${DATE_TIME}-arf.xml"
+        local oval_or_arf="--results-arf ${arffile} --results ${resultfile} --report ${reportfile}"
     else
-        local oval_or_arf="--oval-results --cpe ${CPE}"
+        local arffile=''
+        local oval_or_arf="--oval-results --cpe ${CPE} --results ${resultfile} --report ${reportfile}"
     fi
     echo "Placing scan results in ${RESULTS_DIR}..."
     mkdir -p ${RESULTS_DIR}
 
     # build and execute openscap eval
-    local scan_command="${OSCAP_COMMAND} xccdf eval --profile ${profile} ${oval_or_arf} --results ${RESULTS_DIR}/${DATE_TIME}-results.xml --report ${RESULTS_DIR}/${DATE_TIME}-results.html ${xccdffile} ${EXTRAS}"
+    local scan_command="${OSCAP_COMMAND} xccdf eval --profile ${profile} ${oval_or_arf} ${xccdffile}"
     __log_govready "Scanning system for compliance to profile ${profile}"
     __log_govready "Running command: ${scan_command}"
     eval $scan_command || __log_govready "..."
     
     # make results readable
-    chmod go+r ${RESULTS_DIR}/${DATE_TIME}-results.html
-    chmod go+r ${RESULTS_DIR}/${DATE_TIME}-results.xml
+    [ -f ${resultfile} ] && chmod go+r ${resultfile}
+    [ -f ${reportfile} ] && chmod go+r ${reportfile}
+    [ ${arffile} ] && [ -f ${arffile} ] && chmod go+r ${arffile}
 
     # build and execute openscap fix file generation
-    local fix_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile ${RESULTS_DIR}/${DATE_TIME}-results.xml > ${RESULTS_DIR}/${DATE_TIME}-fix.sh"
+    local fix_command="oscap xccdf generate fix --result-id xccdf_org.open-scap_testresult_$profile ${resultfile} > ${RESULTS_DIR}/${DATE_TIME}-fix.sh"
+    __log_govready "Generating fix.sh..."
     __log_govready "Running command: \"${fix_command}\""
     eval $fix_command || __log_govready "..."
 
     # export variables from scan
-    # oscap oval eval --variables ssg-rhel6-oval.xml-0.variables-0.xml --id oval:ssg:def:1223 /usr/share/xml/scap/ssg/content/ssg-rhel6-oval.xml
-    local export_command="oscap xccdf export-oval-variables --profile ${profile} --cpe ${CPE} ${xccdffile}"
-    __log_govready "Running command: \"${export_command}\""
-    eval $export_command || __log_govready "..."
-    # mv exported variables file
-    local bash_command="mv ssg-rhel6-oval.xml-0.variables-0.xml ${RESULTS_DIR}/${DATE_TIME}-variables.xml"
-    __log_govready "Running command: \"${bash_command}\""
-    eval $bash_command || __log_govready "..."
+    if [ -f ssg-rhel6-oval.xml-0.variables-0.xml ]; then
+        # oscap oval eval --variables ssg-rhel6-oval.xml-0.variables-0.xml --id oval:ssg:def:1223 /usr/share/xml/scap/ssg/content/ssg-rhel6-oval.xml
+        local export_command="oscap xccdf export-oval-variables --profile ${profile} --cpe ${CPE} ${xccdffile}"
+        __log_govready "Running command: \"${export_command}\""
+        eval $export_command || __log_govready "..."
+        # mv exported variables file
+        local bash_command="mv ssg-rhel6-oval.xml-0.variables-0.xml ${RESULTS_DIR}/${DATE_TIME}-variables.xml"
+        __log_govready "Running command: \"${bash_command}\""
+        eval $bash_command || __log_govready "..."
+    else
+        __log_govready "Skipping variable export (tbd)..."
+    fi
 
     # set results-previous softlinks if they exist
     [ -f ${RESULTS_DIR}/results.xml ] && ln -sf $(readlink ${RESULTS_DIR}/results.xml) ${RESULTS_DIR}/results-previous.xml || __log_govready "..."
@@ -807,7 +800,7 @@ _govoscap() {
     ln -sf ${DATE_TIME}-results.xml ${RESULTS_DIR}/results.xml
     ln -sf ${DATE_TIME}-results.html ${RESULTS_DIR}/results.html
     ln -sf ${DATE_TIME}-fix.sh ${RESULTS_DIR}/fix.sh
-    ln -sf ${DATE_TIME}-variables.xml ${RESULTS_DIR}/variables.xml
+    [ -f ${RESULTS_DIR}/variables.xml ] && ln -sf ${DATE_TIME}-variables.xml ${RESULTS_DIR}/variables.xml
 
     # build and execute govready commandline quick report
     local gov_command="xsltproc .govready/xml/scaninfo.xsl ${RESULTS_DIR}/results.xml"
@@ -826,7 +819,6 @@ _govoscap_fix() {
 
     # Todo: enable passing of specific fix script target
     _parse_config
-    __oscap_command
     #__depend_check "libxslt" "xsltrpoc"  # Used to generate quick reports at commandline
  
     # set params
@@ -840,11 +832,11 @@ _govoscap_fix() {
     else
         # execute most recent fix file
         __log_govready "Executing most recent fix file: ${fixfile}"
-	if [ "$OSCAP_SSH" = true ]; then
-	    _govoscap_fix_remote "$fixfile"
-	else
+        if [ "$OSCAP_SSH" = true ]; then
+            _govoscap_fix_remote "$fixfile"
+        else
             bash $fixfile
-	fi
+        fi
     fi
 }
 
@@ -887,7 +879,7 @@ _govoscap_rules_scan_info() {
     __log_govready "Checking scan results for rule ${ruleid} to scap/content"
 
     # If no scan result provided, return error and end processing
-    local bash__command="xsltproc --stringparam ruleid ${ruleid} .govready/xml/ruleinfo.xsl ${SCANDIR}/results.xml"
+    local bash__command="xsltproc --stringparam ruleid ${ruleid} .govready/xml/ruleinfo.xsl ${RESULTS_DIR}/results.xml"
     __log_govready "Running command: \"${bash__command}\""
     eval $bash__command || __log_govready "..."
 
@@ -904,7 +896,6 @@ _govoscap_rules_scan_info() {
 _compare() {
 
     _parse_config
-    __oscap_command
 
     local __args_num=$#
     if [[ ${__args_num} -eq 0 ]]; then
@@ -1008,7 +999,6 @@ _profile_set() {
 _status() {
     _parse_config
     _prog_version
-    __oscap_command
     echo "Scan profile: ${PROFILE}"
     echo "CPE file: ${CPE}"
     echo "XCCDF file: ${XCCDF}"
