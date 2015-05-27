@@ -137,7 +137,6 @@ _process_3_args() {
         exit 0
     fi
     case "${1}" in
-        "scan") shift; _govoscap "${@}" ;;
         "compare") _compare "${2}" "${3}";;
         *) _usage; exit ;;
     esac
@@ -1044,10 +1043,10 @@ _main() {
         # check whether we have everything to start with govready
         __dependencies_check
         _process_2_args "${1}" "${2}"
-    elif [[ ${__args_num} -gt 2 ]] || [[ ${__args_num} -eq 4 ]]; then
+    elif [[ ${__args_num} -eq 3 ]] || [[ ${__args_num} -eq 4 ]]; then
         # check whether we have everything to start with govready
         __dependencies_check
-        _process_3_args "${@}"
+        _process_3_args "${1}" "${2}" "${3}" "${4:-}"
     else
         # wrong number of arguments
         _usage
