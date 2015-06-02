@@ -45,7 +45,7 @@ __log_govready() {
 }
 
 # Global preferences
-VERSION="0.6.2"
+VERSION="0.7.0"
 
 # Default scap-security-guide content directory
 SSGCONTENTDIR="/usr/share/xml/scap/ssg/content"
@@ -687,6 +687,18 @@ __assert_configfile(){
     [[ -r "$CONFIGFILE" ]]
 }
 
+#@special
+_get_envariables() {
+    # GOVREADY_* environment variables can override these values set in GovReadyfile
+    for v in API SCANDIR PROFILE SSGCONTENTDIR OSCAP_USER OSCAP_HOST OSCAP_PORT CPE XCCDF ; do
+	local gv="GOVREADY_${v}"
+	if [ -n "${!gv+x}" ] && [ "${!gv}x" != "x" ]; then
+	    echo "envariable ${gv} = '${!gv}' overrides ${v}"
+	    eval $v="\${!gv}"
+	fi
+    done
+}
+
 #@action
 _fix_path(){
     # Try prepending $SSGCONTENTDIR to path if it doesn't exist.
@@ -725,6 +737,9 @@ _parse_config(){
         str="$key='$val'"
         echo "$str"
     done)
+
+    # Check for possible GOVREADY_* environment variable overrides
+    _get_envariables
     
     # Check and fix paths.
     CPE=$(_fix_path "${CPE}")
