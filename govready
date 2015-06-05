@@ -482,7 +482,7 @@ IMPORTDIR = scap/content
     mkdir -p .govready/scans
     mkdir -p .govready/xml
     _govready_init_scaninfo_file
-    _govready_init_scaninfo-arf_file
+    _govready_init_scaninfo_arf_file
     _govready_init_scanruleinfo_file
     _govready_init_getruleovaldef_file
     _govready_init_ruleidresult_file
@@ -496,9 +496,9 @@ IMPORTDIR = scap/content
 }
 
 #@action
-_govready_init_scaninfo-arf_file() {
+_govready_init_scaninfo_arf_file() {
 
-    __log_info "Creating .govready/xml/scaninfo-arf.xsl file"
+    __log_info "Creating .govready/xml/scaninfo_arf.xsl file"
 
     ! read -d '' SIF <<"EOF"
 <?xml version="1.0" encoding="utf-8"?>
@@ -529,7 +529,7 @@ ASSUMPTIONS:
 - Assumes only one server/end-point was scanned and only ONE xcddf TestResults tag in ARF file.
 - xpath to <TestResult> is: //arf:asset-report-collection/arf:reports/arf:report[@id="xccdf1"]/arf:content/cdf:TestResult
 
-usage: $> xsltproc scaninfo-arf.xsl result-file-name.xml
+usage: $> xsltproc scaninfo_arf.xsl result-file-name.xml
 
 -->
 
@@ -560,7 +560,7 @@ This profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="l
 
 EOF
 
-    echo "$SIF" > .govready/xml/scaninfo-arf.xsl
+    echo "$SIF" > .govready/xml/scaninfo_arf.xsl
 
 }
 
@@ -925,7 +925,7 @@ _govoscap() {
     # build and execute govready commandline quick report
     if [ "$OSCAP_SSH" = true ]; then
         # process results-arf.xml file
-        local gov_command="xsltproc .govready/xml/scaninfo-arf.xsl ${RESULTS_DIR}/results-arf.xml"
+        local gov_command="xsltproc .govready/xml/scaninfo_arf.xsl ${RESULTS_DIR}/results-arf.xml"
     else
         # process results.xml file
         local gov_command="xsltproc .govready/xml/scaninfo.xsl ${RESULTS_DIR}/results.xml"
