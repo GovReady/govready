@@ -1083,13 +1083,13 @@ _compare() {
         oldtestresult=$(eval $cmd_oldresults)
 
         # print out comparison
-        if [ $newtestresult = "pass" ]; then
+        if [[ "$newtestresult" = "pass" ]]; then
             printf "A: ${_GREEN}$newtestresult${_NORMAL}  "
         else
             printf "A: ${_RED}$newtestresult${_NORMAL}  "
         fi
 
-        if [ $oldtestresult = "pass" ]; then
+        if [[ "$oldtestresult" = "pass" ]]; then
             printf "B: ${_GREEN}$oldtestresult${_NORMAL}  "
         else
             printf "B: ${_RED}$oldtestresult${_NORMAL}  "
