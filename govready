@@ -482,6 +482,7 @@ IMPORTDIR = scap/content
     mkdir -p .govready/scans
     mkdir -p .govready/xml
     _govready_init_scaninfo_file
+    _govready_init_scaninfo-arf_file
     _govready_init_scanruleinfo_file
     _govready_init_getruleovaldef_file
     _govready_init_ruleidresult_file
@@ -492,6 +493,75 @@ IMPORTDIR = scap/content
     # Create directory for new scap content
     # To Do: Make this a GovReadyfile parameter
     mkdir -p scap/content
+}
+
+#@action
+_govready_init_scaninfo-arf_file() {
+
+    __log_info "Creating .govready/xml/scaninfo-arf.xsl file"
+
+    ! read -d '' SIF <<"EOF"
+<?xml version="1.0" encoding="utf-8"?>
+<xsl:stylesheet version="1.1"
+    xmlns:arf="http://scap.nist.gov/schema/asset-reporting-format/1.1"
+    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+    xmlns:cdf="http://checklists.nist.gov/xccdf/1.2"
+    xmlns:exsl="http://exslt.org/common"
+    xmlns:db="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:s="http://open-scap.org/"
+    exclude-result-prefixes="xsl cdf db s exsl"
+    xmlns:ovalres="http://oval.mitre.org/XMLSchema/oval-results-5"
+    xmlns:sceres="http://open-scap.org/page/SCE_result_file"
+    >
+
+<!--
+****************************************************************************************
+
+Copyright: GovReady PBC, 2015
+
+This file provides a relitvely simple xslt transformation on openscap results-arf.xml file
+to show pass / fail numbers.
+
+ASSUMPTIONS:
+- Assumes stylesheets assumes xccdf is version 1.2
+- Assumes only one server/end-point was scanned and only ONE xcddf TestResults tag in ARF file.
+- xpath to <TestResult> is: //arf:asset-report-collection/arf:reports/arf:report[@id="xccdf1"]/arf:content/cdf:TestResult
+
+usage: $> xsltproc scaninfo-arf.xsl result-file-name.xml
+
+-->
+
+<!--xsl:output method="xml" encoding="UTF-8" indent="yes"/-->    
+<xsl:strip-space elements="*"/>
+<xsl:output method="text" encoding="utf-8" />
+
+<xsl:template match="/">
+    <xsl:apply-templates/>
+</xsl:template>
+
+<xsl:template match='cdf:TestResult'>
+OpenSCAP NIST Certified SCAP Scanner Results for Profile "<xsl:value-of select='@id'/>"
+
+This profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"] | cdf:rule-result[@severity="high"][cdf:result="fail"] | cdf:rule-result[@severity="high"][cdf:result="error"] | cdf:rule-result[@severity="high"][cdf:result="notchecked"])' /> high severity selected controls. OpenSCAP says <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="pass"])' /> passing, <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="fail"])' /> failing, and <xsl:value-of select='count(cdf:rule-result[@severity="high"][cdf:result="notchecked"])' /> notchecked.
+This profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"] | cdf:rule-result[@severity="medium"][cdf:result="fail"] | cdf:rule-result[@severity="medium"][cdf:result="error"] | cdf:rule-result[@severity="medium"][cdf:result="notchecked"])' /> medium severity selected controls. OpenSCAP says <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="pass"])' /> passing, <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="fail"])' /> failing, and <xsl:value-of select='count(cdf:rule-result[@severity="medium"][cdf:result="notchecked"])' /> notchecked.
+This profile identifies <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"] | cdf:rule-result[@severity="low"][cdf:result="fail"] | cdf:rule-result[@severity="low"][cdf:result="error"] | cdf:rule-result[@severity="low"][cdf:result="notchecked"])' /> low severity selected controls. OpenSCAP says <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="pass"])' /> passing, <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="fail"])' /> failing, and <xsl:value-of select='count(cdf:rule-result[@severity="low"][cdf:result="notchecked"])' /> notchecked.
+
+<xsl:text>
+</xsl:text>
+</xsl:template>
+
+<!-- include to stop leakage from builtin tempaltes -->
+<xsl:template match='node()' mode='engine-results'/>
+<xsl:template match="text()"/>
+
+</xsl:stylesheet>
+
+EOF
+
+    echo "$SIF" > .govready/xml/scaninfo-arf.xsl
+
 }
 
 #@action
@@ -527,7 +597,7 @@ usage: $> xsltproc scaninfo.xsl result-file-name.xml
 
 -->
 
-<!--xsl:output method="xml" encoding="UTF-8" indent="yes"/-->    
+<!--xsl:output method="xml" encoding="UTF-8" indent="yes"/-->
 <xsl:strip-space elements="*"/>
 <xsl:output method="text" encoding="utf-8" />
 
@@ -853,7 +923,13 @@ _govoscap() {
     [ -f ${RESULTS_DIR}/variables.xml ] && ln -sf ${DATE_TIME}-variables.xml   ${RESULTS_DIR}/variables.xml
 
     # build and execute govready commandline quick report
-    local gov_command="xsltproc .govready/xml/scaninfo.xsl ${RESULTS_DIR}/results.xml"
+    if [ "$OSCAP_SSH" = true ]; then
+        # process results-arf.xml file
+        local gov_command="xsltproc .govready/xml/scaninfo-arf.xsl ${RESULTS_DIR}/results-arf.xml"
+    else
+        # process results.xml file
+        local gov_command="xsltproc .govready/xml/scaninfo.xsl ${RESULTS_DIR}/results.xml"
+    fi
     __log_govready "Printing quickie report..."
     __log_govready "Running command: \"${gov_command}\""
     eval $gov_command || __log_govready "..."
