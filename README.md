@@ -180,6 +180,33 @@ oscap xccdf eval --profile test --results scans/test-results-0822-1319.xml --rep
 
 Additional Quickstarts available in the repo. See "Quickstart-platform.md"
 
+# Remote Scanning (integration with oscap-ssh script)
+
+The recently released [oscap-ssh](https://github.com/mpreisler/oscap-ssh) enables [Scanning Remote Machines with OpenSCAP](http://martin.preisler.me/2015/05/scanning-remote-machines-with-openscap/). As a user-friendly frontend to the OpenSCAP tools, GovReady has been enhanced to make use of this exciting new feature. There are two ways to make use of this new feature (which may be used separately or together):
+
+### 1. Update three variables in the (configuration) GovReadyfile:
+``` bash
+# All three vars must be set 'OSCAP_USER@OSCAP_HOST OSCAP_PORT' for remote scanning.
+# Note that openscap-scanner ('oscap') must be installed on the remote server.
+OSCAP_USER = root
+OSCAP_HOST = example.com
+OSCAP_PORT = 22
+```
+
+### 2. Create or override GovReadyfile values with GOVREADY_* environment variables:
+This will scan the RHEL 7 machine badwolf.example.com via port 22 as the root user:
+``` bash
+export GOVREADY_OSCAP_USER=root
+export GOVREADY_OSCAP_HOST=badwolf.example.com
+export GOVREADY_OSCAP_PORT=22
+export GOVREADY_XCCDF=ssg-rhel7-ds.xml
+govready scan
+```
+
+#### Notes and Caveats on remote scanning
+- All values in the GovReadyfile can be overridden with `GOVREADY_*` environment variables. This facilitates integration with many site management tools such as Ansible, Chef and Puppet.
+- As [@mpreisler](https://github.com/mpreisler) notes, currently `oscap-ssh` must be run as root, while remote ssh access is generally considered a security hole to be remediated. A future release will resolve this.
+- OVAL and CPE files can not be separately named on the command line. Rather, use a "datastream" object as the XCCDF file (which can contain OVAL and CPE definitions within it).
 
 # Uninstall govready
 
