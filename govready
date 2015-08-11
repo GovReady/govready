@@ -452,9 +452,11 @@ PROFILE = test
 
 # All three vars must be set 'OSCAP_USER@OSCAP_HOST OSCAP_PORT' for remote scanning.
 # Note that openscap-scanner ('oscap') must be installed on the remote server.
+# Set 'OSCAP_SUDO = 1' if OSCAP_USER is not 'root' and you want to run 'sudo oscap'.
 # OSCAP_USER = root
 # OSCAP_HOST = example.com
 # OSCAP_PORT = 22
+# OSCAP_SUDO =
 
 # If set, overrides default = /usr/share/xml/scap/ssg/content
 # SSGCONTENTDIR = /usr/share/xml/scap/ssg/content
@@ -760,7 +762,7 @@ __assert_configfile(){
 #@special
 _get_envariables() {
     # GOVREADY_* environment variables can override these values set in GovReadyfile
-    for v in API SCANDIR PROFILE SSGCONTENTDIR OSCAP_USER OSCAP_HOST OSCAP_PORT CPE XCCDF ; do
+    for v in API SCANDIR PROFILE SSGCONTENTDIR OSCAP_USER OSCAP_HOST OSCAP_PORT OSCAP_SUDO CPE XCCDF ; do
 	local gv="GOVREADY_${v}"
 	if [ -n "${!gv+x}" ] && [ "${!gv}x" != "x" ]; then
 	    echo "envariable ${gv} = '${!gv}' overrides ${v}"
@@ -817,7 +819,12 @@ _parse_config(){
     
     # Check to see if we are to scan a remote machine using oscap-ssh.
     if [ -n "${OSCAP_USER+x}" ] && [ -n "${OSCAP_HOST+x}" ] && [ -n "${OSCAP_PORT+x}" ]; then
-        OSCAP_COMMAND="oscap-ssh ${OSCAP_USER}@${OSCAP_HOST} ${OSCAP_PORT}"
+	if [ -n "${OSCAP_SUDO+x}" ] && [ "${OSCAP_SUDO}" ]; then
+	    SUDO_ARG='sudo'
+	else
+	    SUDO_ARG=''
+	fi
+        OSCAP_COMMAND="oscap-ssh ${SUDO_ARG} ${OSCAP_USER}@${OSCAP_HOST} ${OSCAP_PORT}"
         RESULTS_DIR=${SCANDIR}/${PROFILE}-${OSCAP_HOST}
         SSH_HOST="${OSCAP_USER}@${OSCAP_HOST}"
         SSH_PORT=${OSCAP_PORT}
@@ -990,7 +997,7 @@ _govoscap_fix_remote() {
     scp -o ControlPath=$MASTER_SOCKET -P "$SSH_PORT" "$SSH_HOST:${REMOTE_TEMP_DIR}/${fixoutput}" "${RESULTS_DIR}/${fixoutput}" || die "Failed to copy the fixout file back to local machine!"
 
     echo "Removing remote temporary directory..."
-    ssh -o ControlPath=$MASTER_SOCKET -p "$SSH_PORT" "$SSH_HOST" "rm -r $REMOTE_TEMP_DIR" || die "Failed to remove remote temporary directory!"
+    ssh -o ControlPath=$MASTER_SOCKET -p "$SSH_PORT" "$SSH_HOST" "${SUDO_ARG} rm -r $REMOTE_TEMP_DIR" || die "Failed to remove remote temporary directory!"
     
     echo "Disconnecting ssh and removing master ssh socket directory..."
     ssh -o ControlPath=$MASTER_SOCKET -p "$SSH_PORT" "$SSH_HOST" -O exit || die "Failed to disconnect!"
