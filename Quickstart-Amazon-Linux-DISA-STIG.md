@@ -5,13 +5,13 @@ Note: **This Quickstart is fragile and may fail**
 # Download OpenSCAP RPMs for Amazon Linux. (Thanks to Owen for building the RPMs)
 # Note: This is experimental, no signing yet of RPMs
 
-wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-1.0.3-2.amzn1.x86_64.rpm
-wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-devel-1.0.3-2.amzn1.x86_64.rpm
-wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-engine-sce-1.0.3-2.amzn1.x86_64.rpm
-wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-engine-sce-devel-1.0.3-2.amzn1.x86_64.rpm
-wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-extra-probes-1.0.3-2.amzn1.x86_64.rpm
-wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-python-1.0.3-2.amzn1.x86_64.rpm
-wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/openscap-utils-1.0.3-2.amzn1.x86_64.rpm
+wget http://c8a44eea0cdc23b7463e-ee42454716106089a169830ef1c408ef.r15.cf5.rackcdn.com/openscap-1.0.3-2.amzn1.x86_64.rpm
+wget http://c8a44eea0cdc23b7463e-ee42454716106089a169830ef1c408ef.r15.cf5.rackcdn.com/openscap-devel-1.0.3-2.amzn1.x86_64.rpm
+wget http://c8a44eea0cdc23b7463e-ee42454716106089a169830ef1c408ef.r15.cf5.rackcdn.com/openscap-engine-sce-1.0.3-2.amzn1.x86_64.rpm
+wget http://c8a44eea0cdc23b7463e-ee42454716106089a169830ef1c408ef.r15.cf5.rackcdn.com/openscap-engine-sce-devel-1.0.3-2.amzn1.x86_64.rpm
+wget http://c8a44eea0cdc23b7463e-ee42454716106089a169830ef1c408ef.r15.cf5.rackcdn.com/openscap-extra-probes-1.0.3-2.amzn1.x86_64.rpm
+wget http://c8a44eea0cdc23b7463e-ee42454716106089a169830ef1c408ef.r15.cf5.rackcdn.com/openscap-python-1.0.3-2.amzn1.x86_64.rpm
+wget http://c8a44eea0cdc23b7463e-ee42454716106089a169830ef1c408ef.r15.cf5.rackcdn.com/openscap-utils-1.0.3-2.amzn1.x86_64.rpm
 
 # Retrieve CentOS SCAP-Security-Guide RPM
 
