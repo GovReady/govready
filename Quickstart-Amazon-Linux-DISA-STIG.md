@@ -15,7 +15,8 @@ wget http://c8a44eea0cdc23b7463e-ee42454716106089a169830ef1c408ef.r15.cf5.rackcd
 
 # Retrieve CentOS SCAP-Security-Guide RPM
 
-wget http://mirror.centos.org/centos/6/os/x86_64/Packages/scap-security-guide-0.1.18-3.el6.noarch.rpm
+#(expired) wget http://mirror.centos.org/centos/6/os/x86_64/Packages/scap-security-guide-0.1.18-3.el6.noarch.rpm
+wget http://mirror.centos.org/centos/6/os/x86_64/Packages/scap-security-guide-0.1.21-3.el6.noarch.rpm
 
 # Install the OpenSCAP RPMs using localinstall method
 sudo yum --nogpgcheck localinstall -y *.rpm
