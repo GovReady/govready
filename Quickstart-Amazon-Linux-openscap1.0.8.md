@@ -18,7 +18,8 @@ wget http://c8a44eea0cdc23b7463e-ee42454716106089a169830ef1c408ef.r15.cf5.rackcd
 
 # Retrieve CentOS SCAP-Security-Guide RPM
 
-wget http://mirror.centos.org/centos/6/os/x86_64/Packages/scap-security-guide-0.1.18-3.el6.noarch.rpm
+#(expired) wget http://mirror.centos.org/centos/6/os/x86_64/Packages/scap-security-guide-0.1.18-3.el6.noarch.rpm
+wget http://mirror.centos.org/centos/6/os/x86_64/Packages/scap-security-guide-0.1.21-3.el6.noarch.rpm
 
 # Alternate source of SCAP-Security-Guide
 # wget http://0e01fbc32a350ec514ac-c80f4f0ac7f2efb7e499607e5e8fd7f4.r76.cf5.rackcdn.com/amzn/noarch/scap-security-guide-0.1.18-3.amzn1.noarch.rpm
