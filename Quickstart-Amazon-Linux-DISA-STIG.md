@@ -1,7 +1,7 @@
 ### Amazon Linux (2014.03 HVM ami-76817c1e) quickstart (64 bit)
 Note: **This Quickstart is fragile and may fail**
 
-Note: Note: This quickstart only works with AMI `ami-76817c1e` (Amazon Linux 2014.03 HVM)
+Note: This quickstart only works with AMI `ami-76817c1e` (Amazon Linux 2014.03 HVM)
 
 ```
 # Download OpenSCAP RPMs for Amazon Linux. (Thanks to Owen for building the RPMs)
