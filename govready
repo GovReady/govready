@@ -818,7 +818,7 @@ _parse_config(){
     # Check to see if we are to scan a remote machine using oscap-ssh.
     if [ -n "${OSCAP_USER+x}" ] && [ -n "${OSCAP_HOST+x}" ] && [ -n "${OSCAP_PORT+x}" ]; then
         OSCAP_COMMAND="oscap-ssh ${OSCAP_USER}@${OSCAP_HOST} ${OSCAP_PORT}"
-        RESULTS_DIR=${SCANDIR}/${PROFILE}-${OSCAP_HOST}
+        RESULTS_DIR=${SCANDIR}/${PROFILE}/${OSCAP_HOST}
         SSH_HOST="${OSCAP_USER}@${OSCAP_HOST}"
         SSH_PORT=${OSCAP_PORT}
         OSCAP_SSH=true
