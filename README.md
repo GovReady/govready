@@ -184,21 +184,29 @@ Additional Quickstarts available in the repo. See "Quickstart-platform.md"
 
 The recently released [oscap-ssh](https://github.com/mpreisler/oscap-ssh) enables [Scanning Remote Machines with OpenSCAP](http://martin.preisler.me/2015/05/scanning-remote-machines-with-openscap/). As a user-friendly frontend to the OpenSCAP tools, GovReady has been enhanced to make use of this exciting new feature. There are two ways to make use of this new feature (which may be used separately or together):
 
-### 1. Update three variables in the (configuration) GovReadyfile:
+### 1. Update four variables in the (configuration) GovReadyfile:
 ``` bash
-# All three vars must be set 'OSCAP_USER@OSCAP_HOST OSCAP_PORT' for remote scanning.
+# All four vars must be set 'sudo OSCAP_USER@OSCAP_HOST OSCAP_PORT' for remote scanning.
 # Note that openscap-scanner ('oscap') must be installed on the remote server.
-OSCAP_USER = root
+OSCAP_SUDO = sudo
+OSCAP_USER = oscap-user
 OSCAP_HOST = example.com
 OSCAP_PORT = 22
 ```
 
-### 2. Create or override GovReadyfile values with GOVREADY_* environment variables:
-This will scan the RHEL 7 machine badwolf.example.com via port 22 as the root user:
+The openscap scanner is best run by root, but enabling direct root SSH access is a security risk. A non-privileged user such as `oscap-user` can be enabled to run only the oscap binary as root (when the `sudo` flag is given) by updating the remote machine's `sudoers` file or adding a file like `/etc/sudoers.d/99-oscap-user`:
+
 ``` bash
-export GOVREADY_OSCAP_USER=root
+# allow oscap-user to run openscap scanner
+Defaults!/bin/oscap !requiretty
+oscap-user ALL=(root) NOPASSWD: /bin/oscap
+```
+
+### 2. Create or override GovReadyfile values with GOVREADY_* environment variables:
+This will scan the RHEL 7 machine badwolf.example.com via port 2222:
+``` bash
 export GOVREADY_OSCAP_HOST=badwolf.example.com
-export GOVREADY_OSCAP_PORT=22
+export GOVREADY_OSCAP_PORT=2222
 export GOVREADY_XCCDF=ssg-rhel7-ds.xml
 govready scan
 ```
