@@ -3,6 +3,7 @@
 *.iso
 iso/**
 *.box
+docs/man/govready.1.gz
 
 # Mac
 .DS_Store
