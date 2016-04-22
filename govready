@@ -819,13 +819,18 @@ _parse_config(){
     
     # Check to see if we are to scan a remote machine using oscap-ssh.
     if [ -n "${OSCAP_USER+x}" ] && [ -n "${OSCAP_HOST+x}" ] && [ -n "${OSCAP_PORT+x}" ]; then
-	if [ -n "${OSCAP_SUDO+x}" ] && [ "${OSCAP_SUDO}" ]; then
-	    SUDO_ARG='sudo'
-	else
-	    SUDO_ARG=''
-	fi
-        OSCAP_COMMAND="oscap-ssh ${SUDO_ARG} ${OSCAP_USER}@${OSCAP_HOST} ${OSCAP_PORT}"
-        RESULTS_DIR=${SCANDIR}/${PROFILE}-${OSCAP_HOST}
+#<<<<<<< HEAD
+#	if [ -n "${OSCAP_SUDO+x}" ] && [ "${OSCAP_SUDO}" ]; then
+#	    SUDO_ARG='sudo'
+#	else
+#	    SUDO_ARG=''
+#	fi
+#        OSCAP_COMMAND="oscap-ssh ${SUDO_ARG} ${OSCAP_USER}@${OSCAP_HOST} ${OSCAP_PORT}"
+#        RESULTS_DIR=${SCANDIR}/${PROFILE}-${OSCAP_HOST}
+#=======
+        OSCAP_COMMAND="oscap-ssh ${OSCAP_USER}@${OSCAP_HOST} ${OSCAP_PORT}"
+        RESULTS_DIR=${SCANDIR}/${PROFILE}/${OSCAP_HOST}
+#>>>>>>> ceb54a9c0b5e3c4fa4a52a08bd809212827ad239
         SSH_HOST="${OSCAP_USER}@${OSCAP_HOST}"
         SSH_PORT=${OSCAP_PORT}
         OSCAP_SSH=true
