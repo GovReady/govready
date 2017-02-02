@@ -3,6 +3,8 @@ govready
 
 An accreditation-helper toolkit to make FISMA easier.
 
+** NOTE: THIS REPO IS NOT CURRENTLY BEING ACTIVELY MAINTAINED. THAT MAY CHANGE IN THE FUTURE. **
+
 # Vision 
 The GovReady vision is to make FISMA easier for innovators by
 
