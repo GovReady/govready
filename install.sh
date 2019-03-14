@@ -60,8 +60,10 @@ MAN_TARGET="govready.1"
 
 _ping_govready(){
     # Ping GovReady to track a download
+    # Comment out lines below to not ping the server
+    # No data passed, just a ping
     GOVREADY_PING_URL="http://io.govready.org/io/"
-#    curl -Lkfso /dev/null  "${GOVREADY_PING_URL}"
+    curl -Lkfso /dev/null  "${GOVREADY_PING_URL}"
 }
 
 # install directories
