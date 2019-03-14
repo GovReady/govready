@@ -54,6 +54,8 @@ sudo yum update nss -y
 # scap-scanner is OpenSCAP certified SCAP scanner
 # scap-security-guide is the SCAP Security Guide project
 # ansible is the ansible infrastructure as code project
+wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+sudo yum -y install epel-release-latest-7.noarch.rpm
 sudo yum install ansible scap-scanner scap-security-guide -y
 
 # Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
