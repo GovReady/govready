@@ -464,11 +464,11 @@ PROFILE = test
 # CPE file to be used with scans. Change this line to use a dictionary for a specific platform.
 # Currently, the dictionaly must be on the file system.
 # It is recommended new CPE dictionaries be added to the 'scap/content' directory
-CPE = /usr/share/xml/scap/ssg/content/ssg-rhel6-cpe-dictionary.xml
+CPE = /usr/share/xml/scap/ssg/content/ssg-rhel7-cpe-dictionary.xml
 
 # XCCDF file to be used with scans. Change this line to use a different XCCDF.
 # This can also point to a datastream file.
-XCCDF = /usr/share/xml/scap/ssg/content/ssg-rhel6-xccdf.xml
+XCCDF = /usr/share/xml/scap/ssg/content/ssg-rhel7-xccdf.xml
 
 # Directory into which to save files using 'govready import' command
 IMPORTDIR = scap/content
