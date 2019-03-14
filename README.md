@@ -52,7 +52,8 @@ sudo yum update nss -y
 
 
 # Install govready using curl. govready will install OpenSCAP and SCAP-Security-Content
-curl -Lk io.govready.org/install | sudo bash
+# curl -Lk io.govready.org/install | sudo bash
+curl -Lk https://raw.githubusercontent.com/GovReady/govready/master/install.sh | sudo bash
 
 # Switch to root so scanner can run all tests properly
 # It's OK. You are using a non-production vm, right?
