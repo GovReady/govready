@@ -802,10 +802,10 @@ _parse_config(){
     fi
 
     # Following sed should find only lines with an `=`, ignore blank lines, and ignore bad code
-    eval $(sed '/^[:space:]*#/d;/^[:space:]*$/d;s/=/ /;' < "$CONFIGFILE" | while read -r key val
+    eval $(sed '/^[[:space:]]*#/d;/^[[:space:]]*$/d;s/=/ /;' < "$CONFIGFILE" | while read -r key val
     do
         # Only allow safe characters
-        val=$(echo "$val" | sed 's/[^-[:alnum:]\._\/]//g')
+        val=$(echo "$val" | sed 's/[^-[[:alnum:]]\._\/]//g')
         str="$key='$val'"
         echo "$str"
     done)
